@@ -6,13 +6,14 @@
 #    By: aperin <aperin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/01/25 14:35:25 by aperin           ###   ########.fr        #
+#    Updated: 2023/01/26 10:41:24 by aperin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 
-SRC_FILE	= main.c
+SRC_FILE	= main.c \
+				builtins/ft_pwd.c
 				
 SRCS_DIR	= srcs
 OBJSDIR		= objs

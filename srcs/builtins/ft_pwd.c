@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/25 09:56:19 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/26 10:40:56 by aperin           ###   ########.fr       */
+/*   Created: 2023/01/26 10:30:23 by aperin            #+#    #+#             */
+/*   Updated: 2023/01/26 10:42:16 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
 
-int	main(void)
+void	ft_pwd(void)
 {
-	char	*line;
+	char	buf[PATH_MAX];
 
-	while (1)
+	if (getcwd(buf, PATH_MAX))
 	{
-		line = readline(">");
-		if (ft_strncmp(line, "exit", 4) == 0)
-		{
-			free(line);
-			break ;
-		}
-		if (ft_strncmp(line, "pwd", 3) == 0)
-			ft_pwd();
-		free(line);
+		printf("%s\n", buf);
+		// Handle success return
 	}
-	return (0);
+	else
+		return ; // Handle failure return
 }
