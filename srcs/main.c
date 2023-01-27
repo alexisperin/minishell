@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 09:56:19 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/26 12:00:08 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/27 10:54:59 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void	display_header(void)
 {
-	printf("/* ***************************************************************\
-*********** */\n\
+	printf("%s/* *************************************************************\
+************* */\n\
 /*                                                                            \
 */\n\
 /*                                                        :::      ::::::::   \
@@ -36,17 +36,21 @@ void	display_header(void)
 /*                                                                            \
 */\n\
 /* ************************************************************************** \
-*/\n");
+*/%s\n", MAG, NRM);
 }
 
-int	main(void)
+int	main(int ac, char **av, char **envp)
 {
 	char	*line;
 
+	if (ac > 1)
+		print_error(1);
+	(void) av;
+	(void) envp;
 	display_header();
 	while (1)
 	{
-		line = readline(">");
+		line = readline("$ ");
 		if (ft_strncmp(line, "exit", 4) == 0)
 		{
 			free(line);
