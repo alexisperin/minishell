@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/27 10:54:08 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/28 15:32:56 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -33,8 +34,32 @@
 #  define PATH_MAX 250
 # endif
 
+typedef enum e_token
+{
+	P,
+	L,
+	LL,
+	R,
+	RR
+}	t_token;
+
+typedef struct s_lexer
+{
+	char			*word;
+	t_token			token;
+	struct s_lexer	*prev;
+	struct s_lexer	*next;
+}					t_lexer;
+
+//Read input
+void	read_input(void);
+
 //Builtins
 void	ft_pwd(void);
+
+//Utils
+void	display_header(void);
+bool	valid_quotes(char *str);
 
 //Errors
 void	print_error(int error_code);

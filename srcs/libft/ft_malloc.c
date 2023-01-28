@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 10:50:11 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/27 15:20:14 by aperin           ###   ########.fr       */
+/*   Created: 2023/01/28 15:54:19 by aperin            #+#    #+#             */
+/*   Updated: 2023/01/28 16:04:48 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "libft.h"
 
-void	print_error(int error_code)
+void	*ft_malloc(size_t size)
 {
-	ft_putstr_fd(RED, 2);
-	ft_putstr_fd("Error: ", 2);
-	ft_putstr_fd(NRM, 2);
-	if (error_code == 1)
-		ft_putstr_fd("too many input arguments\n", 2);
-	if (error_code == 2)
-		ft_putstr_fd("unclosed quote\n", 2);
+	void	*ret;
+
+	ret = malloc(size);
+	if (!ret)
+	{
+		ft_putstr_fd("A malloc error occured, exiting the program\n", 2);
+		exit(EXIT_FAILURE);
+	}
+	return (ret);
 }

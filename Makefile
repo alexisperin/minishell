@@ -6,15 +6,18 @@
 #    By: aperin <aperin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/01/27 10:53:14 by aperin           ###   ########.fr        #
+#    Updated: 2023/01/28 15:34:00 by aperin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 
 SRC_FILE	= main.c \
-				error/error.c \
-				builtins/ft_pwd.c
+				input_loop/read_input.c \
+				builtins/ft_pwd.c \
+				utils/utils.c \
+				utils/display_header.c \
+				error/error.c
 				
 SRCS_DIR	= srcs
 OBJSDIR		= objs
