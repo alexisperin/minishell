@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 16:00:11 by aperin            #+#    #+#             */
-/*   Updated: 2022/10/22 17:25:33 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/29 16:23:31 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strdup(const char *str)
 	char	*dup;
 
 	len = ft_strlen(str);
-	dup = malloc((len + 1) * sizeof(char));
+	dup = ft_malloc((len + 1) * sizeof(char));
 	if (!dup)
 		return (0);
 	ft_strlcpy(dup, str, len + 1);

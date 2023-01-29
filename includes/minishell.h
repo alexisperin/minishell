@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/28 15:32:56 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/29 16:38:38 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 
 typedef enum e_token
 {
-	P,
+	P = 1,
 	L,
 	LL,
 	R,
@@ -53,6 +53,13 @@ typedef struct s_lexer
 
 //Read input
 void	read_input(void);
+
+//Lexer
+t_lexer	*get_lexer(char *line);
+size_t	skip_spaces(char *line);
+t_token	get_token(char *str);
+void	lexer_add_back(t_lexer **lexer, t_lexer *new);
+void	free_lexer(t_lexer *lexer);
 
 //Builtins
 void	ft_pwd(void);

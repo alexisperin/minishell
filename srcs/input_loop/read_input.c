@@ -6,27 +6,44 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:29:58 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/28 16:03:16 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/29 16:41:10 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
+void	print_lexer(t_lexer *lexer) // TO REMOVE
+{
+	while (lexer)
+	{
+		if (lexer->word)
+			printf("%s\n", lexer->word);
+		else
+			printf("token: %d\n", lexer->token);
+		lexer = lexer->next;
+	}
+}
+
 void	read_input(void)
 {
-	char	*line;
+	char	*str;
 	char	*tmp;
+	t_lexer	*lexer;
 
 	tmp = readline("$ ");
-	line = ft_strtrim(tmp, " ");
+	str = ft_strtrim(tmp, " ");
 	free(tmp);
-	if (ft_strncmp(line, "exit", 5) == 0)
+	if (ft_strncmp(str, "exit", 5) == 0)
 	{
-		free(line);
+		free(str);
 		exit(EXIT_SUCCESS);
 	}
-	if (valid_quotes(line))
-		printf("%s\n", line);
-	free(line);
+	if (valid_quotes(str))
+	{
+		lexer = get_lexer(str);
+		print_lexer(lexer);
+		free_lexer(lexer);
+	}
+	free(str);
 }

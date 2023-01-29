@@ -6,7 +6,7 @@
 #    By: aperin <aperin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/01/28 15:34:00 by aperin           ###   ########.fr        #
+#    Updated: 2023/01/29 16:27:11 by aperin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,8 @@ NAME		= minishell
 
 SRC_FILE	= main.c \
 				input_loop/read_input.c \
+				lexer/lexer.c \
+				lexer/lexer_utils.c \
 				builtins/ft_pwd.c \
 				utils/utils.c \
 				utils/display_header.c \

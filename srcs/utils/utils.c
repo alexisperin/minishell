@@ -6,14 +6,14 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:45:59 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/27 15:20:35 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/29 16:45:50 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-static int		char_count(char *str, char c)
+static int	char_count(char *str, char c)
 {
 	int		i;
 	int		count;
