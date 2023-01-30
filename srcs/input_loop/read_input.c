@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:29:58 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/30 10:22:46 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/30 15:00:00 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,11 @@ void	read_input(void)
 		free(str);
 		exit(EXIT_SUCCESS);
 	}
-	if (valid_quotes(str))
+	lexer = get_lexer(str);
+	if (lexer)
 	{
-		lexer = get_lexer(str);
 		print_lexer(lexer);
 		free_lexer(lexer);
 	}
-	else
-		print_error(2);
 	free(str);
 }

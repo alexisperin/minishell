@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   paser.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 14:45:59 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/30 14:56:27 by aperin           ###   ########.fr       */
+/*   Created: 2023/01/30 10:39:33 by aperin            #+#    #+#             */
+/*   Updated: 2023/01/30 12:09:05 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	valid_quotes(char *str)
+t_lexer	*add_cmd(t_cmds **cmds, t_lexer *lexer, t_lexer *end)
 {
-	size_t	i;
+	
+}
 
-	i = 0;
-	while (str[i])
+t_cmds	parser(t_lexer *lexer)
+{
+	t_cmds	*cmds;
+	t_lexer	*tmp;
+
+	cmds = NULL;
+	while (lexer)
 	{
-		if (str[i] == '\"')
-		{
-			while (str[i + 1] && str[i + 1] != '\"')
-				i++;
-			if (!str[i + 1])
-				return (false);
-			i++;
-		}
-		else if (str[i] == '\'')
-		{
-			while (str[i + 1] && str[i + 1] != '\'')
-				i++;
-			if (!str[i + 1])
-				return (false);
-			i++;
-		}
-		i++;
+		tmp = lexer;
+		while (tmp && tmp->token != P)
+			tmp = tmp->next;
+		lexer = add_cmd(&cmds, lexer, tmp);
 	}
-	return (true);
 }

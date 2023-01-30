@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 13:32:25 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/30 10:35:24 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/30 15:00:22 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@ t_lexer	*get_lexer(char *str)
 
 	lexer = NULL;
 	i = 0;
+	if (!valid_quotes(str))
+	{
+		print_error(2);
+		return (NULL);
+	}
 	while (str[i])
 	{
 		i += skip_spaces(&str[i]);
@@ -86,5 +91,6 @@ t_lexer	*get_lexer(char *str)
 		else
 			i += add_word(&str[i], &lexer);
 	}
+	
 	return (lexer);
 }
