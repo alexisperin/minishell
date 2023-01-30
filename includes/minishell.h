@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/29 16:38:38 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/30 10:43:11 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,17 @@ typedef struct s_lexer
 	struct s_lexer	*next;
 }					t_lexer;
 
+typedef struct s_cmds
+{
+	char			*str;
+	int				(*builtin)(void); //To update
+	int				num_redir;
+	char			*heredoc;
+	t_lexer			*redir;
+	struct s_cmds	*next;
+	struct s_cmds	*prev;
+}					t_cmds;
+
 //Read input
 void	read_input(void);
 
@@ -58,7 +69,7 @@ void	read_input(void);
 t_lexer	*get_lexer(char *line);
 size_t	skip_spaces(char *line);
 t_token	get_token(char *str);
-void	lexer_add_back(t_lexer **lexer, t_lexer *new);
+void	lexer_add_back(t_lexer **lexer, t_lexer *node);
 void	free_lexer(t_lexer *lexer);
 
 //Builtins

@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:29:58 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/29 16:41:10 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/30 10:22:46 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	read_input(void)
 	char	*tmp;
 	t_lexer	*lexer;
 
-	tmp = readline("$ ");
+	tmp = readline("~$ ");
 	str = ft_strtrim(tmp, " ");
 	free(tmp);
 	if (ft_strncmp(str, "exit", 5) == 0)
@@ -45,5 +45,7 @@ void	read_input(void)
 		print_lexer(lexer);
 		free_lexer(lexer);
 	}
+	else
+		print_error(2);
 	free(str);
 }

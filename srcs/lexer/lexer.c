@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 13:32:25 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/29 16:43:53 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/30 10:35:24 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static char	*get_word(char *str)
 	}
 	else
 	{
-		while ((str[i] < 9 || str[i] > 13) && str[i] != 32 && str[i] != '\"'
-			&& str[i] != '\'')
+		while (str[i] && (str[i] < 9 || str[i] > 13) && str[i] != 32
+			&& str[i] != '\"' && str[i] != '\'')
 			i++;
 	}
 	return (ft_substr(str, 0, i));
@@ -60,15 +60,15 @@ static char	*get_word(char *str)
 
 static int	add_word(char *str, t_lexer **lexer)
 {
-	t_lexer	*new;
+	t_lexer	*node;
 
-	new = ft_malloc(sizeof(t_lexer));
-	new->word = get_word(str);
-	new->token = 0;
-	new->prev = NULL;
-	new->next = NULL;
-	lexer_add_back(lexer, new);
-	return (ft_strlen(new->word));
+	node = ft_malloc(sizeof(t_lexer));
+	node->word = get_word(str);
+	node->token = 0;
+	node->prev = NULL;
+	node->next = NULL;
+	lexer_add_back(lexer, node);
+	return (ft_strlen(node->word));
 }
 
 t_lexer	*get_lexer(char *str)

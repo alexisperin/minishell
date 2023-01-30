@@ -6,7 +6,7 @@
 #    By: aperin <aperin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/01/29 16:27:11 by aperin           ###   ########.fr        #
+#    Updated: 2023/01/30 10:25:06 by aperin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ OBJS		= $(addprefix ${OBJSDIR}/, $(addsuffix .o, $(basename ${SRC_FILE})))
 OBJS_DIR	= $(sort $(dir $(OBJS)))
 
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g
 INCS		= $(foreach d, $(INCDIR), -I$d)
 
 # libft
@@ -45,7 +45,7 @@ all:		${NAME}
 
 ${NAME}:	${OBJS}
 			make -C ${LIBFT_DIR}
-			${CC} ${OBJS} ${LIBFT} -lreadline -o ${NAME}
+			${CC} ${CFLAGS} ${OBJS} ${LIBFT} -lreadline -o ${NAME}
 
 clean:
 			make clean -C ${LIBFT_DIR}
