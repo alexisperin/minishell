@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:29:58 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/30 15:00:00 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/31 10:31:56 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,9 @@ void	print_lexer(t_lexer *lexer) // TO REMOVE
 void	read_input(void)
 {
 	char	*str;
-	char	*tmp;
 	t_lexer	*lexer;
 
-	tmp = readline("~$ ");
-	str = ft_strtrim(tmp, " ");
-	free(tmp);
-	if (ft_strncmp(str, "exit", 5) == 0)
-	{
-		free(str);
-		exit(EXIT_SUCCESS);
-	}
+	str = readline("~$ ");
 	lexer = get_lexer(str);
 	if (lexer)
 	{

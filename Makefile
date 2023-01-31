@@ -6,7 +6,7 @@
 #    By: aperin <aperin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/01/30 10:25:06 by aperin           ###   ########.fr        #
+#    Updated: 2023/01/31 10:33:14 by aperin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,9 @@ SRC_FILE	= main.c \
 				input_loop/read_input.c \
 				lexer/lexer.c \
 				lexer/lexer_utils.c \
+				lexer/prelexer.c \
+				lexer/postlexer.c \
 				builtins/ft_pwd.c \
-				utils/utils.c \
 				utils/display_header.c \
 				error/error.c
 				
@@ -34,7 +35,7 @@ CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g
 INCS		= $(foreach d, $(INCDIR), -I$d)
 
 # libft
-LIBFT_DIR	= srcs/libft
+LIBFT_DIR	= libft
 LIBFT		= ${LIBFT_DIR}/libft.a
 
 ${OBJSDIR}/%.o: ${SRCS_DIR}/%.c

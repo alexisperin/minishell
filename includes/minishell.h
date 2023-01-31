@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/30 10:43:11 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/31 09:51:32 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	read_input(void);
 
 //Lexer
 t_lexer	*get_lexer(char *line);
+bool	prelexer_check(char *str);
+bool	postlexer_check(t_lexer *lexer);
 size_t	skip_spaces(char *line);
 t_token	get_token(char *str);
 void	lexer_add_back(t_lexer **lexer, t_lexer *node);
@@ -77,7 +79,6 @@ void	ft_pwd(void);
 
 //Utils
 void	display_header(void);
-bool	valid_quotes(char *str);
 
 //Errors
 void	print_error(int error_code);

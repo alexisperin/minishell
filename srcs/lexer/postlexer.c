@@ -1,41 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   postlexer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 14:45:59 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/30 14:56:27 by aperin           ###   ########.fr       */
+/*   Created: 2023/01/31 09:50:12 by aperin            #+#    #+#             */
+/*   Updated: 2023/01/31 10:20:27 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	valid_quotes(char *str)
+static bool	token_syntax(t_lexer *lexer)
 {
-	size_t	i;
-
-	i = 0;
-	while (str[i])
+	if (lexer->token != 0)
+		return (false);
+	while (lexer->next)
 	{
-		if (str[i] == '\"')
-		{
-			while (str[i + 1] && str[i + 1] != '\"')
-				i++;
-			if (!str[i + 1])
-				return (false);
-			i++;
-		}
-		else if (str[i] == '\'')
-		{
-			while (str[i + 1] && str[i + 1] != '\'')
-				i++;
-			if (!str[i + 1])
-				return (false);
-			i++;
-		}
-		i++;
+		if (lexer->token != 0 && lexer->next->token != 0)
+			return (false);
+		lexer = lexer->next;
+	}
+	if (lexer->token != 0)
+		return (false);
+	return (true);
+}
+
+bool	postlexer_check(t_lexer *lexer)
+{
+	if (!token_syntax(lexer))
+	{
+		print_error(3);
+		return (false);
 	}
 	return (true);
 }
