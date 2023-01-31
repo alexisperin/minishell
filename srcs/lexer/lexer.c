@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 13:32:25 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/30 15:00:22 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/31 08:42:39 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static char	*get_word(char *str)
 	else
 	{
 		while (str[i] && (str[i] < 9 || str[i] > 13) && str[i] != 32
-			&& str[i] != '\"' && str[i] != '\'')
+			&& str[i] != '\"' && str[i] != '\'' && str[i] != '|'
+			&& str[i] != '<' && str[i] != '>')
 			i++;
 	}
 	return (ft_substr(str, 0, i));
@@ -91,6 +92,10 @@ t_lexer	*get_lexer(char *str)
 		else
 			i += add_word(&str[i], &lexer);
 	}
-	
+	if (!valid_tokens(lexer))
+	{
+		free_lexer(lexer);
+		return (NULL);
+	}
 	return (lexer);
 }
