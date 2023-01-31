@@ -6,7 +6,7 @@
 #    By: aperin <aperin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/01/31 10:33:14 by aperin           ###   ########.fr        #
+#    Updated: 2023/01/31 15:23:42 by aperin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC_FILE	= main.c \
 				lexer/lexer_utils.c \
 				lexer/prelexer.c \
 				lexer/postlexer.c \
+				parser/parser.c \
 				builtins/ft_pwd.c \
 				utils/display_header.c \
 				error/error.c
@@ -58,4 +59,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean re NAME
+.PHONY:		all clean fclean re

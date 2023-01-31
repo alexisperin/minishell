@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/31 09:51:32 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/31 10:45:53 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ size_t	skip_spaces(char *line);
 t_token	get_token(char *str);
 void	lexer_add_back(t_lexer **lexer, t_lexer *node);
 void	free_lexer(t_lexer *lexer);
+
+//Parser
+t_cmds	*get_cmds(t_lexer *lexer);
 
 //Builtins
 void	ft_pwd(void);

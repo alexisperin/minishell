@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 13:32:25 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/31 10:27:05 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/31 10:40:33 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_lexer	*get_lexer(char *str)
 
 	lexer = NULL;
 	i = 0;
-	if (!prelexer_check(str))
+	if (!str || !prelexer_check(str))
 		return (NULL);
 	while (str[i])
 	{
