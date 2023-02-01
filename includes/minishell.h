@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/01 09:04:50 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/01 11:22:14 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,10 @@ typedef struct s_lexer
 
 typedef struct s_cmds
 {
-	t_lexer			*command;
+	char			**command;
 	int				(*builtin)(void); //To update
 	t_lexer			*redir;
 	struct s_cmds	*next;
-	struct s_cmds	*prev;
 }					t_cmds;
 
 void	print_lexer(t_lexer *lexer); // TO REMOVE
