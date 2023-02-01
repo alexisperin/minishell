@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:50:12 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/31 15:33:47 by aperin           ###   ########.fr       */
+/*   Updated: 2023/01/31 17:50:50 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 static bool	token_syntax(t_lexer *lexer)
 {
-	if (lexer->token != 0 && lexer->token != LL)
+	if (lexer->token == P)
 		return (false);
 	while (lexer->next)
 	{
-		if (lexer->token > 1 && lexer->next->token != 0)
+		if ((lexer->token > 1 && lexer->next->token != 0)
+			|| (lexer->token == P && lexer->next->token == P))
 			return (false);
 		lexer = lexer->next;
 	}
