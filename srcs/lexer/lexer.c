@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 13:32:25 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/01 17:58:50 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/02 09:05:19 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,48 @@ static int	add_token(char *str, t_lexer **lexer)
 	return (1);
 }
 
-static int	add_word(char *str, t_lexer **lexer)
+static size_t	next_quote(char *str, size_t start)
 {
-	t_lexer	*node;
+	size_t	i;
+
+	i = 1;
+	while (str[start + i])
+	{
+		if (str[start + i] == str[start] && str[start + i -1] != '\\')
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+static size_t	word_len(char *str)
+{
 	size_t	i;
 
 	i = 0;
+	while (str[i] && str[i] != '|' && str[i] != '<' && str[i] != '>')
+	{
+		if ((str[i] == '\"' || str[i] == '\'')
+			&& (i == 0 || str[i - 1] != '\\'))
+			i += next_quote(str, i);
+		i++;
+	}
+	return (i);
+}
+
+static int	add_word(char *str, t_lexer **lexer)
+{
+	t_lexer	*node;
+	size_t	len;
+
 	node = ft_malloc(sizeof(t_lexer));
 	node->token = 0;
+	len = word_len(str);
+	node->word = ft_substr(str, 0, len);
 	node->prev = NULL;
 	node->next = NULL;
-	while (str[i] && str[i] != '|' && str[i] != '<' && str[i] != '>')
-		i++;
-	node->word = ft_substr(str, 0, i);
 	lexer_add_back(lexer, node);
-	return (ft_strlen(node->word));
+	return (len);
 }
 
 t_lexer	*get_lexer(char *str)

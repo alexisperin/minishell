@@ -6,12 +6,32 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:39:33 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/01 11:19:06 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/02 09:23:37 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+
+static t_lexer	*push_str(t_lexer *lexer, t_lexer **new_lexer)
+{
+	t_lexer	*ret;
+	t_lexer	*tmp;
+
+	ret = lexer->next;
+	lexer->next = NULL;
+	if (!*new_lexer)
+		*new_lexer = lexer;
+	else
+	{
+		printf("!!!!!!!!!!!!!!!\n");
+		tmp = *new_lexer;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = lexer;
+	}
+	return (ret);
+}
 
 static t_lexer	*push_redir(t_lexer *redir, t_cmds *cmd)
 {
@@ -35,28 +55,29 @@ static t_lexer	*push_redir(t_lexer *redir, t_cmds *cmd)
 static void	add_cmd(t_cmds **cmds, t_lexer *lexer)
 {
 	t_cmds	*node;
-	t_lexer	*tmp;
-	t_cmds	*tmp2;
+	t_cmds	*tmp;
+	t_lexer	*new_lexer;
 
 	node = ft_malloc(sizeof(t_cmds));
 	node->redir = NULL;
-	tmp = lexer;
-	while (tmp)
+	node->next = NULL;
+	new_lexer = NULL;
+	while (lexer)
 	{
-		while (tmp->next && tmp->next->token == 0)
-			tmp = tmp->next;
-		if (tmp->next)
-			tmp->next = push_redir(tmp->next, node);
+		if (lexer->token != 0)
+			lexer = push_redir(lexer, node);
+		else
+			lexer = push_str(lexer, &new_lexer);
 	}
-	get_command(node, )
+	list_to_tab(node, new_lexer);
 	if (!*cmds)
 		*cmds = node;
 	else
 	{
-		tmp2 = *cmds;
-		while (tmp2->next)
-			tmp2 = tmp2->next;
-		tmp2->next = node;
+		tmp = *cmds;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = node;
 	}
 }
 
