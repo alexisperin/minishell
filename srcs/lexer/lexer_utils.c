@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 15:22:14 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/30 10:35:01 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/02 15:57:34 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	lexer_add_back(t_lexer **lexer, t_lexer *node)
 		tmp = *lexer;
 		while (tmp->next)
 			tmp = tmp->next;
-		node->prev = tmp;
 		tmp->next = node;
 	}
 }

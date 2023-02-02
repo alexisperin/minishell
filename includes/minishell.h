@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/02 10:03:43 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/02 15:56:45 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct s_lexer
 {
 	char			*word;
 	t_token			token;
-	struct s_lexer	*prev;
 	struct s_lexer	*next;
 }					t_lexer;
 
