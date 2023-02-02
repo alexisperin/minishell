@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/02 09:24:51 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/02 10:03:43 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void	free_lexer(t_lexer *lexer);
 
 //Parser
 t_cmds	*get_cmds(t_lexer *lexer);
-char	**list_to_tab(t_cmds *node, t_lexer *lexer);
+void	list_to_tab(t_cmds *node, t_lexer *lexer);
+void	free_cmds(t_cmds *cmds);
 
 //Builtins
 void	ft_pwd(void);

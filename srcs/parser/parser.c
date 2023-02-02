@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:39:33 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/02 09:23:37 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/02 10:41:56 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static t_lexer	*push_str(t_lexer *lexer, t_lexer **new_lexer)
 		*new_lexer = lexer;
 	else
 	{
-		printf("!!!!!!!!!!!!!!!\n");
 		tmp = *new_lexer;
 		while (tmp->next)
 			tmp = tmp->next;

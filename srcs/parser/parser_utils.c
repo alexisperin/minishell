@@ -6,14 +6,14 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 09:10:34 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/02 09:24:28 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/02 10:03:25 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-char	**list_to_tab(t_cmds *node, t_lexer *lexer)
+void	list_to_tab(t_cmds *node, t_lexer *lexer)
 {
 	int		i;
 	t_lexer	*tmp;
@@ -30,11 +30,31 @@ char	**list_to_tab(t_cmds *node, t_lexer *lexer)
 	i = 0;
 	while (lexer)
 	{
-		str[i] = lexer->word;
+		node->str[i] = lexer->word;
 		i++;
 		tmp = lexer;
 		lexer = lexer->next;
 		free(tmp);
 	}
-	return (str);
+}
+
+void	free_cmds(t_cmds *cmds)
+{
+	t_cmds	*tmp;
+	int		i;
+
+	while (cmds)
+	{
+		tmp = cmds;
+		cmds = cmds->next;
+		free_lexer(tmp->redir);
+		i = 0;
+		while (i < tmp->size)
+		{
+			free(tmp->str[i]);
+			i++;
+		}
+		free(tmp->str);
+		free(tmp);
+	}
 }
