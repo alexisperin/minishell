@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/02 15:56:45 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/02 16:08:27 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define WHT  "\x1B[37m"
 
 # ifndef PATH_MAX
-#  define PATH_MAX 250
+#  define PATH_MAX 1024
 # endif
 
 typedef enum e_token
