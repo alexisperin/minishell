@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/03 08:57:53 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/03 15:58:30 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,6 @@ typedef enum e_token
 	RR
 }	t_token;
 
-typedef struct s_env
-{
-	char			*key;
-	char			*val;
-	struct s_env	*next;
-}					t_env;
-
 typedef struct s_lexer
 {
 	char			*word;
@@ -65,15 +58,22 @@ typedef struct s_cmds
 	struct s_cmds	*next;
 }					t_cmds;
 
+typedef struct s_shell
+{
+	char	**env;
+	t_cmds	*cmds;
+}			t_shell;
+
 void	print_lexer(t_lexer *lexer); // TO REMOVE
 
 //Read input
-void	read_input(void);
+void	read_input(t_shell *shell);
 
 //Lexer
 t_lexer	*get_lexer(char *line);
 bool	prelexer_check(char *str);
 bool	postlexer_check(t_lexer *lexer);
+size_t	next_quote(char *str, size_t start);
 size_t	skip_spaces(char *line);
 t_token	get_token(char *str);
 void	lexer_add_back(t_lexer **lexer, t_lexer *node);
@@ -83,6 +83,10 @@ void	free_lexer(t_lexer *lexer);
 t_cmds	*get_cmds(t_lexer *lexer);
 void	list_to_tab(t_cmds *node, t_lexer *lexer);
 void	free_cmds(t_cmds *cmds);
+
+//Expander
+void	expander(t_shell *shell);
+int	get_expanded_size(char *str, char **env);
 
 //Builtins
 void	ft_pwd(void);

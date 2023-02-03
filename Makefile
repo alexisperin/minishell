@@ -6,7 +6,7 @@
 #    By: aperin <aperin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/02/02 10:09:09 by aperin           ###   ########.fr        #
+#    Updated: 2023/02/03 16:01:33 by aperin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ SRC_FILE	= main.c \
 				lexer/postlexer.c \
 				parser/parser.c \
 				parser/parser_utils.c \
+				expander/expander.c \
+				expander/expander_utils.c \
 				builtins/ft_pwd.c \
 				utils/display_header.c \
 				error/error.c

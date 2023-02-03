@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 13:32:25 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/02 20:50:26 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/03 15:21:19 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	add_token(char *str, t_lexer **lexer)
 	return (1);
 }
 
-static size_t	next_quote(char *str, size_t start)
+size_t	next_quote(char *str, size_t start)
 {
 	size_t	i;
 

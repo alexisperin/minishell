@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:29:58 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/02 10:12:56 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/03 15:03:48 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,21 @@ void	print_cmd(t_cmds *cmds)
 	}
 }
 
-void	read_input(void)
+void	read_input(t_shell *shell)
 {
 	char	*str;
 	t_lexer	*lexer;
-	t_cmds	*cmds;
 
 	str = readline("~$ ");
 	lexer = get_lexer(str);
 	if (lexer)
 	{
-		cmds = get_cmds(lexer);
-		print_cmd(cmds);
-		free_cmds(cmds);
+		shell->cmds = get_cmds(lexer);
+		print_cmd(shell->cmds);
+		expander(shell);
+		printf("AFTER EXPANDER\n");
+		print_cmd(shell->cmds);
+		free_cmds(shell->cmds);
 	}
 	free(str);
 }
