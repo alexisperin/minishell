@@ -1,44 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/25 09:56:19 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/03 09:11:32 by aperin           ###   ########.fr       */
+/*   Created: 2023/02/03 09:12:12 by aperin            #+#    #+#             */
+/*   Updated: 2023/02/03 09:22:36 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell.c"
 #include "libft.h"
 
-void	print_env(char **envp)
+static t_env	*new_node(char *var)
 {
-	int	i = 0;
-
-	while (envp[i])
-	{
-		printf("%s\n", envp[i]);
-		i++;
-	}
+	
 }
 
-int	main(int ac, char **av, char **envp)
+t_env	*ft_getenv(char **envp)
 {
-	t_env	env;
+	t_env	*env;
+	t_env	*tmp;
+	int		i;
 
-	if (ac > 1)
+	env = NULL;
+	i = 0;
+	while (envp[i])
 	{
-		print_error(1);
-		return (-1);
+		if (!env)
+			env = new_node(envp[i]);
+		else
+		{
+			tmp = env;
+			while (tmp->next)
+				tmp = tmp->next;
+			tmp->next = new_node(envp[i]);
+		}
+		i++;
 	}
-	(void) av;
-	(void) envp;
-	env = ft_getenv(envp);
-	display_header();
-	// print_env(envp);
-	while (1)
-		read_input();
-	return (0);
 }

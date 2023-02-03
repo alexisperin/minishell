@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/02 16:08:27 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/03 08:57:53 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@ typedef enum e_token
 	R,
 	RR
 }	t_token;
+
+typedef struct s_env
+{
+	char			*key;
+	char			*val;
+	struct s_env	*next;
+}					t_env;
 
 typedef struct s_lexer
 {
