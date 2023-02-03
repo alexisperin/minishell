@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:44:57 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/03 16:17:26 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/03 17:27:50 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ static int	var_len(char *str, int len, char **env)
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strncmp(&str[1], env[i], len - 1) == 0 && str[len - 1] == '=')
-			return (ft_strlen(&str[len]));
+		if (ft_strncmp(&str[1], env[i], len - 1) == 0
+			&& env[i][len - 1] == '=')
+			return (ft_strlen(&env[i][len]));
 		i++;
 	}
 	return (0);
@@ -50,21 +51,17 @@ int	get_expanded_size(char *str, char **env)
 		if (str[i] == '\'' && (i == 0 || str[i - 1] != '\\'))
 		{
 			len = next_quote(str, i);
-			i += len;	
+			i += len;
 			size += len;
 		}
 		else if (str[i] == '$')
 		{
 			len = key_len(&str[i]);
-			printf("key len: %d\n", len);
-			i += len;
-			size += var_len(&str[i], len, env);
-			printf("key len: %d\n", var_len(&str[i], len, env));
+			size += var_len(&str[i], len, env) - 1;
+			i += len - 1;
 		}
-		else
-			size++;
+		size++;
 		i++;
-		printf("i = %d\n", i);
 	}
 	return (size);
 }

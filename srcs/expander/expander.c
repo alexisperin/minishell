@@ -6,19 +6,22 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:11:53 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/03 16:02:03 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/03 17:47:53 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-
 // static char	*expand_str(char *str, char **env)
 // {
-// 	int	size;
+// 	int		size;
+// 	char	*new_str;
 
 // 	size = get_expanded_size(str, env);
+// 	new_str = ft_malloc(size * sizeof(char));
+	
+
+// 	free(str);
 // }
 
 void	expander(t_shell *shell)
