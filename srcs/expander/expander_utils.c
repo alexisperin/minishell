@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:44:57 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/05 09:57:39 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/05 14:08:07 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@
 static int	quote_count(char *str)
 {
 	int	i;
-	int	quote_count;
+	int	count;
 
 	i = 0;
-	quote_count = 0;
+	count = 0;
 	while (str[i])
 	{
 		if (str[i] == '\"' || str[i] == '\'')
 		{
 			i += next_quote(str, i);
-			quote_count += 2;
+			count += 2;
 		}
 		i++;
 	}
-	return (quote_count);
+	return (count);
 }
 
 static int	var_len(char *str, int len, char **env)
