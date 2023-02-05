@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 09:56:19 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/03 17:47:27 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/05 09:25:21 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ int	main(int ac, char **av, char **envp)
 	}
 	shell.env = ft_arrdup(envp);
 	display_header();
-	printf("Expanded size: %d\n", get_expanded_size("helloUSER", shell.env));
-	// while (1)
-	// 	read_input(&shell);
+	while (1)
+		read_input(&shell);
 	return (0);
 }
