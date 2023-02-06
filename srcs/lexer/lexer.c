@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 13:32:25 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/03 15:21:19 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/06 18:42:23 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ size_t	next_quote(char *str, size_t start)
 	i = 1;
 	while (str[start + i])
 	{
-		if (str[start + i] == str[start] && str[start + i -1] != '\\')
+		if (str[start + i] == str[start])
 			return (i);
 		i++;
 	}
@@ -51,8 +51,7 @@ static size_t	word_len(char *str)
 	while (str[i] && str[i] != ' ' && str[i] != '|' && str[i] != '<'
 		&& str[i] != '>')
 	{
-		if ((str[i] == '\"' || str[i] == '\'')
-			&& (i == 0 || str[i - 1] != '\\'))
+		if (str[i] == '\"' || str[i] == '\'')
 			i += next_quote(str, i);
 		i++;
 	}

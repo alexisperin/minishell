@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:11:53 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/05 18:25:58 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/06 18:36:43 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,10 @@ static int	copy_variable(char *str, char *new_str, int *j, char **env)
 			break ;
 		i++;
 	}
-	printf("env: %s\n", env[i]);
 	if (env[i])
 	{
 		ft_strlcpy(&new_str[*j], &env[i][len], ft_strlen(&env[i][len]) + 1);
 		*j += ft_strlen(&env[i][len]);
-	printf("%s\n", new_str);
 	}
 	return (len);
 }
@@ -43,25 +41,30 @@ char	*expand_str(char *str, char **env)
 	int		i;
 	int		j;
 	char	*new_str;
+	bool	in_quote;
 
 	size = get_expanded_size(str, env);
-	new_str = ft_malloc(size * sizeof(char));
+	new_str = ft_malloc((size + 1) * sizeof(char));
 	i = 0;
 	j = 0;
+	in_quote = false;
 	while (str[i])
 	{
-		if (str[i] == '\'')
+		if (str[i] == '\"')
+			in_quote = !in_quote;
+		else if (str[i] == '\'' && !in_quote)
 			{
 				i++;
 				while (str[i] != '\'')
 					new_str[j++] = str[i++];
 			}
 		else if (str[i] == '$')
-			i += copy_variable(&str[i], new_str, &j, env);
-		else if (str[i] != '\"')
+			i += copy_variable(&str[i], new_str, &j, env) - 1;
+		else
 			new_str[j++] = str[i];
 		i++;
 	}
+	new_str[j] = 0;
 	free(str);
 	return (new_str);
 }

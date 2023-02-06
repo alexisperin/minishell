@@ -6,19 +6,16 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 15:31:29 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/05 18:29:58 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/06 18:12:58 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-#include <stdio.h>
-
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t	i;
 
-	printf("%s\n%ld\n", src, size);
 	if (size < 1)
 		return (ft_strlen(src));
 	i = 0;

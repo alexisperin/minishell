@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:46:57 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/03 15:59:18 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/06 18:41:17 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static size_t	next_quote_bis(char *str, size_t start, bool *closed_quote)
 	i = 1;
 	while (str[start + i])
 	{
-		if (str[start + i] == str[start] && str[start + i - 1] != '\\')
+		if (str[start + i] == str[start])
 			return (i);
 		i++;
 	}
@@ -36,8 +36,7 @@ static bool	valid_quotes(char *str)
 	closed_quote = true;
 	while (str[i])
 	{
-		if ((str[i] == '\"' || str[i] == '\'')
-			&& (i == 0 || str[i - 1] != '\\'))
+		if (str[i] == '\"' || str[i] == '\'')
 			i += next_quote_bis(str, i, &closed_quote);
 		if (!closed_quote)
 			return (false);
