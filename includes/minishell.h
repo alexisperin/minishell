@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/03 15:58:30 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/05 16:54:00 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ void	free_cmds(t_cmds *cmds);
 
 //Expander
 void	expander(t_shell *shell);
-int	get_expanded_size(char *str, char **env);
+int		get_expanded_size(char *str, char **env);
+int		key_len(char *str);
+int		var_len(char *str, int len, char **env);
 
 //Builtins
 void	ft_pwd(void);

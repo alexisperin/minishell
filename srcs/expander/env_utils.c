@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 15:31:29 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/05 18:29:58 by aperin           ###   ########.fr       */
+/*   Created: 2023/02/05 16:11:14 by aperin            #+#    #+#             */
+/*   Updated: 2023/02/05 16:41:46 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-#include <stdio.h>
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+char	*get_var(char **env, char *key)
 {
-	size_t	i;
+	int	i;
+	int	len;
 
-	printf("%s\n%ld\n", src, size);
-	if (size < 1)
-		return (ft_strlen(src));
 	i = 0;
-	while (src[i] && i < size - 1)
+	len = key_len(key);
+	while (env[i])
 	{
-		dst[i] = src[i];
+		if (ft_strncmp(key, env[i], len) == 0 && key[len] == '=')
+			return (&env[i][len + 1]);
 		i++;
 	}
-	dst[i] = 0;
-	return (ft_strlen(src));
+	return (NULL);
 }

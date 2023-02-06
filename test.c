@@ -4,5 +4,8 @@
 
 int	main(int ac, char **av, char **envp)
 {
-	return (execve(av[1], &av[1], envp));
+	char	*str;
+
+	str = "Hello";
+	printf("%s\n", str);
 }

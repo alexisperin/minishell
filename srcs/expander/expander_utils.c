@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:44:57 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/05 14:08:07 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/05 16:53:23 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	quote_count(char *str)
 	return (count);
 }
 
-static int	var_len(char *str, int len, char **env)
+int	var_len(char *str, int len, char **env)
 {
 	int	i;
 
@@ -47,7 +47,7 @@ static int	var_len(char *str, int len, char **env)
 	return (0);
 }
 
-static int	key_len(char *str)
+int	key_len(char *str)
 {
 	int	i;
 
