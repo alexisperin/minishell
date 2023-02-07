@@ -6,14 +6,12 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:29:58 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/06 18:37:32 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/07 08:17:22 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
-
-char	*expand_str(char *str, char **env); // TO REMOVE
 
 void	print_lexer(t_lexer *lexer) // TO REMOVE
 {
@@ -33,7 +31,7 @@ void	print_lexer(t_lexer *lexer) // TO REMOVE
 	printf("\n");
 }
 
-void	print_cmd(t_cmds *cmds)
+void	print_cmd(t_cmds *cmds) //TO REMOVE
 {
 	int	i;
 
@@ -64,9 +62,7 @@ void	read_input(t_shell *shell)
 	{
 		shell->cmds = get_cmds(lexer);
 		print_cmd(shell->cmds);
-		expander(shell);
-		printf("AFTER EXPANDER\n");
-		print_cmd(shell->cmds);
+		execute(shell);
 		free_cmds(shell->cmds);
 	}
 	free(str);

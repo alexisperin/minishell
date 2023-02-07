@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:11:53 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/06 18:36:43 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/07 08:24:46 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	copy_variable(char *str, char *new_str, int *j, char **env)
 	return (len);
 }
 
-char	*expand_str(char *str, char **env)
+static char	*expand_str(char *str, char **env)
 {
 	int		size;
 	int		i;
@@ -53,11 +53,11 @@ char	*expand_str(char *str, char **env)
 		if (str[i] == '\"')
 			in_quote = !in_quote;
 		else if (str[i] == '\'' && !in_quote)
-			{
-				i++;
-				while (str[i] != '\'')
-					new_str[j++] = str[i++];
-			}
+		{
+			i++;
+			while (str[i] != '\'')
+				new_str[j++] = str[i++];
+		}
 		else if (str[i] == '$')
 			i += copy_variable(&str[i], new_str, &j, env) - 1;
 		else
@@ -69,28 +69,22 @@ char	*expand_str(char *str, char **env)
 	return (new_str);
 }
 
-void	expander(t_shell *shell)
+void	expander(t_cmds *cmd, char **env)
 {
-	t_cmds	*tmp;
-	t_lexer	*tmp2;
+	t_lexer	*tmp;
 	int		i;
 
-	tmp = shell->cmds;
+	i = 0;
+	while (i < cmd->size)
+	{
+		cmd->str[i] = expand_str(cmd->str[i], env);
+		i++;
+	}
+	tmp = cmd->redir;
 	while (tmp)
 	{
-		i = 0;
-		while (i < tmp->size)
-		{
-			tmp->str[i] = expand_str(tmp->str[i], shell->env);
-			i++;
-		}
-		tmp2 = tmp->redir;
-		while (tmp2)
-		{
-			if (tmp2->token == 0)
-				tmp2->word = expand_str(tmp2->word, shell->env);
-			tmp2 = tmp2->next;
-		}
+		if (tmp->token == 0)
+			tmp->word = expand_str(tmp->word, env);
 		tmp = tmp->next;
 	}
 }
