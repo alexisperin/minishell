@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 09:10:34 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/02 10:03:25 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/08 09:08:01 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	list_to_tab(t_cmds *node, t_lexer *lexer)
 		i++;
 		tmp = tmp->next;
 	}
-	node->str = ft_malloc(i * sizeof(char *));
-	node->size = i;
+	node->str = ft_malloc((i + 1) * sizeof(char *));
 	i = 0;
 	while (lexer)
 	{
@@ -36,6 +35,7 @@ void	list_to_tab(t_cmds *node, t_lexer *lexer)
 		lexer = lexer->next;
 		free(tmp);
 	}
+	node->str[i] = NULL;
 }
 
 void	free_cmds(t_cmds *cmds)
@@ -49,7 +49,7 @@ void	free_cmds(t_cmds *cmds)
 		cmds = cmds->next;
 		free_lexer(tmp->redir);
 		i = 0;
-		while (i < tmp->size)
+		while (tmp->str[i])
 		{
 			free(tmp->str[i]);
 			i++;

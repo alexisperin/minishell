@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 14:08:13 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/03 11:58:38 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/07 17:32:21 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ void	ft_putnbr_fd(int n, int fd);
 void	*ft_malloc(size_t size);
 char	**ft_arrdup(char **arr);
 void	ft_free_arr(char **arr);
+char	*ft_strjoin_free(char *s1, char *s2);
 
 #endif

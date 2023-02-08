@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:12:31 by aperin            #+#    #+#             */
-/*   Updated: 2022/10/22 17:22:42 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/07 17:29:05 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*get_substring(const char *str, char c)
 	len = 0;
 	while (str[len] && str[len] != c)
 		len++;
-	substr = malloc((len + 1) * sizeof(char));
+	substr = ft_malloc((len + 1) * sizeof(char));
 	if (!substr)
 		return (0);
 	ft_strlcpy(substr, str, len + 1);
@@ -65,7 +65,7 @@ char	**ft_split(const char *str, char c)
 	size_t	i;
 	size_t	j;
 
-	splits = malloc(size_splits(str, c) * sizeof(char *));
+	splits = ft_malloc(size_splits(str, c) * sizeof(char *));
 	if (!str || !splits)
 		return (0);
 	i = 0;

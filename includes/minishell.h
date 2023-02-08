@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/07 08:25:31 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/08 09:04:01 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@
 #  define PATH_MAX 1024
 # endif
 
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+
 typedef enum e_token
 {
 	P = 1,
@@ -53,7 +57,6 @@ typedef struct s_lexer
 typedef struct s_cmds
 {
 	char			**str;
-	int				size;
 	t_lexer			*redir;
 	struct s_cmds	*next;
 }					t_cmds;
@@ -92,7 +95,7 @@ int		var_len(char *str, int len, char **env);
 void	execute(t_shell *shell);
 
 //Builtins
-void	ft_pwd(void);
+int	ft_pwd(void);
 
 //Utils
 void	display_header(void);
