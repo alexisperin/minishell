@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:11:53 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/07 08:24:46 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/08 10:05:43 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	expander(t_cmds *cmd, char **env)
 	int		i;
 
 	i = 0;
-	while (i < cmd->size)
+	while (cmd->str[i])
 	{
 		cmd->str[i] = expand_str(cmd->str[i], env);
 		i++;

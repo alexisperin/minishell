@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:29:58 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/07 08:17:22 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/08 10:06:40 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_cmd(t_cmds *cmds) //TO REMOVE
 	{
 		printf("--STR--\n");
 		i = 0;
-		while (i < cmds->size)
+		while (cmds->str[i])
 		{
 			printf("%s\n", cmds->str[i]);
 			i++;

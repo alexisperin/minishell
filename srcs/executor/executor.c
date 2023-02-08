@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/08 09:08:33 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/08 14:16:25 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	execute_cmd(t_cmds *cmd, char **env)
 		tmp = ft_strjoin_free(tmp, cmd->str[0]);
 		if (access(tmp, F_OK) == 0)
 		{
-	printf("%s\n", tmp);
 			execve(tmp, cmd->str, env);
 			free(tmp);
 			break ;
