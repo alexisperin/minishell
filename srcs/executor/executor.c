@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/08 14:16:25 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/09 09:04:31 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ bool	execute_builtin(t_cmds *cmd, char **env)
 void	execute(t_shell *shell)
 {
 	t_cmds	*curr;
+	pid_t	pid;
 
 	curr = shell->cmds;
 	while (curr)
@@ -93,7 +94,13 @@ void	execute(t_shell *shell)
 		expander(curr, shell->env);
 		print_cmd2(curr);
 		if (!execute_builtin(curr, shell->env))
-			execute_cmd(curr, shell->env);
+		{
+			pid = fork();
+			if (pid == -1)
+				exit(EXIT_FAILURE); // HANDLE ERROR
+			if (pid == 0)
+				execute_cmd(curr, shell->env);
+		}
 		curr = curr->next;
 	}
 }
