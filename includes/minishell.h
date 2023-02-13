@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/08 09:04:01 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/13 14:31:30 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,14 @@ void	list_to_tab(t_cmds *node, t_lexer *lexer);
 void	free_cmds(t_cmds *cmds);
 
 //Expander
-void	expander(t_cmds *cmd, char **env);
+void	expander(t_shell *shell);
 int		get_expanded_size(char *str, char **env);
 int		key_len(char *str);
 int		var_len(char *str, int len, char **env);
 
 //Executor
 void	execute(t_shell *shell);
+void	execute2(t_shell *shell); // To remove
 
 //Builtins
 int	ft_pwd(void);

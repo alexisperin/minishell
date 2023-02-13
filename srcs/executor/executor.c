@@ -6,29 +6,12 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/09 09:04:31 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/13 14:58:19 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
-
-void	print_lexer(t_lexer *lexer); // TO REMOVE
-
-void	print_cmd2(t_cmds *cmds)
-{
-	int	i;
-
-	printf("--STR--\n");
-	i = 0;
-	while (cmds->str[i])
-	{
-		printf("%s\n", cmds->str[i]);
-		i++;
-	}
-	printf("--REDIR--\n");
-	print_lexer(cmds->redir);
-}
 
 int	execute_cmd(t_cmds *cmd, char **env)
 {
@@ -36,6 +19,8 @@ int	execute_cmd(t_cmds *cmd, char **env)
 	char	**path;
 	char	*tmp;
 
+	if (access(cmd->str[0], F_OK) == 0)
+			execve(tmp, cmd->str, env);
 	i = 0;
 	while (env[i])
 	{
@@ -50,11 +35,7 @@ int	execute_cmd(t_cmds *cmd, char **env)
 		tmp = ft_strjoin(path[i], "/");
 		tmp = ft_strjoin_free(tmp, cmd->str[0]);
 		if (access(tmp, F_OK) == 0)
-		{
 			execve(tmp, cmd->str, env);
-			free(tmp);
-			break ;
-		}
 		free(tmp);
 		i++;
 	}
@@ -91,8 +72,6 @@ void	execute(t_shell *shell)
 	curr = shell->cmds;
 	while (curr)
 	{
-		expander(curr, shell->env);
-		print_cmd2(curr);
 		if (!execute_builtin(curr, shell->env))
 		{
 			pid = fork();
@@ -100,7 +79,32 @@ void	execute(t_shell *shell)
 				exit(EXIT_FAILURE); // HANDLE ERROR
 			if (pid == 0)
 				execute_cmd(curr, shell->env);
+			waitpid(pid, NULL, 0); // Handle error
 		}
 		curr = curr->next;
 	}
+}
+
+void	execute2(t_shell *shell)
+{
+	pid_t	pid[2];
+	int		pipe_fd[2];
+
+	pipe(pipe_fd); // Protection
+	dup2(pipe_fd[1], STDOUT); //Protection
+	pid[0] = fork();
+	if (pid[0] == -1)
+		exit(EXIT_FAILURE); // HANDLE ERROR
+	if (pid[0] == 0)
+		execute_cmd(shell->cmds, shell->env);
+	dup2(pipe_fd[0], STDIN);
+	pid[1] = fork();
+	if (pid[1] == -1)
+		exit(EXIT_FAILURE); // HANDLE ERROR
+	if (pid[1] == 0)
+		execute_cmd(shell->cmds->next, shell->env);
+	waitpid(pid[0], NULL, 0); // Handle error
+	waitpid(pid[1], NULL, 0); // Handle error
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
 }
