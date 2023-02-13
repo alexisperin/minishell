@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/09 09:04:31 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/13 14:27:36 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ bool	execute_builtin(t_cmds *cmd, char **env)
 	(void) env;
 	if (ft_strncmp(cmd->str[0], "pwd", 4) == 0)
 		return (ft_pwd());
-	// else if (ft_strncmp(cmds->str[0], "echo", 5) == 0)
-	// 	return (ft_echo(cmd));
+	else if (ft_strncmp(cmd->str[0], "echo", 5) == 0)
+		return (ft_echo(cmd, env));
 	// else if (ft_strncmp(cmds->str[0], "cd", 3) == 0)
 	// 	return (ft_cd(cmd));
 	// else if (ft_strncmp(cmds->str[0], "export", 7) == 0)
