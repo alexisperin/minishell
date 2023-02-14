@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:29:58 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/13 18:47:03 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/14 17:06:08 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void	read_input(t_shell *shell)
 	{
 		shell->cmds = get_cmds(lexer);
 		expander(shell);
-		print_cmd(shell->cmds);
-		execute3(shell);
+		// print_cmd(shell->cmds);
+		execute2(shell);
 		free_cmds(shell->cmds);
 	}
 	free(str);

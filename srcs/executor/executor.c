@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/14 09:24:48 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/14 17:17:01 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	execute_cmd(t_cmds *cmd, char **env)
 		i++;
 	}
 	ft_free_arr(path);
-	return (0); // TO update
+	exit(0); // TO update
 }
 
 bool	execute_builtin(t_cmds *cmd, char **env)
@@ -85,39 +85,32 @@ void	execute(t_shell *shell)
 
 void	execute2(t_shell *shell)
 {
+	t_cmds	*curr;
 	pid_t	pid[2];
-	int		pipe_fd[2];
+	int		pipefd[2];
 
-	pipe(pipe_fd); // Protection
-	dup2(pipe_fd[1], STDOUT); //Protection
+	if (!shell->cmds->next)
+	{
+		single_cmd(shell->cmds, STDIN, STDOUT, shell->env);
+	}
+	
+	pipe(pipefd); // Protection
 	pid[0] = fork();
-	if (pid[0] == -1)
-		exit(EXIT_FAILURE); // HANDLE ERROR
 	if (pid[0] == 0)
+	{
+		close(pipefd[0]);
+		dup2(pipefd[1], STDOUT); //Protection
 		execute_cmd(shell->cmds, shell->env);
-	dup2(pipe_fd[0], STDIN);
+	}
 	pid[1] = fork();
-	if (pid[1] == -1)
-		exit(EXIT_FAILURE); // HANDLE ERROR
 	if (pid[1] == 0)
+	{
+		close(pipefd[1]);
+		dup2(pipefd[0], STDIN);
 		execute_cmd(shell->cmds->next, shell->env);
+	}
+	close(pipefd[0]);
+	close(pipefd[1]);
 	waitpid(pid[0], NULL, 0); // Handle error
 	waitpid(pid[1], NULL, 0); // Handle error
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
-}
-
-void	execute3(t_shell *shell)
-{
-	(void) shell;
-	int		fd;
-
-	fd = open("file.txt", O_CREAT | O_RDWR | O_APPEND);
-	if (fd == -1)
-		printf("Caca\n");
-	dup2(fd, STDOUT); //Protection
-	printf("!!!!!!!!!!!\n");
-	write(fd, "hello", 5);
-	close(fd);
-	write(STDOUT, "bijour", 6);
 }

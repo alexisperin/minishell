@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/14 09:10:02 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/14 16:02:11 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ int		var_len(char *str, int len, char **env);
 //Executor
 void	execute(t_shell *shell);
 void	execute2(t_shell *shell); // To remove
-void	execute3(t_shell *shell);
 
 //Builtins
 int	ft_pwd(void);
