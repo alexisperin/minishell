@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_atoi_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 13:00:03 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/15 00:02:54 by aburnott         ###   ########.fr       */
+/*   Created: 2023/02/14 23:52:15 by aburnott          #+#    #+#             */
+/*   Updated: 2023/02/14 23:53:19 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "libft.h"
 
-int	ft_env(t_cmds *cmd, char **env)
+int	ft_atoi_check(const char *str, int *check)
 {
-	int	i;
+	int		i;
+	int		sign;
+	long	res;
 
-	(void) cmd;
 	i = 0;
-	while (env[i])
+	sign = 1;
+	res = 0;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		ft_putstr_fd(env[i], 1);
-		ft_putchar_fd('\n', 1);
-		i++;
+		if (str[i++] == '-')
+			sign *= -1;
 	}
-	return (1);
+	while (str[i] == '0')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+		res = res * 10 + str[i++] - 48;
+	if (sign * res > INT_MAX || sign * res < INT_MIN
+		|| str[i] || i == 0)
+		*check = 1;
+	return (sign * res);
 }

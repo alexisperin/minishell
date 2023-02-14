@@ -6,7 +6,7 @@
 #    By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/02/14 13:02:38 by aburnott         ###   ########.fr        #
+#    Updated: 2023/02/14 23:47:03 by aburnott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC_FILE	= main.c \
 				builtins/ft_pwd.c \
 				builtins/ft_echo.c \
 				builtins/ft_env.c \
+				builtins/ft_exit.c \
 				utils/display_header.c \
 				error/error.c
 				
