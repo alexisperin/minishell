@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/13 14:27:44 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:01:56 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ void	execute(t_shell *shell);
 
 //Builtins
 int	ft_pwd(void);
-int	ft_echo(t_cmds *cmd, char **env);
+int	ft_echo(t_cmds *cmd);
+int	ft_env(t_cmds *cmd, char **env);
 
 //Utils
 void	display_header(void);

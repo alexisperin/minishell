@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/13 14:27:36 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:02:14 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,15 @@ bool	execute_builtin(t_cmds *cmd, char **env)
 	if (ft_strncmp(cmd->str[0], "pwd", 4) == 0)
 		return (ft_pwd());
 	else if (ft_strncmp(cmd->str[0], "echo", 5) == 0)
-		return (ft_echo(cmd, env));
+		return (ft_echo(cmd));
 	// else if (ft_strncmp(cmds->str[0], "cd", 3) == 0)
 	// 	return (ft_cd(cmd));
 	// else if (ft_strncmp(cmds->str[0], "export", 7) == 0)
 	// 	return (ft_export(cmd, env));
 	// else if (ft_strncmp(cmds->str[0], "unset", 6) == 0)
 	// 	return (ft_unset(cmd, env));
-	// else if (ft_strncmp(cmds->str[0], "env", 4) == 0)
-	// 	return (ft_env(cmd, env));
+	else if (ft_strncmp(cmd->str[0], "env", 4) == 0)
+		return (ft_env(cmd, env));
 	// else if (ft_strncmp(cmds->str[0], "exit", 5) == 0)
 	// 	return (ft_exit(cmd));
 	return (0);

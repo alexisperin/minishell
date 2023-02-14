@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 13:27:37 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/14 11:24:53 by aburnott         ###   ########.fr       */
+/*   Created: 2023/02/14 13:00:03 by aburnott          #+#    #+#             */
+/*   Updated: 2023/02/14 13:07:14 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-int	ft_echo(t_cmds *cmd)
+int	ft_env(t_cmds *cmd, char **env)
 {
 	int	i;
-	int	n;
+	(void) cmd;
 
-	i = 1;
-	n = 1;
-	while (cmd->str[i])
+	i = 0;
+	while (env[i])
 	{
-		if (ft_strncmp(cmd->str[i], "-n", 2) == 0 && i == 1)
-		{
-			n = 0;
-			i++;
-		}
-		ft_putstr_fd(cmd->str[i], 1);
-		ft_putchar_fd(' ', 1);
+		ft_putstr_fd(env[i], 1);
+		ft_putchar_fd('\n', 1);
 		i++;
 	}
-	if (n)
-		ft_putchar_fd('\n', 1);
 	return (1);
 }
