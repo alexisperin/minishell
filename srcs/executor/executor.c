@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/13 14:58:19 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/14 09:24:48 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	execute_cmd(t_cmds *cmd, char **env)
 	char	**path;
 	char	*tmp;
 
-	if (access(cmd->str[0], F_OK) == 0)
-			execve(tmp, cmd->str, env);
 	i = 0;
 	while (env[i])
 	{
@@ -107,4 +105,19 @@ void	execute2(t_shell *shell)
 	waitpid(pid[1], NULL, 0); // Handle error
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
+}
+
+void	execute3(t_shell *shell)
+{
+	(void) shell;
+	int		fd;
+
+	fd = open("file.txt", O_CREAT | O_RDWR | O_APPEND);
+	if (fd == -1)
+		printf("Caca\n");
+	dup2(fd, STDOUT); //Protection
+	printf("!!!!!!!!!!!\n");
+	write(fd, "hello", 5);
+	close(fd);
+	write(STDOUT, "bijour", 6);
 }
