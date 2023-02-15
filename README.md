@@ -2,6 +2,7 @@
 
 To do:
 - echo $
+- handle $?, $USER: ($0 ???)
 - pipes
 - redirections
 - builtins
