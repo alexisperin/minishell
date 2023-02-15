@@ -5,6 +5,7 @@ To do:
 - pipes
 - redirections
 - builtins
+- local variables
 - signals
 - return value
 - error handling
