@@ -6,12 +6,23 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 09:10:34 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/15 11:51:49 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/16 16:24:24 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+
+t_cmds	*new_cmd(int n)
+{
+	t_cmds	*node;
+
+	node = ft_malloc(sizeof(t_cmds));
+	node->redir = NULL;
+	node->next = NULL;
+	node->n = n;
+	return (node);
+}
 
 void	list_to_tab(t_cmds *node, t_lexer *lexer)
 {
@@ -36,21 +47,6 @@ void	list_to_tab(t_cmds *node, t_lexer *lexer)
 		free(tmp);
 	}
 	node->str[i] = NULL;
-}
-
-void	init_fds(t_cmds *cmds)
-{
-	int	i;
-
-	i = 1;
-	while (cmds)
-	{
-		cmds->n = i;
-		cmds->iofd[0] = STDIN;
-		cmds->iofd[1] = STDOUT;
-		i++;
-		cmds = cmds->next;
-	}
 }
 
 void	free_cmds(t_cmds *cmds)

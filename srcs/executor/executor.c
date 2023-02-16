@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/16 12:41:51 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/16 16:41:41 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,10 @@ void	execute2(t_shell *shell)
 	pid[1] = fork();
 	if (pid[1] == 0)
 	{
-		usleep(500);
 		close(pipefd[1]);
 		dup2(pipefd[0], STDIN);
 		write(STDOUT, "aaa\n", 4);
 		dup2(fd, STDOUT);
-		write(STDOUT, "aaa\n", 4);
 		execute_cmd(shell->cmds->next, shell->env);
 	}
 	close(pipefd[0]);
@@ -132,32 +130,43 @@ void	execute2(t_shell *shell)
 void	execute3(t_shell *shell)
 {
 	t_cmds	*curr;
-	int		pipein[2];
-	int		pipeout[2];
+	int		prev_pipe[2];
 
 	curr = shell->cmds;
-	pipein[0] = STDIN;
-	pipeout[1] = STDOUT;
+	prev_pipe[0] = STDIN;
+	prev_pipe[1] = STDOUT;
 	while (curr)
 	{
-		if (!curr->next)
-			execute_cmd(curr, shell->env);
-		else
+		if (curr->next != NULL)
+			pipe(curr->pipefd);
+		curr->pid = fork();
+		if (curr->pid == -1)
+			exit(0); // HANDLE ERROR
+		if (curr->pid == 0)
 		{
-			pipe(pipein);
-			curr->pid = fork();
-			if (curr->pid == -1)
-				exit(0); // HANDLE ERROR
-			if (curr->pid == 0)
-			{
-				if (curr->n != 1)
-					dup2(pipein[0], curr->iofd[0]); // HANDLE ERROR
-				else
-					close(pipein[0]);
-				dup2(pipein[1], curr->iofd[1]); //HANDLE ERROR
-				// execute_cmd()
-			}
+			close(curr->pipefd[0]);
+			dup2(prev_pipe[0], STDIN); // HANDLE ERROR
+			if (curr->n > 1)
+				close(prev_pipe[1]);
+			else if (curr->next != NULL)
+				dup2(curr->pipefd[1], STDOUT); //Protection
+			execute_cmd(curr, shell->env);
 		}
+		prev_pipe[0] = curr->pipefd[0];
+		prev_pipe[1] = curr->pipefd[1];
+		curr = curr->next;
+	}
+	curr = shell->cmds;
+	while (curr->next)
+	{
+		close(curr->pipefd[0]);
+		close(curr->pipefd[1]);
+		curr = curr->next;	
+	}
+	curr = shell->cmds;
+	while (curr)
+	{
+		waitpid(curr->pid, NULL, 0);
 		curr = curr->next;
 	}
 }
