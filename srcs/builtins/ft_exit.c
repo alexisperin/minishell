@@ -15,7 +15,6 @@
 
 int	ft_exit(t_cmds *cmd)
 {
-	//Need to handle return value
 	int	ret;
 	int	check;
 
@@ -38,6 +37,5 @@ int	ft_exit(t_cmds *cmd)
 	}
 	if (ret < 0)
 		ret = 255 + ret + 1;
-	printf("\n\n\nEXIT VAL: %d", ret); //TO REMOVE
-	return (ret);
+	exit(ret);
 }
