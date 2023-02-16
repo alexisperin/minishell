@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 09:10:34 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/08 09:08:01 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/15 11:51:49 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,21 @@ void	list_to_tab(t_cmds *node, t_lexer *lexer)
 		free(tmp);
 	}
 	node->str[i] = NULL;
+}
+
+void	init_fds(t_cmds *cmds)
+{
+	int	i;
+
+	i = 1;
+	while (cmds)
+	{
+		cmds->n = i;
+		cmds->iofd[0] = STDIN;
+		cmds->iofd[1] = STDOUT;
+		i++;
+		cmds = cmds->next;
+	}
 }
 
 void	free_cmds(t_cmds *cmds)

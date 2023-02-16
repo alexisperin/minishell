@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/14 16:02:11 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/15 14:58:18 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ typedef struct s_cmds
 {
 	char			**str;
 	t_lexer			*redir;
+	int				n;
+	pid_t			pid;
+	int				iofd[2];
 	struct s_cmds	*next;
 }					t_cmds;
 
@@ -88,6 +91,7 @@ void	free_lexer(t_lexer *lexer);
 //Parser
 t_cmds	*get_cmds(t_lexer *lexer);
 void	list_to_tab(t_cmds *node, t_lexer *lexer);
+void	init_fds(t_cmds *cmds);
 void	free_cmds(t_cmds *cmds);
 
 //Expander

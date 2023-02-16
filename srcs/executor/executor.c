@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/14 17:17:01 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/16 12:41:51 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,32 +85,79 @@ void	execute(t_shell *shell)
 
 void	execute2(t_shell *shell)
 {
-	t_cmds	*curr;
 	pid_t	pid[2];
 	int		pipefd[2];
 
-	if (!shell->cmds->next)
-	{
-		single_cmd(shell->cmds, STDIN, STDOUT, shell->env);
-	}
+	int fd = open("file", O_CREAT | O_RDWR);
 	
 	pipe(pipefd); // Protection
 	pid[0] = fork();
 	if (pid[0] == 0)
 	{
+		close(STDOUT);
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT); //Protection
+		// dup2(fd, STDIN);
+		// close(pipefd[1]);
 		execute_cmd(shell->cmds, shell->env);
 	}
 	pid[1] = fork();
 	if (pid[1] == 0)
 	{
+		usleep(500);
 		close(pipefd[1]);
 		dup2(pipefd[0], STDIN);
+		write(STDOUT, "aaa\n", 4);
+		dup2(fd, STDOUT);
+		write(STDOUT, "aaa\n", 4);
 		execute_cmd(shell->cmds->next, shell->env);
 	}
 	close(pipefd[0]);
 	close(pipefd[1]);
 	waitpid(pid[0], NULL, 0); // Handle error
 	waitpid(pid[1], NULL, 0); // Handle error
+}
+
+// void	execute_cmd(t_cmds *cmd, char **env, int fd_in, int fd_out)
+// {
+// 	cmd->pid = fork();
+// 	if (cmd->pid == -1)
+// 		exit(0); // Handle error
+// 	if (cmd->pid != 0)
+// 		return ;
+// 	if (cmd->redir)
+// 		handle_redir(cmd->redir, fd_in, fd_out);
+// }
+
+void	execute3(t_shell *shell)
+{
+	t_cmds	*curr;
+	int		pipein[2];
+	int		pipeout[2];
+
+	curr = shell->cmds;
+	pipein[0] = STDIN;
+	pipeout[1] = STDOUT;
+	while (curr)
+	{
+		if (!curr->next)
+			execute_cmd(curr, shell->env);
+		else
+		{
+			pipe(pipein);
+			curr->pid = fork();
+			if (curr->pid == -1)
+				exit(0); // HANDLE ERROR
+			if (curr->pid == 0)
+			{
+				if (curr->n != 1)
+					dup2(pipein[0], curr->iofd[0]); // HANDLE ERROR
+				else
+					close(pipein[0]);
+				dup2(pipein[1], curr->iofd[1]); //HANDLE ERROR
+				// execute_cmd()
+			}
+		}
+		curr = curr->next;
+	}
 }
