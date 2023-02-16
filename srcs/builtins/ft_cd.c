@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:04:29 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/16 14:42:26 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/16 22:45:47 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,7 @@
 
 int	ft_cd(t_cmds *cmd, char **env)
 {
-    
+	(void) cmd;
+	(void) env;
+    return (0);
 }
