@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:30:23 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/07 17:17:32 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/13 10:55:18 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ft_pwd(void)
 	if (getcwd(buf, PATH_MAX))
 	{
 		printf("%s\n", buf);
-		return (0);
+		return (1);
 	}
 	else
-		return (1); // Handle failure return
+		return (0); // Handle failure return
 }

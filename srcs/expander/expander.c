@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:11:53 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/08 10:05:43 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/13 10:42:14 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,22 +69,28 @@ static char	*expand_str(char *str, char **env)
 	return (new_str);
 }
 
-void	expander(t_cmds *cmd, char **env)
+void	expander(t_shell *shell)
 {
-	t_lexer	*tmp;
+	t_cmds	*tmp;
+	t_lexer	*tmp2;
 	int		i;
 
-	i = 0;
-	while (cmd->str[i])
-	{
-		cmd->str[i] = expand_str(cmd->str[i], env);
-		i++;
-	}
-	tmp = cmd->redir;
+	tmp = shell->cmds;
 	while (tmp)
 	{
-		if (tmp->token == 0)
-			tmp->word = expand_str(tmp->word, env);
+		i = 0;
+		while (tmp->str[i])
+		{
+			tmp->str[i] = expand_str(tmp->str[i], shell->env);
+			i++;
+		}
+		tmp2 = tmp->redir;
+		while (tmp2)
+		{
+			if (tmp2->token == 0)
+				tmp2->word = expand_str(tmp2->word, shell->env);
+			tmp2 = tmp2->next;
+		}
 		tmp = tmp->next;
 	}
 }
