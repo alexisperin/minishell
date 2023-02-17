@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 09:10:34 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/16 16:24:24 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/17 11:46:32 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_cmds	*new_cmd(int n)
 	node->redir = NULL;
 	node->next = NULL;
 	node->n = n;
+	node->pipefd[0] = -1;
+	node->pipefd[1] = -1;
 	return (node);
 }
 

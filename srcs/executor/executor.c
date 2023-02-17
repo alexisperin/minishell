@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/17 09:21:03 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/17 11:45:43 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,9 @@ void	execute2(t_shell *shell)
 void	execute3(t_shell *shell)
 {
 	t_cmds	*curr;
-	int		prev[2];
+	int		prev_fd;
 
+	prev_fd = -1;
 	curr = shell->cmds;
 	while (curr)
 	{
@@ -140,34 +141,28 @@ void	execute3(t_shell *shell)
 			exit(0); // HANDLE ERROR
 		if (curr->pid == 0)
 		{
-			close(prev[1]);
 			if (curr->n > 1)
-				dup2(prev[0], STDIN); // HANDLE ERROR
+			{
+				dup2(prev_fd, STDIN); // HANDLE ERROR
+				close(prev_fd);
+			}
 			if (curr->next != NULL)
 			{
-				close(curr->pipefd[0]);
 				dup2(curr->pipefd[1], STDOUT); //Protection
+				close(curr->pipefd[1]);
+				close(curr->pipefd[0]);
 			}
 			execute_cmd(curr, shell->env);
 		}
-		prev[0] = curr->pipefd[0];
-		prev[1] = curr->pipefd[1];
+		close(prev_fd);
+		prev_fd = curr->pipefd[0];
+		close(curr->pipefd[1]);
 		curr = curr->next;
 	}
 	curr = shell->cmds;
 	while (curr)
 	{
-		close(curr->pipefd[0]);
-		close(curr->pipefd[1]);
-		// waitpid(curr->pid, NULL, 0);
-		printf("---!!!!!\n");
-		curr = curr->next;	
-	}
-	curr = shell->cmds;
-	while (curr)
-	{
 		waitpid(curr->pid, NULL, 0);
-		printf("!!!!!---\n");
 		curr = curr->next;
 	}
 }
