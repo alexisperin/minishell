@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:44:57 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/05 16:53:23 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/01 17:11:32 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,12 @@ int	key_len(char *str)
 	return (i);
 }
 
-int	get_expanded_size(char *str, char **env)
+int	get_expanded_size(char *str, t_shell *shell)
 {
-	int	size;
-	int	i;
-	int	len;
+	int		size;
+	int		i;
+	int		len;
+	char	*return_value;
 
 	size = 0;
 	i = 0;
@@ -75,8 +76,18 @@ int	get_expanded_size(char *str, char **env)
 		}
 		else if (str[i] == '$')
 		{
-			len = key_len(&str[i]);
-			size += var_len(&str[i], len, env) - 1;
+			if (str[i + 1] == '?')
+			{
+				len = 2;
+				return_value = ft_itoa(shell->return_value);
+				size += ft_strlen(return_value) - 1;
+				free(return_value);
+			}
+			else
+			{
+				len = key_len(&str[i]);
+				size += var_len(&str[i], len, shell->env) - 1;
+			}
 			i += len - 1;
 		}
 		size++;

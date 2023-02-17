@@ -1,13 +1,12 @@
 # minishell
 
 To do:
-- echo $
-- handle $?, $USER: ($0 ???)
-- pipes
-- redirections
-- builtins
 - local variables
-- signals
+- update expander with local environment
+- expand heredoc
+- echo $
+- builtins (leaks, ...)
 - return value
 - error handling
+- signals (ctrl-\ ?)
 - norm

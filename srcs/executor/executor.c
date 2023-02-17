@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/01 16:20:44 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/18 00:10:24 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,10 @@ bool	execute_builtin(t_cmds *cmd, t_shell *shell)
 int	execute_cmd(t_cmds *cmd, t_shell *shell)
 {
 	int		i;
-	int		ret;
 	char	**path;
 	char	*tmp;
 
 	i = 0;
-	ret = -1;
 	if (!execute_builtin(cmd, shell) && !execute_currdir(cmd, shell))
 	{
 		while (shell->env[i])
@@ -68,7 +66,11 @@ int	execute_cmd(t_cmds *cmd, t_shell *shell)
 			tmp = ft_strjoin(path[i], "/");
 			tmp = ft_strjoin_free(tmp, cmd->str[0]);
 			if (access(tmp, F_OK) == 0)
-				ret = execve(tmp, cmd->str, shell->env);
+				if (execve(tmp, cmd->str, shell->env) == -1)
+				{
+					perror(cmd->str[0]);
+					exit(0); //TO UPDATE
+				}
 			free(tmp);
 			i++;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/01 16:20:03 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/18 00:10:09 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_shell
 	char	**env;
 	//char	**local_env;
 	t_cmds	*cmds;
+	int		return_value;
 }			t_shell;
 
 //Read input
@@ -99,7 +100,7 @@ void	free_cmds(t_cmds *cmds);
 
 //Expander
 void	expander(t_shell *shell);
-int		get_expanded_size(char *str, char **env);
+int		get_expanded_size(char *str, t_shell *shell);
 int		key_len(char *str);
 int		var_len(char *str, int len, char **env);
 
