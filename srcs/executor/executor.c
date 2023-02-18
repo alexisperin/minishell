@@ -3,32 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/16 14:45:48 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/18 16:45:14 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
-
-void	print_lexer(t_lexer *lexer); // TO REMOVE
-
-void	print_cmd2(t_cmds *cmds)
-{
-	int	i;
-
-	printf("--STR--\n");
-	i = 0;
-	while (cmds->str[i])
-	{
-		printf("%s\n", cmds->str[i]);
-		i++;
-	}
-	printf("--REDIR--\n");
-	print_lexer(cmds->redir);
-}
 
 int	execute_cmd(t_cmds *cmd, char **env)
 {
@@ -50,16 +33,12 @@ int	execute_cmd(t_cmds *cmd, char **env)
 		tmp = ft_strjoin(path[i], "/");
 		tmp = ft_strjoin_free(tmp, cmd->str[0]);
 		if (access(tmp, F_OK) == 0)
-		{
 			execve(tmp, cmd->str, env);
-			free(tmp);
-			break ;
-		}
 		free(tmp);
 		i++;
 	}
 	ft_free_arr(path);
-	return (0); // TO update
+	exit(0); // TO update
 }
 
 bool	execute_builtin(t_cmds *cmd, char **env)
@@ -91,8 +70,6 @@ void	execute(t_shell *shell)
 	curr = shell->cmds;
 	while (curr)
 	{
-		expander(curr, shell->env);
-		print_cmd2(curr);
 		if (!execute_builtin(curr, shell->env))
 		{
 			pid = fork();
@@ -100,7 +77,92 @@ void	execute(t_shell *shell)
 				exit(EXIT_FAILURE); // HANDLE ERROR
 			if (pid == 0)
 				execute_cmd(curr, shell->env);
+			waitpid(pid, NULL, 0); // Handle error
 		}
+		curr = curr->next;
+	}
+}
+
+void	execute2(t_shell *shell)
+{
+	pid_t	pid[2];
+	int		pipefd[2];
+
+	// int fd = open("file", O_CREAT | O_RDWR);
+	
+	pipe(pipefd); // Protection
+	pid[0] = fork();
+	if (pid[0] == 0)
+	{
+		close(pipefd[0]);
+		dup2(pipefd[1], STDOUT); //Protection
+		// dup2(fd, STDIN);
+		// close(pipefd[1]);
+		execute_cmd(shell->cmds, shell->env);
+	}
+	pid[1] = fork();
+	if (pid[1] == 0)
+	{
+		close(pipefd[1]);
+		dup2(pipefd[0], STDIN);
+		// dup2(fd, STDOUT);
+		execute_cmd(shell->cmds->next, shell->env);
+	}
+	close(pipefd[0]);
+	close(pipefd[1]);
+	waitpid(pid[0], NULL, 0); // Handle error
+	waitpid(pid[1], NULL, 0); // Handle error
+}
+
+// void	execute_cmd(t_cmds *cmd, char **env, int fd_in, int fd_out)
+// {
+// 	cmd->pid = fork();
+// 	if (cmd->pid == -1)
+// 		exit(0); // Handle error
+// 	if (cmd->pid != 0)
+// 		return ;
+// 	if (cmd->redir)
+// 		handle_redir(cmd->redir, fd_in, fd_out);
+// }
+
+void	execute3(t_shell *shell)
+{
+	t_cmds	*curr;
+	int		prev_fd;
+
+	prev_fd = -1;
+	curr = shell->cmds;
+	while (curr)
+	{
+		if (curr->next != NULL)
+			pipe(curr->pipefd);
+		curr->pid = fork();
+		if (curr->pid == -1)
+			exit(0); // HANDLE ERROR
+		if (curr->pid == 0)
+		{
+			if (curr->n > 1)
+			{
+				dup2(prev_fd, STDIN); // HANDLE ERROR
+				close(prev_fd);
+			}
+			if (curr->next != NULL)
+			{
+				dup2(curr->pipefd[1], STDOUT); //Protection
+				close(curr->pipefd[1]);
+				close(curr->pipefd[0]);
+			}
+			execute_cmd(curr, shell->env);
+		}
+		close(prev_fd);
+		prev_fd = curr->pipefd[0];
+		close(curr->pipefd[1]);
+		curr = curr->next;
+	}
+	curr = shell->cmds;
+	while (curr)
+	{
+		waitpid(curr->pid, NULL, 0);
 		curr = curr->next;
 	}
 }

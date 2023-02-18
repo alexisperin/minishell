@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:39:33 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/02 10:41:56 by aperin           ###   ########.fr       */
+/*   Updated: 2023/02/16 16:24:16 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,13 @@ static t_lexer	*push_redir(t_lexer *redir, t_cmds *cmd)
 	return (ret);
 }
 
-static void	add_cmd(t_cmds **cmds, t_lexer *lexer)
+static void	add_cmd(t_cmds **cmds, t_lexer *lexer, int n)
 {
 	t_cmds	*node;
 	t_cmds	*tmp;
 	t_lexer	*new_lexer;
 
-	node = ft_malloc(sizeof(t_cmds));
-	node->redir = NULL;
-	node->next = NULL;
+	node = new_cmd(n);
 	new_lexer = NULL;
 	while (lexer)
 	{
@@ -102,13 +100,16 @@ t_cmds	*get_cmds(t_lexer *lexer)
 {
 	t_cmds	*cmds;
 	t_lexer	*tmp;
+	int		n;
 
 	cmds = NULL;
+	n = 1;
 	while (lexer)
 	{
 		tmp = split_at_pipe(lexer);
-		add_cmd(&cmds, lexer);
+		add_cmd(&cmds, lexer, n);
 		lexer = tmp;
+		n++;
 	}
 	return (cmds);
 }
