@@ -6,40 +6,12 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/18 16:45:14 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/18 16:49:30 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
-
-int	execute_cmd(t_cmds *cmd, char **env)
-{
-	int		i;
-	char	**path;
-	char	*tmp;
-
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			break ;
-		i++;
-	}
-	path = ft_split(&env[i][5], ':');
-	i = 0;
-	while (path[i])
-	{
-		tmp = ft_strjoin(path[i], "/");
-		tmp = ft_strjoin_free(tmp, cmd->str[0]);
-		if (access(tmp, F_OK) == 0)
-			execve(tmp, cmd->str, env);
-		free(tmp);
-		i++;
-	}
-	ft_free_arr(path);
-	exit(0); // TO update
-}
 
 bool	execute_builtin(t_cmds *cmd, char **env)
 {
@@ -62,6 +34,36 @@ bool	execute_builtin(t_cmds *cmd, char **env)
 	return (0);
 }
 
+int	execute_cmd(t_cmds *cmd, char **env)
+{
+	int		i;
+	char	**path;
+	char	*tmp;
+
+	i = 0;
+	if (!execute_builtin(cmd, env))
+	{
+		while (env[i])
+		{
+			if (ft_strncmp(env[i], "PATH=", 5) == 0)
+				break ;
+			i++;
+		}
+		path = ft_split(&env[i][5], ':');
+		i = 0;
+		while (path[i])
+		{
+			tmp = ft_strjoin(path[i], "/");
+			tmp = ft_strjoin_free(tmp, cmd->str[0]);
+			if (access(tmp, F_OK) == 0)
+				execve(tmp, cmd->str, env);
+			free(tmp);
+			i++;
+		}
+		ft_free_arr(path);
+	}
+	exit(0); // TO update
+}
 void	execute(t_shell *shell)
 {
 	t_cmds	*curr;

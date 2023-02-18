@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:04:29 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/18 16:39:11 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/18 16:54:41 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,22 @@ char	*extract_path(char *path, char **env)
 int	change_path(char *path, char **env, int type)
 {
 	char	*path_extract;
+	int	ret;
 
+	ret = 0;
 	if (type == 1)
 	{
 		path_extract = extract_path(path, env);
 		if (!path_extract)
 			return (0);
-		chdir(path_extract);
+		ret = chdir(path_extract);
+		if (ret < 0)
+			printf("\n\nFAILED CHDIR 45\n");
 	}
 	if (type == 2)
-		chdir(path);
+		ret = chdir(path);
+		if (ret < 0)
+			printf("\n\nFAILED CHDIR 50\n");
 	return (1);
 }
 
