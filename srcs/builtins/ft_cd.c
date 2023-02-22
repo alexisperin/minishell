@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:04:29 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/19 23:46:01 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/22 11:40:13 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	change_path(char *path, char **env, int type)
 	{
 		path_extract = extract_path(path, env);
 		if (!path_extract)
-			return (0);
+			return (2);
 		ret = chdir(path_extract);
 		if (ret < 0)
 			printf("\n\nFAILED CHDIR 45\n");
@@ -61,6 +61,14 @@ int	ft_cd(t_cmds *cmd, char **env)
 	if (!cmd->str[1])
 		change_path("HOME=", env, 1);
 	else if (cmd->str[1])
-		change_path(cmd->str[1], env, 2);
+	{
+		if (ft_strncmp(cmd->str[1], "-", 1) == 0)
+		{
+			if (change_path("OLDPWD=", env, 1) == 2)
+				ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
+			else
+				change_path(cmd->str[1], env, 2);
+		}
+	}
 	return (1);
 }
