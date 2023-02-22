@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/21 15:50:37 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/22 09:46:19 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ void	execute3(t_shell *shell)
 
 	prev_fd = -1;
 	curr = shell->cmds;
+	if (execute_builtin(curr, shell->env))
+		return ;
 	while (curr)
 	{
 		if (curr->next != NULL)
