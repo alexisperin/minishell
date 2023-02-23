@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/21 15:50:33 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:33:33 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,10 @@ void	execute3(t_shell *shell); // To remove
 //Builtins
 int	ft_pwd(void);
 int	ft_echo(t_cmds *cmd);
-int	ft_env(t_cmds *cmd, char **env);
+int	ft_env(char **env);
 int	ft_exit(t_cmds *cmd);
-int	ft_cd(t_cmds *cmd, char **env);
-int	ft_export(t_cmds *cmd, char **env);
+int	ft_cd(t_cmds *cmd, t_shell *shell);
+int	ft_export(t_cmds *cmd, t_shell *shell);
 
 //Utils
 void	display_header(void);

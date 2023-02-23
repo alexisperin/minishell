@@ -6,18 +6,18 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:25 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/21 16:07:47 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:36:46 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-int	ft_export(t_cmds *cmd, char **env)
+int	ft_export(t_cmds *cmd, t_shell *shell)
 {
-	char	**new_env;
+	int	i;
 
-	new_env = 0;
+	i = 0;
 	if (!cmd->str[1])
 	{
 		printf("Print env sorted");
@@ -25,7 +25,13 @@ int	ft_export(t_cmds *cmd, char **env)
 	}
 	else
 	{
-		*env = ft_strjoin(*env, cmd->str[1]);
+		while (shell->env[i])
+		{
+			if (shell->env[i + 1] == NULL)
+			{
+				
+			}
+		}
 	}
 	return (1);
 }

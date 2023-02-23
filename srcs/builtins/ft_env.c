@@ -6,18 +6,17 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:00:03 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/15 00:02:54 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:33:10 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-int	ft_env(t_cmds *cmd, char **env)
+int	ft_env(char **env)
 {
 	int	i;
 
-	(void) cmd;
 	i = 0;
 	while (env[i])
 	{
