@@ -1,43 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   handling.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/25 09:56:19 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/24 22:09:57 by aburnott         ###   ########.fr       */
+/*   Created: 2023/02/24 22:05:06 by aburnott          #+#    #+#             */
+/*   Updated: 2023/02/24 22:14:35 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
 
-void	print_env(char **env)
+void	ctrl_c(int sig)
 {
-	int i = 0;
-	
-	while (env[i])
-	{
-		printf("%s\n", env[i]);
-		i++;
-	}
+	(void) sig;
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	rl_done = 1;
+	return ;
 }
 
-int	main(int ac, char **av, char **envp)
+void	sig_handler(void)
 {
-	t_shell	shell;
-
-	(void) av;
-	if (ac > 1)
-	{
-		print_error(1);
-		return (-1);
-	}
-	shell.env = ft_arrdup(envp);
-	display_header();
-	sig_handler();
-	while (1)
-		read_input(&shell);
-	return (0);
+	// rl_event_hook = event;
+	signal(SIGINT, ctrl_c);
 }

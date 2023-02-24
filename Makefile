@@ -6,7 +6,7 @@
 #    By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/02/21 15:50:58 by aburnott         ###   ########.fr        #
+#    Updated: 2023/02/24 22:10:06 by aburnott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,9 @@ SRC_FILE	= main.c \
 				builtins/ft_exit.c \
 				builtins/ft_cd.c \
 				builtins/ft_export.c \
+				builtins/ft_unset.c \
 				utils/display_header.c \
+				handle_sig/handling.c \
 				error/error.c
 				
 SRCS_DIR	= srcs

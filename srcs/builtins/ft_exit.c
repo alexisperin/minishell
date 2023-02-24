@@ -6,14 +6,14 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:32:45 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/15 00:01:53 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/24 21:48:22 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-int	ft_exit(t_cmds *cmd)
+int	ft_exit(t_cmds *cmd, int type)
 {
 	int	ret;
 	int	check;
@@ -21,6 +21,8 @@ int	ft_exit(t_cmds *cmd)
 	ret = 0;
 	check = 0;
 	ft_putstr_fd("exit\n", 1);
+	if (type)
+		exit (0);
 	if (cmd->str[1] && cmd->str[2])
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 	if (cmd->str[1])

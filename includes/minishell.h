@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/23 16:33:33 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/24 22:10:10 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
+# include <signal.h>
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -109,12 +110,17 @@ void	execute3(t_shell *shell); // To remove
 int	ft_pwd(void);
 int	ft_echo(t_cmds *cmd);
 int	ft_env(char **env);
-int	ft_exit(t_cmds *cmd);
+int	ft_exit(t_cmds *cmd, int type);
 int	ft_cd(t_cmds *cmd, t_shell *shell);
 int	ft_export(t_cmds *cmd, t_shell *shell);
+int	ft_unset(t_cmds *cmd, t_shell *shell);
 
 //Utils
 void	display_header(void);
+
+//Handle Sig
+void	ctrl_c(int sig);
+void	sig_handler(void);
 
 //Errors
 void	print_error(int error_code);

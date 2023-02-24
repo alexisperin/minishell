@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:25 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/24 11:37:53 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/24 21:09:42 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,11 @@ char	**new_arr(char **env, char **rtn, char *str)
 			rtn[i] = ft_strdup(env[i]);
 		i++;
 	}
-	if (rtn[i] == NULL)
-		exit(EXIT_FAILURE);
+	if (!rtn[i])
+	{
+		ft_free_arr(rtn);
+		return (rtn);
+	}
 	return (rtn);
 }
 
@@ -44,6 +47,10 @@ int	ft_export(t_cmds *cmd, t_shell *shell)
 	{
 		printf("Print env sorted");
 		return (1);
+	}
+	else if (ft_strncmp(cmd->str[1], "=", 1) == 0)
+	{
+		ft_putstr_fd("minishell: export: `=': not a valid identifier\n", 2);
 	}
 	else
 	{
