@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:04:29 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/23 16:26:32 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/24 10:25:38 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*extract_path(char *path, t_shell *shell)
 int	change_path(char *path, t_shell *shell, int type)
 {
 	char	*path_extract;
-	int	ret;
+	int		ret;
 	char	*current_pwd;
 
 	ret = 0;
