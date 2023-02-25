@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:32:45 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/24 21:48:22 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/25 11:30:40 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,18 @@
 
 int	ft_exit(t_cmds *cmd, int type)
 {
-	int	ret;
+	unsigned char	ret;
 	int	check;
 
 	ret = 0;
 	check = 0;
-	ft_putstr_fd("exit\n", 1);
 	if (type)
+	{
+		ft_putstr_fd("\nexit\n", 1);
 		exit (0);
+	}
+	else
+		ft_putstr_fd("exit\n", 1);
 	if (cmd->str[1] && cmd->str[2])
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 	if (cmd->str[1])
@@ -32,12 +36,8 @@ int	ft_exit(t_cmds *cmd, int type)
 		{
 			ft_putstr_fd("minishell: exit: ", 2);
 			ft_putstr_fd(cmd->str[1], 2);
-			ft_putstr_fd(": numeric argument required", 2);
+			ft_putstr_fd(": numeric argument required\n", 2);
 		}
-		else if (ret > 255)
-			ret = 255;
 	}
-	if (ret < 0)
-		ret = 255 + ret + 1;
 	exit(ret);
 }

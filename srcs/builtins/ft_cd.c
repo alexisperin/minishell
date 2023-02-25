@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:04:29 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/24 10:25:38 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/25 13:43:08 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	add_path(t_shell *shell, char *temp)
 	}
 	if (old)
 	{
-		//export function to create OLDPWD
+		printf("CALL EXPORT\n");
+		ft_export(0, shell, "OLDPWD=");
 		return (-1);
 	}
 	return (0);
@@ -88,10 +89,10 @@ int	change_path(char *path, t_shell *shell, int type)
 	{
 		path_extract = extract_path(path, shell);
 		if (!path_extract)
-			return (2);
+			return (0);
 		ret = chdir(path_extract);
 		if (ret < 0)
-			printf("\n\nFAILED CHDIR 45\n");
+			return (0);
 		else
 			add_path(shell, current_pwd);
 	}
@@ -99,7 +100,7 @@ int	change_path(char *path, t_shell *shell, int type)
 	{
 		ret = chdir(path);
 		if (ret < 0)
-			printf("\n\nFAILED CHDIR 50\n");
+			return (0);
 		else
 			add_path(shell, current_pwd);
 	}
@@ -112,16 +113,25 @@ int	ft_cd(t_cmds *cmd, t_shell *shell)
 
 	// ret = 1;
 	if (!cmd->str[1])
-		change_path("HOME=", shell, 1);
+	{
+		if(!change_path("HOME=", shell, 1))
+			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+	}
 	else if (cmd->str[1])
 	{
 		if (ft_strncmp(cmd->str[1], "-", 1) == 0)
 		{
-			if (change_path("OLDPWD=", shell, 1) == 2)
+			if (!change_path("OLDPWD=", shell, 1))
 				ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
 		}
 		else
-			change_path(cmd->str[1], shell, 2);
+		{
+			if(!change_path(cmd->str[1], shell, 2))
+			{
+				ft_putstr_fd("minishell: cd: ", 2);
+				perror(cmd->str[1]);
+			}
+		}
 	}
 	return (1);
 }

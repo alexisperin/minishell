@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/24 22:10:10 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/25 13:34:33 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	ft_echo(t_cmds *cmd);
 int	ft_env(char **env);
 int	ft_exit(t_cmds *cmd, int type);
 int	ft_cd(t_cmds *cmd, t_shell *shell);
-int	ft_export(t_cmds *cmd, t_shell *shell);
+int	ft_export(t_cmds *cmd, t_shell *shell, char *str);
 int	ft_unset(t_cmds *cmd, t_shell *shell);
 
 //Utils

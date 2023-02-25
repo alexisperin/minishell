@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:25 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/24 21:09:42 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/25 13:48:18 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,23 @@ char	**new_arr(char **env, char **rtn, char *str)
 	return (rtn);
 }
 
-int	ft_export(t_cmds *cmd, t_shell *shell)
+int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 {
-	int	i;
+	int		i;
 	char	**temp;
+	char	**rtn;
+	int		cd;
 
 	i = 0;
-	if (!cmd->str[1])
+	cd = 0;
+	if (str)
+		cd = 1;
+	if (!str && !cmd->str[1])
 	{
 		printf("Print env sorted");
 		return (1);
 	}
-	else if (ft_strncmp(cmd->str[1], "=", 1) == 0)
+	else if (!str && ft_strncmp(cmd->str[1], "=", 1) == 0)
 	{
 		ft_putstr_fd("minishell: export: `=': not a valid identifier\n", 2);
 	}
@@ -56,11 +61,13 @@ int	ft_export(t_cmds *cmd, t_shell *shell)
 	{
 		while (shell->env[i])
 			i++;
-		char **rtn = ft_calloc(sizeof(char *), i + 2);
-		temp = new_arr(shell->env, rtn, cmd->str[1]);
+		rtn = ft_calloc(sizeof(char *), i + 2);
+		if (cd)
+			temp = new_arr(shell->env, rtn, str);
+		else
+			temp = new_arr(shell->env, rtn, cmd->str[1]);
 		ft_free_arr(shell->env);
 		shell->env = temp;
-		//ft_free_arr(temp);
 	}
 	return (1);
 }
