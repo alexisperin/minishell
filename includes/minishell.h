@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/25 13:34:33 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/25 15:28:47 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,18 @@ void	execute2(t_shell *shell); // To remove
 void	execute3(t_shell *shell); // To remove
 
 //Builtins
-int	ft_pwd(void);
-int	ft_echo(t_cmds *cmd);
-int	ft_env(char **env);
-int	ft_exit(t_cmds *cmd, int type);
-int	ft_cd(t_cmds *cmd, t_shell *shell);
-int	ft_export(t_cmds *cmd, t_shell *shell, char *str);
-int	ft_unset(t_cmds *cmd, t_shell *shell);
+int		ft_pwd(void);
+int		ft_echo(t_cmds *cmd);
+int		ft_env(char **env);
+int		ft_exit(t_cmds *cmd, int type);
+int		ft_cd(t_cmds *cmd, t_shell *shell);
+int		add_path(t_shell *shell, char *temp);
+int		ft_export(t_cmds *cmd, t_shell *shell, char *str);
+int		ft_unset(t_cmds *cmd, t_shell *shell);
+
+//Builtins Utils
+int 	modify_path(t_shell *shell, char *temp, int code, int code2);
+char	*get_pwd(void);
 
 //Utils
 void	display_header(void);

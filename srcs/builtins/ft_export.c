@@ -3,15 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:25 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/25 13:48:18 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/25 15:36:24 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+
+int	check_validity(char *str)
+{
+	int i;
+	int	equ;
+
+	i = 0;
+	equ = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+			equ = 1;
+		i++;
+	}
+	return (equ);
+}
 
 char	**new_arr(char **env, char **rtn, char *str)
 {
@@ -57,6 +73,8 @@ int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 	{
 		ft_putstr_fd("minishell: export: `=': not a valid identifier\n", 2);
 	}
+	else if (!check_validity(cmd->str[1]))
+		return (1);
 	else
 	{
 		while (shell->env[i])

@@ -3,37 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:04:29 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/25 13:43:08 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/25 15:28:15 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-char	*get_pwd(void)
-{
-	char	*pwd;
-	
-	pwd = malloc(sizeof(*pwd) * PATH_MAX);
-	if (!pwd)
-		return (NULL);
-	if (getcwd(pwd, PATH_MAX))
-		return (pwd);
-	else
-		return (NULL);
-}
-
 int	add_path(t_shell *shell, char *temp)
 {
 	int		i;
 	int		old;
+	int		p;
 	char	*pwd;
 
 	i = 0;
 	old = 1;
+	p = 2;
 	while (shell->env[i])
 	{
 		if (ft_strncmp(shell->env[i], "PWD", 3) == 0)
@@ -43,6 +32,7 @@ int	add_path(t_shell *shell, char *temp)
 			if (!pwd)
 				return (-1);
 			shell->env[i] = ft_strjoin("PWD=", pwd);
+			p = 0;
 		}
 		else if (ft_strncmp(shell->env[i], "OLDPWD=", 6) == 0)
 		{
@@ -52,12 +42,8 @@ int	add_path(t_shell *shell, char *temp)
 		}
 		i++;
 	}
-	if (old)
-	{
-		printf("CALL EXPORT\n");
-		ft_export(0, shell, "OLDPWD=");
-		return (-1);
-	}
+	if (old || p)
+		modify_path(shell, temp, old, p);
 	return (0);
 }
 
