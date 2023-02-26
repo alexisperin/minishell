@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/25 15:28:47 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/26 11:20:54 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <signal.h>
+# include <termios.h>
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -105,6 +106,7 @@ int		var_len(char *str, int len, char **env);
 void	execute(t_shell *shell);
 void	execute2(t_shell *shell); // To remove
 void	execute3(t_shell *shell); // To remove
+int		check_equ(t_cmds *cmd, t_shell *shell);
 
 //Builtins
 int		ft_pwd(void);

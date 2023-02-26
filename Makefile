@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+         #
+#    By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/02/25 15:18:54 by aburnott         ###   ########.fr        #
+#    Updated: 2023/02/26 11:25:04 by aburnott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC_FILE	= main.c \
 				expander/expander.c \
 				expander/expander_utils.c \
 				executor/executor.c \
+				executor/local_values.c \
 				builtins/ft_pwd.c \
 				builtins/ft_echo.c \
 				builtins/ft_env.c \

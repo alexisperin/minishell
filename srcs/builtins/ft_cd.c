@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:04:29 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/25 15:28:15 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/26 11:33:45 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	add_path(t_shell *shell, char *temp)
 			if (!pwd)
 				return (-1);
 			shell->env[i] = ft_strjoin("PWD=", pwd);
+			free(pwd);
 			p = 0;
 		}
 		else if (ft_strncmp(shell->env[i], "OLDPWD=", 6) == 0)

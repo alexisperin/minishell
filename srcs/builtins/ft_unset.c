@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:45:56 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/24 21:17:58 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/26 11:34:36 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char	**unset_arr(char **env, char **rtn, char *str)
 	{
 		if (ft_strncmp(env[i], str, ft_strlen(str)) != 0)
 		{
-			//printf("| %d | CURRENT VALUE: %s\n", i, env[i]);
 			rtn[j] = ft_strdup(env[i]);
 			if (!rtn[j])
 			{
@@ -51,5 +50,5 @@ int	ft_unset(t_cmds *cmd, t_shell *shell)
 	temp = unset_arr(shell->env, rtn, cmd->str[1]);
 	ft_free_arr(shell->env);
 	shell->env = temp;
-	return (0);
+	return (1);
 }

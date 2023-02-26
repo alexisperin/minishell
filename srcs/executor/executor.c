@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/25 13:34:44 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/26 11:26:03 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ bool	execute_builtin(t_cmds *cmd, t_shell *shell)
 int	execute_cmd(t_cmds *cmd, t_shell *shell)
 {
 	int		i;
+	int		ret;
 	char	**path;
 	char	*tmp;
 
 	i = 0;
+	ret = -1;
 	if (!execute_builtin(cmd, shell))
 	{
 		while (shell->env[i])
@@ -54,12 +56,16 @@ int	execute_cmd(t_cmds *cmd, t_shell *shell)
 			tmp = ft_strjoin(path[i], "/");
 			tmp = ft_strjoin_free(tmp, cmd->str[0]);
 			if (access(tmp, F_OK) == 0)
-				execve(tmp, cmd->str, shell->env);
+			{
+				ret = execve(tmp, cmd->str, shell->env);
+			}
 			free(tmp);
 			i++;
 		}
 		ft_free_arr(path);
 	}
+	if (ret == -1)
+		check_equ(cmd, shell);
 	exit(0); // TO update
 }
 void	execute(t_shell *shell)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:25 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/25 15:36:24 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/26 11:27:00 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 	{
 		ft_putstr_fd("minishell: export: `=': not a valid identifier\n", 2);
 	}
-	else if (!check_validity(cmd->str[1]))
+	else if (!str && !check_validity(cmd->str[1]))
 		return (1);
 	else
 	{
