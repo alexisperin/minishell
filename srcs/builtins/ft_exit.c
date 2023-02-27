@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:32:45 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/25 11:30:40 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:08:03 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_exit(t_cmds *cmd, int type)
 	check = 0;
 	if (type)
 	{
-		ft_putstr_fd("\nexit\n", 1);
+		ft_putstr_fd("exit\n", 1);
 		exit (0);
 	}
 	else

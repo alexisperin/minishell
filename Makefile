@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+         #
+#    By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/02/26 11:25:04 by aburnott         ###   ########.fr        #
+#    Updated: 2023/02/27 16:03:53 by aburnott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,20 +47,21 @@ OBJS_DIR	= $(sort $(dir $(OBJS)))
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g
 INCS		= $(foreach d, $(INCDIR), -I$d)
-
+LDFLAGS =-L/Users/aburnott/.brew/opt/readline/lib
+CPPFLAGS =-I/Users/aburnott/.brew/opt/readline/include
 # libft
 LIBFT_DIR	= libft
 LIBFT		= ${LIBFT_DIR}/libft.a
 
 ${OBJSDIR}/%.o: ${SRCS_DIR}/%.c
 			@mkdir -p ${OBJSDIR} ${OBJS_DIR}
-			${CC} ${CFLAGS} ${INCS} -c -o $@ $<
+			${CC} ${CFLAGS} ${INCS} $(CPPFLAGS) -c -o $@ $<
 
 all:		${NAME}
 
 ${NAME}:	${OBJS}
 			make -C ${LIBFT_DIR}
-			${CC} ${CFLAGS} ${OBJS} ${LIBFT} -lreadline -o ${NAME}
+			${CC} ${CFLAGS} ${OBJS} ${LIBFT} $(CPPFLAGS) $(LDFLAGS) -lreadline -o ${NAME}
 
 clean:
 			make clean -C ${LIBFT_DIR}
