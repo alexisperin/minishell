@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 09:56:19 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/24 22:09:57 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/01 17:06:53 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int ac, char **av, char **envp)
 		return (-1);
 	}
 	shell.env = ft_arrdup(envp);
+	shell.return_value = 0;
 	display_header();
 	sig_handler();
 	while (1)

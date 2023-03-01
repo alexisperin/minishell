@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:30:08 by aperin            #+#    #+#             */
-/*   Updated: 2022/10/05 20:50:02 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/01 16:57:13 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_itoa(int n)
 
 	nbr = (long) n;
 	len = ft_itoa_len(nbr);
-	str = malloc((len + 1) * sizeof(char));
+	str = ft_malloc((len + 1) * sizeof(char));
 	if (!str)
 		return (0);
 	str[len] = 0;

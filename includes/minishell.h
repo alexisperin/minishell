@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/01 15:09:23 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/01 17:06:01 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_shell
 {
 	char	**env;
 	t_cmds	*cmds;
+	int		return_value;
 }			t_shell;
 
 //Read input
@@ -98,7 +99,7 @@ void	free_cmds(t_cmds *cmds);
 
 //Expander
 void	expander(t_shell *shell);
-int		get_expanded_size(char *str, char **env);
+int		get_expanded_size(char *str, t_shell *shell);
 int		key_len(char *str);
 int		var_len(char *str, int len, char **env);
 
