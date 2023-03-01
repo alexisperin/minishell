@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:29:58 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/25 11:20:31 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/28 10:14:57 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	read_input(t_shell *shell)
 		// print_cmd(shell->cmds);
 		expander(shell);
 		// print_cmd(shell->cmds);
-		execute3(shell);
+		execute(shell);
 		free_cmds(shell->cmds);
 	}
 	if (!str)

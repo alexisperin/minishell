@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/26 11:26:03 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/02/28 10:48:56 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,77 +68,15 @@ int	execute_cmd(t_cmds *cmd, t_shell *shell)
 		check_equ(cmd, shell);
 	exit(0); // TO update
 }
+
 void	execute(t_shell *shell)
-{
-	t_cmds	*curr;
-	pid_t	pid;
-
-	curr = shell->cmds;
-	while (curr)
-	{
-		if (!execute_builtin(curr, shell))
-		{
-			pid = fork();
-			if (pid == -1)
-				exit(EXIT_FAILURE); // HANDLE ERROR
-			if (pid == 0)
-				execute_cmd(curr, shell);
-			waitpid(pid, NULL, 0); // Handle error
-		}
-		curr = curr->next;
-	}
-}
-
-void	execute2(t_shell *shell)
-{
-	pid_t	pid[2];
-	int		pipefd[2];
-
-	// int fd = open("file", O_CREAT | O_RDWR);
-	
-	pipe(pipefd); // Protection
-	pid[0] = fork();
-	if (pid[0] == 0)
-	{
-		close(pipefd[0]);
-		dup2(pipefd[1], STDOUT); //Protection
-		// dup2(fd, STDIN);
-		// close(pipefd[1]);
-		execute_cmd(shell->cmds, shell);
-	}
-	pid[1] = fork();
-	if (pid[1] == 0)
-	{
-		close(pipefd[1]);
-		dup2(pipefd[0], STDIN);
-		// dup2(fd, STDOUT);
-		execute_cmd(shell->cmds->next, shell);
-	}
-	close(pipefd[0]);
-	close(pipefd[1]);
-	waitpid(pid[0], NULL, 0); // Handle error
-	waitpid(pid[1], NULL, 0); // Handle error
-}
-
-// void	execute_cmd(t_cmds *cmd, char **env, int fd_in, int fd_out)
-// {
-// 	cmd->pid = fork();
-// 	if (cmd->pid == -1)
-// 		exit(0); // Handle error
-// 	if (cmd->pid != 0)
-// 		return ;
-// 	if (cmd->redir)
-// 		handle_redir(cmd->redir, fd_in, fd_out);
-// }
-
-void	execute3(t_shell *shell)
 {
 	t_cmds	*curr;
 	int		prev_fd;
 
 	prev_fd = -1;
 	curr = shell->cmds;
-	if (execute_builtin(curr, shell))
+	if (curr->next == NULL && execute_builtin(curr, shell))
 		return ;
 	while (curr)
 	{
