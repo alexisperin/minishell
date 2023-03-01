@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/01 12:14:29 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/01 14:46:58 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ int	execute_cmd(t_cmds *cmd, t_shell *shell)
 		}
 		ft_free_arr(path);
 	}
-	if (ret == -1)
-		check_equ(cmd, shell);
 	exit(0); // TO update
 }
 
@@ -86,7 +84,8 @@ void	execute(t_shell *shell)
 
 	prev_fd = -1;
 	curr = shell->cmds;
-	if (curr->next == NULL && execute_builtin(curr, shell))
+	if (curr->next == NULL
+		&& (check_equ(curr, shell) || execute_builtin(curr, shell)))
 		return ;
 	while (curr)
 	{

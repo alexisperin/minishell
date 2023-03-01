@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:25 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/26 11:27:00 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/01 14:57:50 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,27 @@ char	**new_arr(char **env, char **rtn, char *str)
 	return (rtn);
 }
 
+int	send_arr(t_shell *shell, char *str)
+{
+	int		i;
+	char	**rtn;
+	char	**temp;
+	
+	i = 0;
+	while (shell->env[i])
+			i++;
+		rtn = ft_calloc(sizeof(char *), i + 2);
+			temp = new_arr(shell->env, rtn, str);
+		ft_free_arr(shell->env);
+		shell->env = temp;
+	return (1);
+}
+
 int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 {
 	int		i;
-	char	**temp;
-	char	**rtn;
-	int		cd;
 
 	i = 0;
-	cd = 0;
-	if (str)
-		cd = 1;
 	if (!str && !cmd->str[1])
 	{
 		printf("Print env sorted");
@@ -77,15 +87,16 @@ int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 		return (1);
 	else
 	{
-		while (shell->env[i])
-			i++;
-		rtn = ft_calloc(sizeof(char *), i + 2);
-		if (cd)
-			temp = new_arr(shell->env, rtn, str);
+		if (str)
+			send_arr(shell, str);
 		else
-			temp = new_arr(shell->env, rtn, cmd->str[1]);
-		ft_free_arr(shell->env);
-		shell->env = temp;
+		{
+			while (cmd->str[i])
+			{
+				send_arr(shell, cmd->str[i]);
+				i++;
+			}
+		}
 	}
 	return (1);
 }
