@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/01 12:14:29 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/01 16:00:14 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ int	execute_cmd(t_cmds *cmd, t_shell *shell)
 			i++;
 		}
 		ft_free_arr(path);
+		ft_putstr_fd(cmd->str[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
 	}
-	if (ret == -1)
-		check_equ(cmd, shell);
 	exit(0); // TO update
 }
 
@@ -86,28 +86,28 @@ void	execute(t_shell *shell)
 
 	prev_fd = -1;
 	curr = shell->cmds;
-	if (curr->next == NULL && execute_builtin(curr, shell))
+	if (curr->next == NULL
+		&& (check_equ(curr, shell) || execute_builtin(curr, shell)))
 		return ;
 	while (curr)
 	{
 		if (curr->next != NULL)
-			pipe(curr->pipefd);
-		curr->pid = fork();
-		if (curr->pid == -1)
-			exit(0); // HANDLE ERROR
+			ft_pipe(curr->pipefd);
+		curr->pid = ft_fork();
 		if (curr->pid == 0)
 		{
 			if (curr->n > 1)
 			{
-				dup2(prev_fd, STDIN); // HANDLE ERROR
+				ft_dup2(prev_fd, STDIN);
 				close(prev_fd);
 			}
 			if (curr->next != NULL)
 			{
-				dup2(curr->pipefd[1], STDOUT); //Protection
+				ft_dup2(curr->pipefd[1], STDOUT);
 				close(curr->pipefd[1]);
 				close(curr->pipefd[0]);
 			}
+			handle_redirections(curr);
 			execute_cmd(curr, shell);
 		}
 		close(prev_fd);
