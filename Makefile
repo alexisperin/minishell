@@ -6,7 +6,7 @@
 #    By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/02/27 16:03:53 by aburnott         ###   ########.fr        #
+#    Updated: 2023/03/01 16:19:11 by aburnott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ SRC_FILE	= main.c \
 				expander/expander.c \
 				expander/expander_utils.c \
 				executor/executor.c \
+				executor/executor_utils.c \
 				executor/local_values.c \
+				redirections/redirections.c \
 				builtins/ft_pwd.c \
 				builtins/ft_echo.c \
 				builtins/ft_env.c \
