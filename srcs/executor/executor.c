@@ -6,12 +6,24 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/28 10:48:56 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/01 12:14:29 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+
+bool	execute_currdir(t_cmds *cmd, t_shell *shell)
+{
+	if (ft_strchr(cmd->str[0], '/') == NULL)
+		return (false);
+	if (access(cmd->str[0], F_OK) == 0)
+	{
+		if (execve(cmd->str[0], cmd->str, shell->env) == -1)
+			exit(0); // HANDLE ERROR
+	}
+	return (false);
+}
 
 bool	execute_builtin(t_cmds *cmd, t_shell *shell)
 {
@@ -41,7 +53,7 @@ int	execute_cmd(t_cmds *cmd, t_shell *shell)
 
 	i = 0;
 	ret = -1;
-	if (!execute_builtin(cmd, shell))
+	if (!execute_builtin(cmd, shell) && !execute_currdir(cmd, shell))
 	{
 		while (shell->env[i])
 		{
@@ -56,9 +68,7 @@ int	execute_cmd(t_cmds *cmd, t_shell *shell)
 			tmp = ft_strjoin(path[i], "/");
 			tmp = ft_strjoin_free(tmp, cmd->str[0]);
 			if (access(tmp, F_OK) == 0)
-			{
 				ret = execve(tmp, cmd->str, shell->env);
-			}
 			free(tmp);
 			i++;
 		}
