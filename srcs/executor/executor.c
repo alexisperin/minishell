@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/01 14:46:58 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:20:44 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,11 @@ int	execute_cmd(t_cmds *cmd, t_shell *shell)
 			i++;
 		}
 		ft_free_arr(path);
+		ft_putstr_fd(cmd->str[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
 	}
+	if (ret == -1)
+		check_equ(cmd, shell);
 	exit(0); // TO update
 }
 
@@ -90,23 +94,22 @@ void	execute(t_shell *shell)
 	while (curr)
 	{
 		if (curr->next != NULL)
-			pipe(curr->pipefd);
-		curr->pid = fork();
-		if (curr->pid == -1)
-			exit(0); // HANDLE ERROR
+			ft_pipe(curr->pipefd);
+		curr->pid = ft_fork();
 		if (curr->pid == 0)
 		{
 			if (curr->n > 1)
 			{
-				dup2(prev_fd, STDIN); // HANDLE ERROR
+				ft_dup2(prev_fd, STDIN);
 				close(prev_fd);
 			}
 			if (curr->next != NULL)
 			{
-				dup2(curr->pipefd[1], STDOUT); //Protection
+				ft_dup2(curr->pipefd[1], STDOUT);
 				close(curr->pipefd[1]);
 				close(curr->pipefd[0]);
 			}
+			handle_redirections(curr);
 			execute_cmd(curr, shell);
 		}
 		close(prev_fd);

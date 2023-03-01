@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/01 14:22:40 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:20:03 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,13 @@ int		var_len(char *str, int len, char **env);
 
 //Executor
 void	execute(t_shell *shell);
-void	execute2(t_shell *shell); // To remove
-void	execute3(t_shell *shell); // To remove
+void	ft_dup2(int fd1, int fd2);
+pid_t	ft_fork(void);
+void	ft_pipe(int fd[2]);
 int		check_equ(t_cmds *cmd, t_shell *shell);
+
+//Redirections
+bool	handle_redirections(t_cmds *cmd);
 
 //Builtins
 int		ft_pwd(void);
