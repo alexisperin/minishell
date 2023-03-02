@@ -1,12 +1,12 @@
 # minishell
 
 To do:
-- update expander with local evironment
+- local variables
+- update expander with local environment
 - expand heredoc
 - echo $
 - builtins (leaks, ...)
-- local variables
-- signals (ctrl-\ ?)
 - return value
 - error handling
+- signals (ctrl-\ ?)
 - norm
