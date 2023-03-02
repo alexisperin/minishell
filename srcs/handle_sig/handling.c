@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handling.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 22:05:06 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/26 11:08:39 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/02 11:39:47 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,17 @@ int	event(void)
 void	ctrl_slash(int sig)
 {
 	(void) sig;
+	// rl_on_new_line();
+	// rl_redisplay();
 	return ;
 }
 
 void	ctrl_c(int sig)
 {
 	(void) sig;
-	ft_putstr_fd("\n", 1);
+	write(1, "\n", 1);
 	rl_on_new_line();
-	//rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	rl_redisplay();
 	//rl_done = 1;
 	return ;

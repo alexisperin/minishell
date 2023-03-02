@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:29:58 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/28 10:14:57 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/02 10:46:24 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	read_input(t_shell *shell)
 	char	*str;
 	t_lexer	*lexer;
 
-	str = readline("~$ ");
+	str = readline(PROMPT);
 	lexer = get_lexer(str);
 	if (lexer)
 	{

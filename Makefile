@@ -6,7 +6,7 @@
 #    By: aperin <aperin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/03/02 09:01:05 by aperin           ###   ########.fr        #
+#    Updated: 2023/03/02 11:22:31 by aperin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,19 +51,22 @@ CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g
 INCS		= $(foreach d, $(INCDIR), -I$d)
 
+LDFLAGS		= -L/Users/${USER}/.brew/opt/readline/lib
+CPPFLAGS	= -I/Users/${USER}/.brew/opt/readline/include
+
 # libft
 LIBFT_DIR	= libft
 LIBFT		= ${LIBFT_DIR}/libft.a
 
 ${OBJSDIR}/%.o: ${SRCS_DIR}/%.c
 			@mkdir -p ${OBJSDIR} ${OBJS_DIR}
-			${CC} ${CFLAGS} ${INCS} -c -o $@ $<
+			${CC} ${CFLAGS} ${CPPFLAGS} ${INCS} -c -o $@ $<
 
 all:		${NAME}
 
 ${NAME}:	${OBJS}
 			make -C ${LIBFT_DIR}
-			${CC} ${CFLAGS} ${OBJS} ${LIBFT} -lreadline -o ${NAME}
+			${CC} ${CFLAGS} ${OBJS} ${LIBFT} ${LDFLAGS} ${CPPFLAGS} -lreadline -o ${NAME}
 
 clean:
 			make clean -C ${LIBFT_DIR}

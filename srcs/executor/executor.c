@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/01 16:40:42 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/02 15:09:53 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	execute_currdir(t_cmds *cmd, t_shell *shell)
 	return (false);
 }
 
-bool	execute_builtin(t_cmds *cmd, t_shell *shell)
+int	execute_builtin(t_cmds *cmd, t_shell *shell)
 {
 	if (ft_strncmp(cmd->str[0], "pwd", 4) == 0)
 		return (ft_pwd());
@@ -44,7 +44,7 @@ bool	execute_builtin(t_cmds *cmd, t_shell *shell)
 	return (0);
 }
 
-int	execute_cmd(t_cmds *cmd, t_shell *shell)
+void	execute_cmd(t_cmds *cmd, t_shell *shell)
 {
 	int		i;
 	char	**path;
@@ -65,20 +65,43 @@ int	execute_cmd(t_cmds *cmd, t_shell *shell)
 		{
 			tmp = ft_strjoin(path[i], "/");
 			tmp = ft_strjoin_free(tmp, cmd->str[0]);
-			if (access(tmp, F_OK) == 0)
-				if (execve(tmp, cmd->str, shell->env) == -1)
-				{
-					perror(cmd->str[0]);
-					exit(0); //TO UPDATE
-				}
+			if (access(tmp, F_OK) == 0
+				&& execve(tmp, cmd->str, shell->env) == -1)
+			{
+				perror(cmd->str[0]);
+				exit(0); //TO UPDATE
+			}
 			free(tmp);
 			i++;
 		}
 		ft_free_arr(path);
-		ft_putstr_fd(cmd->str[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
+		ft_putstr_fd(cmd->str[0], STDERR);
+		ft_putstr_fd(": command not found\n", STDERR);
+		exit(127);
 	}
 	exit(0); // TO update
+}
+
+bool	single_cmd(t_shell *shell)
+{
+	int	save_stdin;
+	int	save_stdout;
+
+	save_stdin = ft_dup(STDIN);
+	save_stdout = ft_dup(STDOUT);
+	if (is_builtin(shell->cmds))
+	{
+		handle_redirections(shell->cmds);
+		execute_builtin(shell->cmds, shell);
+		ft_dup2(save_stdin, STDIN);
+		ft_dup2(save_stdout, STDOUT);
+		return (true);
+	}
+	// else if (local_var())
+	// {
+	// 	Handle local variables here
+	// }
+	return (false);
 }
 
 void	execute(t_shell *shell)
@@ -88,8 +111,7 @@ void	execute(t_shell *shell)
 
 	prev_fd = -1;
 	curr = shell->cmds;
-	if (curr->next == NULL
-		&& (check_equ(curr, shell) || execute_builtin(curr, shell)))
+	if (curr->next == NULL && single_cmd(shell))
 		return ;
 	while (curr)
 	{
