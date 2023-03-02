@@ -6,7 +6,7 @@
 #    By: aperin <aperin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/03/01 15:09:03 by aperin           ###   ########.fr        #
+#    Updated: 2023/03/02 09:01:05 by aperin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC_FILE	= main.c \
 				executor/executor_utils.c \
 				executor/local_values.c \
 				redirections/redirections.c \
+				redirections/heredoc.c \
 				builtins/ft_pwd.c \
 				builtins/ft_echo.c \
 				builtins/ft_env.c \

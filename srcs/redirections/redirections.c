@@ -6,13 +6,13 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 14:58:12 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/01 16:03:12 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/02 08:41:00 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	redir_output(char *file, t_token token)
+static void	redir_output(char *file, t_token token)
 {
 	int	fd;
 
@@ -29,10 +29,9 @@ static bool	redir_output(char *file, t_token token)
 	}
 	ft_dup2(fd, STDOUT);
 	close(fd);
-	return (true);
 }
 
-static bool	redir_input(char *file)
+static void	redir_input(char *file)
 {
 	int	fd;
 
@@ -44,22 +43,21 @@ static bool	redir_input(char *file)
 	}
 	ft_dup2(fd, STDIN);
 	close(fd);
-	return (true);
 }
 
-bool	handle_redirections(t_cmds *cmd)
+void	handle_redirections(t_cmds *cmd)
 {
 	t_lexer	*curr;
 
 	curr = cmd->redir;
 	while (curr)
 	{
-		if (curr->token == L && !redir_input(curr->next->word))
-			return (false);
-		else if ((curr->token == R || curr->token == RR)
-			&& !redir_output(curr->next->word, curr->token))
-			return (false);
+		if (curr->token == L)
+			redir_input(curr->next->word);
+		else if (curr->token == LL)
+			heredoc(curr->next->word);
+		else if ((curr->token == R || curr->token == RR))
+			redir_output(curr->next->word, curr->token);
 		curr = curr->next;
 	}
-	return (true);
 }
