@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   local_values.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 11:19:53 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/01 14:47:15 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/05 16:37:56 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	check_equ(t_cmds *cmd, t_shell *shell)
 	}
 	if (check)
 	{
-		printf("VALUE: %s \n\n", cmd->str[0]);
 		ft_export(0, shell, cmd->str[0]);
 		return (1);
 	}

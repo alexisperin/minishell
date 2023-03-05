@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 15:16:49 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/26 11:24:34 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/05 15:43:49 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,20 @@ char	*get_pwd(void)
 		return (pwd);
 	else
 		return (NULL);
+}
+
+int	check_validity(char *str)
+{
+	int i;
+	int	equ;
+
+	i = 0;
+	equ = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+			equ = 1;
+		i++;
+	}
+	return (equ);
 }

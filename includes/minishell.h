@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/05 14:20:25 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/05 15:44:11 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ int		ft_unset(t_cmds *cmd, t_shell *shell);
 //Builtins Utils
 int 	modify_path(t_shell *shell, char *temp, int code, int code2);
 char	*get_pwd(void);
+int		check_validity(char *str);
 
 //Sort Env
 void	sort_env(t_shell *shell);
