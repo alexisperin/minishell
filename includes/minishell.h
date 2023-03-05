@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/18 00:10:09 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/05 14:20:25 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ typedef struct s_cmds
 typedef struct s_shell
 {
 	char	**env;
-	//char	**local_env;
+	char	**local_env;
+	char	**sorted_env;
 	t_cmds	*cmds;
 	int		return_value;
 }			t_shell;
@@ -127,6 +128,9 @@ int		ft_unset(t_cmds *cmd, t_shell *shell);
 //Builtins Utils
 int 	modify_path(t_shell *shell, char *temp, int code, int code2);
 char	*get_pwd(void);
+
+//Sort Env
+void	sort_env(t_shell *shell);
 
 //Utils
 void	display_header(void);
