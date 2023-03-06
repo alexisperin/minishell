@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:29:58 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/02 10:46:24 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/06 14:16:41 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	print_cmd(t_cmds *cmds) //TO REMOVE
 		print_lexer(cmds->redir);
 		cmds = cmds->next;
 	}
+	printf("----------------------\n");
 }
 
 void	read_input(t_shell *shell)

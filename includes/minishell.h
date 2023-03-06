@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/02 14:36:24 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/06 14:30:14 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	ft_pipe(int fd[2]);
 int		check_equ(t_cmds *cmd, t_shell *shell);
 
 //Redirections
-void	handle_redirections(t_cmds *cmd);
+bool	handle_redirections(t_cmds *cmd, t_shell *shell);
 void	heredoc(char *delimitor);
 
 //Builtins

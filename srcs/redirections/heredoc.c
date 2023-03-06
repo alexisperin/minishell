@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:38:48 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/02 14:58:08 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/06 14:31:37 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	heredoc(char *delimitor)
 	if (fd == -1)
 	{
 		perror("heredoc");
-		exit(1); // TO UPDATE
+		exit(1);
 	}
 	heredoc_loop(fd, delimitor);
 	close(fd);
@@ -63,7 +63,7 @@ void	heredoc(char *delimitor)
 	if (fd == -1)
 	{
 		perror("heredoc");
-		exit(1); // TO UPDATE
+		exit(1);
 	}
 	ft_dup2(fd, STDIN);
 	close(fd);

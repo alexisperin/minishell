@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:27:37 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/23 15:39:45 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:06:38 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ int	ft_echo(t_cmds *cmd)
 	}
 	if (n && check)
 		ft_putchar_fd('\n', 1);
-	return (1);
+	return (0);
 }
