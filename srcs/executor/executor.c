@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/06 15:29:09 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:19:26 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,11 +146,7 @@ void	execute(t_shell *shell)
 	{
 		waitpid(curr->pid, &status, 0);
 		if (WIFEXITED(status))
-		{
 			shell->return_value = WEXITSTATUS(status);
-			// printf("%d\n", shell->return_value);
-		}
-			
 		curr = curr->next;
 	}
 }

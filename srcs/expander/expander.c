@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:11:53 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/06 14:20:46 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:10:17 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,21 @@ static int	copy_variable(char *str, char *new_str, int *j, t_shell * shell)
 		ft_strlcpy(&new_str[*j], &shell->env[i][len],
 					ft_strlen(&shell->env[i][len]) + 1);
 		*j += ft_strlen(&shell->env[i][len]);
+		return (len);
+	}
+	i = 0;
+	while (shell->local_env[i])
+	{
+		if (ft_strncmp(&str[1], shell->local_env[i], len - 1) == 0
+			&& shell->local_env[i][len - 1] == '=')
+			break ;
+		i++;
+	}
+	if (shell->local_env[i])
+	{
+		ft_strlcpy(&new_str[*j], &shell->local_env[i][len],
+					ft_strlen(&shell->local_env[i][len]) + 1);
+		*j += ft_strlen(&shell->local_env[i][len]);
 	}
 	return (len);
 }

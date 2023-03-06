@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:44:57 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/01 17:11:32 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:05:48 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	get_expanded_size(char *str, t_shell *shell)
 	int		size;
 	int		i;
 	int		len;
+	int		ret;
 	char	*return_value;
 
 	size = 0;
@@ -86,7 +87,10 @@ int	get_expanded_size(char *str, t_shell *shell)
 			else
 			{
 				len = key_len(&str[i]);
-				size += var_len(&str[i], len, shell->env) - 1;
+				ret = var_len(&str[i], len, shell->env);
+				if (ret == 0)
+					ret = var_len(&str[i], len, shell->local_env);
+				size += ret - 1;
 			}
 			i += len - 1;
 		}
