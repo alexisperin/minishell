@@ -3,30 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   handling.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/24 22:05:06 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/27 16:06:40 by aburnott         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/03/06 15:14:12 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 #include "libft.h"
 
+int	event(void)
+{
+	printf("TEST\n");
+	return (0);
+}
+
+void	ctrl_slash(int sig)
+{
+	(void) sig;
+	return ;
+}
+
 void	ctrl_c(int sig)
 {
-	if (sig == SIGINT)
-	{
-		ft_putstr_fd("\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	else if (sig == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	(void) sig;
+	ft_putstr_fd("\n", 1);
+	rl_on_new_line();
+	//rl_replace_line("", 0);
+	rl_redisplay();
+	//rl_done = 1;
 	return ;
 }
 

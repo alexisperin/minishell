@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:11:53 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/01 17:13:19 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/06 14:20:46 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ void	expander(t_shell *shell)
 		tmp2 = tmp->redir;
 		while (tmp2)
 		{
-			if (tmp2->token == 0)
-				tmp2->word = expand_str(tmp2->word, shell);
+			if (tmp2->token != 0 && tmp2->token != LL)
+				tmp2->next->word = expand_str(tmp2->next->word, shell);
 			tmp2 = tmp2->next;
 		}
 		tmp = tmp->next;

@@ -6,13 +6,13 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 14:58:12 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/01 16:03:12 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/06 14:32:53 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	redir_output(char *file, t_token token)
+static bool	redir_output(char *file, t_token token, pid_t pid, t_shell *shell)
 {
 	int	fd;
 
@@ -25,14 +25,17 @@ static bool	redir_output(char *file, t_token token)
 	if (fd == -1)
 	{
 		perror(file);
-		exit(1); //TO UPDATE ???
+		if (pid == 0)
+			exit(1);
+		shell->return_value = 1;
+		return (false);
 	}
 	ft_dup2(fd, STDOUT);
 	close(fd);
 	return (true);
 }
 
-static bool	redir_input(char *file)
+static bool	redir_input(char *file, pid_t pid, t_shell *shell)
 {
 	int	fd;
 
@@ -40,25 +43,35 @@ static bool	redir_input(char *file)
 	if (fd == -1)
 	{
 		perror(file);
-		exit(1); //TO UPDATE ???
+		if (pid == 0)
+			exit(1);
+		shell->return_value = 1;
+		return (false);
 	}
 	ft_dup2(fd, STDIN);
 	close(fd);
 	return (true);
 }
 
-bool	handle_redirections(t_cmds *cmd)
+bool	handle_redirections(t_cmds *cmd, t_shell *shell)
 {
 	t_lexer	*curr;
 
 	curr = cmd->redir;
 	while (curr)
 	{
-		if (curr->token == L && !redir_input(curr->next->word))
-			return (false);
-		else if ((curr->token == R || curr->token == RR)
-			&& !redir_output(curr->next->word, curr->token))
-			return (false);
+		if (curr->token == L)
+		{
+			if (!redir_input(curr->next->word, cmd->pid, shell))
+				return (false);
+		}
+		else if (curr->token == LL)
+			heredoc(curr->next->word);
+		else if (curr->token == R || curr->token == RR)
+		{
+			if (!redir_output(curr->next->word, curr->token, cmd->pid, shell))
+				return (false);
+		}
 		curr = curr->next;
 	}
 	return (true);
