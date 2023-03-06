@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 11:19:53 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/06 15:23:33 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:23:51 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ int	check_equ(t_cmds *cmd, t_shell *shell)
 	check = 0;
 	while (cmd->str[0][i])
 	{
-		if (cmd->str[0][i] == ' ')
+		// if (cmd->str[0][i] == ' ')
+		// 	break ;
+		// if (cmd->str[0][i] == '=')
+		// 	check = 1;
+		if(!check_validity(&cmd->str[0][i]))
 			break ;
-		if (cmd->str[0][i] == '=')
-			check = 1;
 		i++;
 	}
 	if (check)
