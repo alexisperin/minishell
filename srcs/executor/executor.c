@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/06 15:24:42 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/06 15:29:09 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,7 @@ bool	single_cmd(t_shell *shell)
 		return (true);
 	}
 	else if (check_equ(shell->cmds, shell))
-	{
-		printf("COUCOU\n");
 		return (true);
-	}
 	return (false);
 }
 
