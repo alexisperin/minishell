@@ -65,7 +65,6 @@ int	send_arr(t_shell *shell, char *str, int type)
 {
 	int		i;
 	char	**rtn;
-	char	**temp;
 	
 	i = 0;
 	if (!type)
@@ -73,24 +72,24 @@ int	send_arr(t_shell *shell, char *str, int type)
 		while (shell->env[i])
 				i++;
 		rtn = ft_calloc(sizeof(char *), i + 2);
-		temp = new_arr(shell->env, rtn, str);
+		new_arr(shell->env, rtn, str);
 		ft_free_arr(shell->env);
-		shell->env = temp;
+		shell->env = rtn;
 	}
 	else
 	{
-		if (!shell->local_env)
+		if (!shell->local_env || shell->local_env[0] == 0)
 		{
 			shell->local_env = ft_calloc(sizeof(char *), 2);
 			shell->local_env[0] = ft_strdup(str);
 			return (1);
 		}
 		while (shell->local_env[i])
-				i++;
+			i++;
 		rtn = ft_calloc(sizeof(char *), i + 2);
-		temp = new_arr(shell->local_env, rtn, str);
+		new_arr(shell->local_env, rtn, str);
 		ft_free_arr(shell->local_env);
-		shell->local_env = temp;
+		shell->local_env = rtn;
 	}
 	return (1);
 }
@@ -132,7 +131,6 @@ int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 	{
 		if (!if_exist(shell->local_env, str))
 			send_arr(shell, str, 1);
-		//printf("\nLOCAL ENV VALUE:\n");
 		ft_env(shell->local_env); //DEBUG TO REMOVE
 	}
 	else

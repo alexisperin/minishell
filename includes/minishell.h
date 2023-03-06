@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/05 15:44:11 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:19:27 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int		ft_unset(t_cmds *cmd, t_shell *shell);
 int 	modify_path(t_shell *shell, char *temp, int code, int code2);
 char	*get_pwd(void);
 int		check_validity(char *str);
+int		if_exist(char **env, char *str);
 
 //Sort Env
 void	sort_env(t_shell *shell);
