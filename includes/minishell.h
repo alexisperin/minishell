@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/06 14:30:14 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/06 15:16:00 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ typedef struct s_cmds
 typedef struct s_shell
 {
 	char	**env;
+	char	**local_env;
+	char	**sorted_env;
 	t_cmds	*cmds;
 	int		return_value;
 }			t_shell;
@@ -131,6 +133,11 @@ int		ft_unset(t_cmds *cmd, t_shell *shell);
 //Builtins Utils
 int 	modify_path(t_shell *shell, char *temp, int code, int code2);
 char	*get_pwd(void);
+int		check_validity(char *str);
+int		if_exist(char **env, char *str);
+
+//Sort Env
+void	sort_env(t_shell *shell);
 
 //Utils
 void	display_header(void);
