@@ -6,11 +6,44 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 14:34:25 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/01 14:53:28 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/02 14:35:01 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "libft.h"
+
+bool	is_builtin(t_cmds *cmd)
+{
+	if (ft_strncmp(cmd->str[0], "pwd", 4) == 0)
+		return (true);
+	else if (ft_strncmp(cmd->str[0], "echo", 5) == 0)
+		return (true);
+	else if (ft_strncmp(cmd->str[0], "cd", 3) == 0)
+		return (true);
+	else if (ft_strncmp(cmd->str[0], "export", 7) == 0)
+		return (true);
+	else if (ft_strncmp(cmd->str[0], "unset", 6) == 0)
+		return (true);
+	else if (ft_strncmp(cmd->str[0], "env", 4) == 0)
+		return (true);
+	else if (ft_strncmp(cmd->str[0], "exit", 5) == 0)
+		return (true);
+	return (false);
+}
+
+int	ft_dup(int fd)
+{
+	int	new_fd;
+
+	new_fd = dup(fd);
+	if (new_fd == -1)
+	{
+		perror("dup");
+		exit(0); //TO UPDATE
+	}
+	return (new_fd);
+}
 
 void	ft_dup2(int fd1, int fd2)
 {

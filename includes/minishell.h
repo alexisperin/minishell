@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/01 17:06:01 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/06 14:30:14 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
+
+# define PROMPT "\x1B[36mAlexis'Hell ~$ \x1B[0m"
 
 typedef enum e_token
 {
@@ -105,13 +107,16 @@ int		var_len(char *str, int len, char **env);
 
 //Executor
 void	execute(t_shell *shell);
+bool	is_builtin(t_cmds *cmd);
+int		ft_dup(int fd);
 void	ft_dup2(int fd1, int fd2);
 pid_t	ft_fork(void);
 void	ft_pipe(int fd[2]);
 int		check_equ(t_cmds *cmd, t_shell *shell);
 
 //Redirections
-bool	handle_redirections(t_cmds *cmd);
+bool	handle_redirections(t_cmds *cmd, t_shell *shell);
+void	heredoc(char *delimitor);
 
 //Builtins
 int		ft_pwd(void);
