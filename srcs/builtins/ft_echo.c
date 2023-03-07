@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:27:37 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/07 16:07:20 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:13:38 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_n(t_cmds *cmd, int i, int *check, int *n)
 			i++;
 		}
 		else
-			i = 0;
+			i = 1;
 		if (i > 0)
 			while ((ft_strncmp(cmd->str[i], "-n", 3) == 0))
 				i++;
