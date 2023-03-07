@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 13:07:10 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/07 13:13:06 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,6 @@ bool	single_cmd(t_shell *shell)
 		ft_dup2(save_stdout, STDOUT);
 		return (true);
 	}
-	if (shell->cmds->str[0] && check_equ(shell->cmds, shell))
-		return (true);
 	return (false);
 }
 
