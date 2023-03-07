@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:27:37 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/06 14:06:38 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/07 16:07:20 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,13 @@ int	check_n(t_cmds *cmd, int i, int *check, int *n)
 		{
 			*check = 0;
 			*n = 0;
+			i++;
 		}
 		else
 			i = 0;
 		if (i > 0)
 			while ((ft_strncmp(cmd->str[i], "-n", 3) == 0))
 				i++;
-		else
-			i++;
 	}
 	return (i);
 }
@@ -44,9 +43,9 @@ int	ft_echo(t_cmds *cmd)
 	i = 1;
 	n = 1;
 	check = 1;
+	i = check_n(cmd, i, &check, &n);
 	while (cmd->str[i])
 	{
-		i = check_n(cmd, i, &check, &n);
 		ft_putstr_fd(cmd->str[i], 1);
 		if (cmd->str[i + 1] != 0)
 			ft_putchar_fd(' ', 1);

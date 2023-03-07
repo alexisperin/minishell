@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:45:56 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/07 13:16:34 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/07 16:27:24 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,19 @@ int	ft_unset(t_cmds *cmd, t_shell *shell)
 {
 	char	**rtn;
 	int		i;
+	int		j;
 	
-	i = 0;
-	while (shell->env[i])
-		i++;
-	rtn = ft_calloc(i + 1, sizeof(char *));
-	unset_arr(shell->env, rtn, cmd->str[1]);
-	ft_free_arr(shell->env);
-	shell->env = rtn;
+	j = 1;
+	while (cmd->str[j])
+	{
+		i = 0;
+		while (shell->env[i])
+			i++;
+		rtn = ft_calloc(i + 1, sizeof(char *));
+		unset_arr(shell->env, rtn, cmd->str[j]);
+		ft_free_arr(shell->env);
+		shell->env = rtn;
+		j++;
+	}
 	return (1);
 }

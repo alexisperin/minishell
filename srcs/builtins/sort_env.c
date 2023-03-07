@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:22:18 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/05 15:21:06 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/07 14:11:03 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	sort_env(t_shell *shell)
 	
 	i = 0;
 	len = 0;
-	if (shell->sorted_env && shell->sorted_env[0] != 0)
+	if (shell->sorted_env != 0)
 		ft_free_arr(shell->sorted_env);
 	env_sort = ft_arrdup(shell->env);
 	while (env_sort[len])

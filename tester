@@ -1,18 +1,13 @@
--- var+=bonjour
--- ARG1=value1 ARG2=value2 ...
--- echo -nnnnn (bad output)
--- echo -n -n -n -n -n -n (segfault)
--- cd double args (missing error message)
--- cd $PWD hi (missing error message)
--- export (segfault)
--- export var ; env | grep var ; export | grep var (segfault)
--- export $ARG (segfault seulememt sur ubuntu ?)
--- var="echo world" ; $var (bad behavior)
--- var="      world" ; echo $var (bad behavior)
--- var="echo this" ; var1="c'est" ; var2='c"est' ; $var $var1 $var2 (wrong behavior)
+++ echo -nnnnn (bad output)
+++ echo -n -n -n -n -n -n (segfault)
+++ cd double args (missing error message)
+++ cd $PWD hi (missing error message)
+++ export (segfault)
+++ export var ; env | grep var ; export | grep var (segfault)
+++ export $ARG (segfault seulememt sur ubuntu ?)
 ++ exit | exit (should not print "exit")
 ++ exit 1 2 3
--- exit 178036478945602741 (wrong error message)
+++ exit 178036478945602741 (wrong error message)
 
 -- << "<<" cat (expand quotes)
 -- << "stop" cat -> dont expand values in the heredoc
