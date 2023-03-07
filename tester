@@ -1,9 +1,6 @@
--- var+=bonjour
--- ARG1=value1 ARG2=value2 ...
 -- echo -nnnnn (bad output)
 -- echo -n -n -n -n -n -n (segfault)
 -- cd double args (missing error message)
--- unset HOME ; cd ~ (wrong behavior)
 -- cd $PWD hi (missing error message)
 -- export (segfault)
 -- export var ; env | grep var ; export | grep var (segfault)
@@ -11,8 +8,8 @@
 -- var="echo world" ; $var (bad behavior)
 -- var="      world" ; echo $var (bad behavior)
 -- var="echo this" ; var1="c'est" ; var2='c"est' ; $var $var1 $var2 (wrong behavior)
--- exit | exit (should not print "exit")
--- exit 1 2 3
+++ exit | exit (should not print "exit")
+++ exit 1 2 3
 -- exit 178036478945602741 (wrong error message)
 
 -- ARG=value cat file
@@ -25,6 +22,9 @@
 -- $EMPTY echo hi (ballec ??)
 -- echo a > out1| <<out2 >| cat (ballec ??)
 -- cat | cat | (ballec ??)
+-- unset HOME ; cd ~ (wrong behavior)
+-- var+=bonjour
+-- ARG1=value1 ARG2=value2 ...
 
 ++ cat << l < file
 ++ << l < file

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 23:52:15 by aburnott          #+#    #+#             */
-/*   Updated: 2023/02/14 23:53:19 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:11:36 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ int	ft_atoi_check(const char *str, int *check)
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 		res = res * 10 + str[i++] - 48;
-	if (sign * res > INT_MAX || sign * res < INT_MIN
-		|| str[i] || i == 0)
+	if (sign * res > INT_MAX || sign * res < INT_MIN)
 		*check = 1;
+	else if (i == 0 || str[i])
+		*check = 2;
 	return (sign * res);
 }
