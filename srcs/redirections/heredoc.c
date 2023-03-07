@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:38:48 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/06 21:13:47 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/07 13:11:31 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,6 @@ static char	*get_var(char *var_name, t_shell *shell)
 		{
 			free(var_name);
 			return (ft_strdup(&shell->env[i][var_len]));
-		}
-		i++;
-	}
-	i = 0;
-	while (shell->local_env && shell->local_env[i])
-	{
-		if (ft_strncmp(&var_name[1], shell->local_env[i], var_len - 1) == 0
-			&& shell->local_env[i][var_len - 1] == '=')
-		{
-			free(var_name);
-			return (ft_strdup(&shell->local_env[i][var_len]));
 		}
 		i++;
 	}
