@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 14:34:25 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/02 14:35:01 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/07 17:05:38 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_dup(int fd)
 	if (new_fd == -1)
 	{
 		perror("dup");
-		exit(0); //TO UPDATE
+		exit(-1);
 	}
 	return (new_fd);
 }
@@ -50,7 +50,7 @@ void	ft_dup2(int fd1, int fd2)
 	if (dup2(fd1, fd2) == -1)
 	{
 		perror("dup2");
-		exit(0); //TO UPDATE
+		exit(-1);
 	}
 }
 
@@ -62,7 +62,7 @@ pid_t	ft_fork(void)
 	if (pid == -1)
 	{
 		perror("fork");
-		exit(0); //TO UPDATE
+		exit(-1);
 	}
 	return (pid);
 }
@@ -72,6 +72,6 @@ void	ft_pipe(int fd[2])
 	if (pipe(fd) == -1)
 	{
 		perror("pipe");
-		exit(0); //TO UPDATE
+		exit(-1);
 	}
 }

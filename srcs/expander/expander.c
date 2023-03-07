@@ -6,14 +6,14 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:11:53 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 13:07:46 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/07 17:01:02 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-static int	copy_variable(char *str, char *new_str, int *j, t_shell * shell)
+static int	copy_variable(char *str, char *new_str, int *j, t_shell *shell)
 {
 	int		i;
 	int		len;
@@ -39,7 +39,7 @@ static int	copy_variable(char *str, char *new_str, int *j, t_shell * shell)
 	if (shell->env && shell->env[i])
 	{
 		ft_strlcpy(&new_str[*j], &shell->env[i][len],
-					ft_strlen(&shell->env[i][len]) + 1);
+			ft_strlen(&shell->env[i][len]) + 1);
 		*j += ft_strlen(&shell->env[i][len]);
 	}
 	return (len);

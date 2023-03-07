@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 13:13:06 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/07 17:19:42 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	execute_currdir(t_cmds *cmd, t_shell *shell)
 	if (access(cmd->str[0], F_OK) == 0)
 	{
 		if (execve(cmd->str[0], cmd->str, shell->env) == -1)
-			exit(0); // HANDLE ERROR
+			exit(-1);
 	}
 	return (false);
 }
@@ -49,8 +49,6 @@ int	execute_builtin(t_cmds *cmd, t_shell *shell)
 void	execute_cmd(t_cmds *cmd, t_shell *shell)
 {
 	int		i;
-	char	**path;
-	char	*tmp;
 
 	i = 0;
 	if (!cmd->str[0])
@@ -63,25 +61,7 @@ void	execute_cmd(t_cmds *cmd, t_shell *shell)
 				break ;
 			i++;
 		}
-		path = ft_split(&shell->env[i][5], ':');
-		i = 0;
-		while (path[i])
-		{
-			tmp = ft_strjoin(path[i], "/");
-			tmp = ft_strjoin_free(tmp, cmd->str[0]);
-			if (access(tmp, F_OK) == 0
-				&& execve(tmp, cmd->str, shell->env) == -1)
-			{
-				perror(cmd->str[0]);
-				exit(1); //TO UPDATE ???
-			}
-			free(tmp);
-			i++;
-		}
-		ft_free_arr(path);
-		ft_putstr_fd(cmd->str[0], STDERR);
-		ft_putstr_fd(": command not found\n", STDERR);
-		exit(127);
+		ft_execve(cmd, shell, ft_split(&shell->env[i][5], ':'));
 	}
 	exit(0);
 }

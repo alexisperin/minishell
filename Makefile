@@ -6,7 +6,7 @@
 #    By: aperin <aperin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/03/07 16:09:45 by aperin           ###   ########.fr        #
+#    Updated: 2023/03/07 17:17:57 by aperin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC_FILE	= main.c \
 				expander/expander_utils.c \
 				executor/executor.c \
 				executor/executor_utils.c \
+				executor/executor_utils2.c \
 				redirections/redirections.c \
 				redirections/heredoc.c \
 				redirections/expand_heredoc.c \
