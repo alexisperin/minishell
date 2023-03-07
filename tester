@@ -1,13 +1,31 @@
-ARG=value cat file
-ARG1=value1 ARG2=value2
-var+=bonjour (to check on macos)
-echo -nnnnn (bad output)
-echo -n -n -n -n -n -n (segfault)
-cd double args (missing error message)
-export (segfault)
-cd $PWD hi (missing error message)
-$EMPTY (must reset exit code) NEEDED ????
-$EMPTY echo hi
+-- var+=bonjour
+-- ARG1=value1 ARG2=value2 ...
+-- echo -nnnnn (bad output)
+-- echo -n -n -n -n -n -n (segfault)
+-- cd double args (missing error message)
+-- unset HOME ; cd ~ (wrong behavior)
+-- cd $PWD hi (missing error message)
+-- export (segfault)
+-- export var ; env | grep var ; export | grep var (segfault)
+-- export $ARG (segfault seulememt sur ubuntu ?)
+-- var="echo world" ; $var (bad behavior)
+-- var="      world" ; echo $var (bad behavior)
+-- var="echo this" ; var1="c'est" ; var2='c"est' ; $var $var1 $var2 (wrong behavior)
+-- exit | exit (should not print "exit")
+-- exit 1 2 3
+-- exit 178036478945602741 (wrong error message)
+
+-- ARG=value cat file
+-- << "<<" cat (expand quotes)
+-- << "stop" cat -> dont expand values in the heredoc
+-- << stop cat -> expand values in the heredoc
+
+-- cd ~ (ballec ??)
+-- $EMPTY (must reset exit code) (ballec ??)
+-- $EMPTY echo hi (ballec ??)
+-- echo a > out1| <<out2 >| cat (ballec ??)
+-- cat | cat | (ballec ??)
+
 ++ cat << l < file
 ++ << l < file
 ++ | | | |
@@ -29,42 +47,26 @@ $EMPTY echo hi
 ++ cat > f1 | cat > f2 | ls
 ++ unset arg1 arg2
 ++ echo < Makefile bonjour
-export var ; env | grep var ; export | grep var (segfault)
-cd ~ (wrong behavior)
-unset HOME ; cd ~ (wrong behavior)
 ++ export HELLO=123 A- WORLD=456 (check exit code)
 ++ echo txt > $var
-export $ARG (segfault)
-ctl + D in heredoc
-export var="echo world" ; $var
-export var= "      world" ; echo $var
-var="ec" ; $var"ho" a
-<< "<<" cat
-echo bonsoir > file | cat < file
-ls > f | ls > f1
-ls | ls | ls | ls | ls | ls | ls | ls
-export var=salut > file
-var = "echo this" ; var1 = "c'est" ; var2 = 'c"est' ; $var $var $var
-ex"it" (has to exit and print exit);
-exit | exit
-exit | ls
-exit 178036478945602741 (some big overflow nbr)
-echo a > out1| <<out2 >| cat
-echo a > out1| <<out2> | cat
-"'ec'ho" salut
-echo salut "" les "" ami
-grep echo < tests.txt > file2
-cat | cat | ls
-cat | cat |
-github ; Lucas Kuhn minishell tester
-> file
-<>
-echo a > file1 <<
-< grep a somefile
-cat > file1  < infile1  >>file2 <infile2
-echo a > file1 | grep a
-grep a
-./minishell
-cat << $HOME
-<< "stop" cat -> dont expand values in the heredoc
-<< stop cat -> expand values in the heredoc
+++ ctl + D in heredoc
+++ echo bonsoir > file | cat < file
+++ ls > f | ls > f1
+++ ls | ls | ls | ls | ls | ls | ls | ls
+++ export var=salut > file
+++ex"it"
+++ exit | ls
+++ echo a > out1| <<out2> | cat
+++ "'ec'ho" salut
+++ echo salut "" les "" ami
+++ grep echo < tests.txt > file2
+++ cat | cat | ls
+++ > file
+++ <>
+++ echo a > file1 <<
+++ < grep a somefile
+++ cat > file1  < infile1  >>file2 <infile2
+++ echo a > file1 | grep a
+++ grep a
+++ ./minishell
+++ cat << $HOME
