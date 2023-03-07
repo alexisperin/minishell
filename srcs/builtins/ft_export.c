@@ -61,21 +61,18 @@ char	**new_arr(char **env, char **rtn, char *str)
 	return (rtn);
 }
 
-int	send_arr(t_shell *shell, char *str, int type)
+int	send_arr(t_shell *shell, char *str)
 {
 	int		i;
 	char	**rtn;
 	
 	i = 0;
-	if (!type)
-	{
-		while (shell->env[i])
-				i++;
-		rtn = ft_calloc(sizeof(char *), i + 2);
-		new_arr(shell->env, rtn, str);
-		ft_free_arr(shell->env);
-		shell->env = rtn;
-	}
+	while (shell->env[i])
+			i++;
+	rtn = ft_calloc(sizeof(char *), i + 2);
+	new_arr(shell->env, rtn, str);
+	ft_free_arr(shell->env);
+	shell->env = rtn;
 	return (1);
 }
 
@@ -86,7 +83,7 @@ int	check_identifier(char *str)
 	i = 0;
 	if (ft_isdigit(str[i]))
 		return (0);
-	while (str[i] != '=')
+	while (str[i] != '=' && str[i])
 	{
 		if (str[i] == '|' || str[i] == '<' || str[i] == '>' || str[i] == '[' || str[i] == ']'
 		|| str[i] == '\'' || str[i] == '\"' || str[i] == ' ' || str[i] == ',' || str[i] == '.'
@@ -112,6 +109,8 @@ int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 		ft_env(shell->sorted_env);
 		return (1);
 	}
+	if (str)
+		send_arr(shell, str);
 	else
 	{
 		while (cmd->str[i])
@@ -131,7 +130,7 @@ int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 			else
 			{
 				if (!check)
-					send_arr(shell, cmd->str[i], 0);
+					send_arr(shell, cmd->str[i]);
 			}
 			i++;
 		}

@@ -1,13 +1,13 @@
--- echo -nnnnn (bad output)
--- echo -n -n -n -n -n -n (segfault)
--- cd double args (missing error message)
--- cd $PWD hi (missing error message)
--- export (segfault)
--- export var ; env | grep var ; export | grep var (segfault)
--- export $ARG (segfault seulememt sur ubuntu ?)
+++ echo -nnnnn (bad output)
+++ echo -n -n -n -n -n -n (segfault)
+++ cd double args (missing error message)
+++ cd $PWD hi (missing error message)
+++ export (segfault)
+++ export var ; env | grep var ; export | grep var (segfault)
+++ export $ARG (segfault seulememt sur ubuntu ?)
 ++ exit | exit (should not print "exit")
 ++ exit 1 2 3
--- exit 178036478945602741 (wrong error message)
+++ exit 178036478945602741 (wrong error message)
 
 -- << "<<" cat (expand quotes)
 -- << "stop" cat -> dont expand values in the heredoc
