@@ -127,12 +127,6 @@ int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 		ft_env(shell->sorted_env);
 		return (1);
 	}
-	if (str)
-	{
-		if (!if_exist(shell->local_env, str))
-			send_arr(shell, str, 1);
-		ft_env(shell->local_env); //DEBUG TO REMOVE
-	}
 	else
 	{
 		while (cmd->str[i])
