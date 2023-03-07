@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:04:29 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/07 14:56:06 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:15:46 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	change_path(char *path, t_shell *shell, int type)
 			return (0);
 		else
 			add_path(shell, current_pwd);
+		free(path_extract);
 	}
 	else if (type == 2)
 	{
@@ -91,6 +92,7 @@ int	change_path(char *path, t_shell *shell, int type)
 		else
 			add_path(shell, current_pwd);
 	}
+	free(current_pwd);
 	return (1);
 }
 
