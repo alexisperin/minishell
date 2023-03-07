@@ -76,21 +76,6 @@ int	send_arr(t_shell *shell, char *str, int type)
 		ft_free_arr(shell->env);
 		shell->env = rtn;
 	}
-	else
-	{
-		if (!shell->local_env || shell->local_env[0] == 0)
-		{
-			shell->local_env = ft_calloc(sizeof(char *), 2);
-			shell->local_env[0] = ft_strdup(str);
-			return (1);
-		}
-		while (shell->local_env[i])
-			i++;
-		rtn = ft_calloc(sizeof(char *), i + 2);
-		new_arr(shell->local_env, rtn, str);
-		ft_free_arr(shell->local_env);
-		shell->local_env = rtn;
-	}
 	return (1);
 }
 
