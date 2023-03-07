@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/06 15:16:00 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:49:48 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int		check_equ(t_cmds *cmd, t_shell *shell);
 
 //Redirections
 bool	handle_redirections(t_cmds *cmd, t_shell *shell);
-void	heredoc(char *delimitor);
+void	heredoc(char *delimitor, t_shell *shell);
 
 //Builtins
 int		ft_pwd(void);

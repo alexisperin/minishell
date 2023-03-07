@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/06 16:19:26 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/06 22:23:53 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	execute_cmd(t_cmds *cmd, t_shell *shell)
 	char	*tmp;
 
 	i = 0;
+	if (!cmd->str[0])
+		exit(0);
 	if (!execute_builtin(cmd, shell) && !execute_currdir(cmd, shell))
 	{
 		while (shell->env[i])
@@ -100,7 +102,7 @@ bool	single_cmd(t_shell *shell)
 		ft_dup2(save_stdout, STDOUT);
 		return (true);
 	}
-	else if (check_equ(shell->cmds, shell))
+	if (shell->cmds->str[0] && check_equ(shell->cmds, shell))
 		return (true);
 	return (false);
 }

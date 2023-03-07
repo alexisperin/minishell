@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:44:57 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/06 17:24:42 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/06 20:49:12 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	var_len(char *str, int len, char **env)
 	int	i;
 
 	i = 0;
-	while (env[i])
+	while (env && env[i])
 	{
 		if (ft_strncmp(&str[1], env[i], len - 1) == 0
 			&& env[i][len - 1] == '=')
