@@ -6,14 +6,14 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:44:57 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 13:08:49 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/07 14:52:19 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-static int	quote_count(char *str)
+int	quote_count(char *str)
 {
 	int	i;
 	int	count;

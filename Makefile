@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+         #
+#    By: aperin <aperin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/03/07 13:06:23 by aburnott         ###   ########.fr        #
+#    Updated: 2023/03/07 16:09:45 by aperin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC_FILE	= main.c \
 				executor/executor_utils.c \
 				redirections/redirections.c \
 				redirections/heredoc.c \
+				redirections/expand_heredoc.c \
 				builtins/ft_pwd.c \
 				builtins/ft_echo.c \
 				builtins/ft_env.c \

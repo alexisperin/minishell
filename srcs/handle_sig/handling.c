@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   handling.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/03/06 15:40:03 by aburnott         ###   ########.fr       */
+/*   Created: 2023/03/07 16:16:31 by aperin            #+#    #+#             */
+/*   Updated: 2023/03/07 16:16:43 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 #include "libft.h"

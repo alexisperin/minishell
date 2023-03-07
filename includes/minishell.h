@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 13:13:13 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/07 16:19:44 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	expander(t_shell *shell);
 int		get_expanded_size(char *str, t_shell *shell);
 int		key_len(char *str);
 int		var_len(char *str, int len, char **env);
+int		quote_count(char *str);
 
 //Executor
 void	execute(t_shell *shell);
@@ -117,7 +118,8 @@ int		check_equ(t_cmds *cmd, t_shell *shell);
 
 //Redirections
 bool	handle_redirections(t_cmds *cmd, t_shell *shell);
-void	heredoc(char *delimitor, t_shell *shell);
+void	heredoc(t_lexer *heredoc, t_shell *shell);
+void	expand_heredoc(char *str, int fd, t_shell *shell);
 
 //Builtins
 int		ft_pwd(void);
@@ -130,7 +132,7 @@ int		ft_export(t_cmds *cmd, t_shell *shell, char *str);
 int		ft_unset(t_cmds *cmd, t_shell *shell);
 
 //Builtins Utils
-int 	modify_path(t_shell *shell, char *temp, int code, int code2);
+int		modify_path(t_shell *shell, char *temp, int code, int code2);
 char	*get_pwd(void);
 int		check_validity(char *str);
 int		if_exist(char **env, char *str);

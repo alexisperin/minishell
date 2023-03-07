@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 14:58:12 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/06 18:49:33 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/07 15:06:09 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ bool	handle_redirections(t_cmds *cmd, t_shell *shell)
 				return (false);
 		}
 		else if (curr->token == LL)
-			heredoc(curr->next->word, shell);
+			heredoc(curr->next, shell);
 		else if (curr->token == R || curr->token == RR)
 		{
 			if (!redir_output(curr->next->word, curr->token, cmd->pid, shell))
