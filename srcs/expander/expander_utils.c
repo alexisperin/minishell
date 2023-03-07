@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:44:57 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/06 16:05:48 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/06 20:49:12 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	var_len(char *str, int len, char **env)
 	int	i;
 
 	i = 0;
-	while (env[i])
+	while (env && env[i])
 	{
 		if (ft_strncmp(&str[1], env[i], len - 1) == 0
 			&& env[i][len - 1] == '=')
@@ -64,12 +64,16 @@ int	get_expanded_size(char *str, t_shell *shell)
 	int		len;
 	int		ret;
 	char	*return_value;
+	bool	in_quote;
 
 	size = 0;
 	i = 0;
+	in_quote = false;
 	while (str[i])
 	{
-		if (str[i] == '\'' && (i == 0 || str[i - 1] != '\\'))
+		if (str[i] == '\"')
+			in_quote = !in_quote;
+		if (str[i] == '\'' && !in_quote)
 		{
 			len = next_quote(str, i);
 			i += len;

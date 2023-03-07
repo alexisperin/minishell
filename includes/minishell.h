@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/06 16:22:22 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:54:32 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int		check_equ(t_cmds *cmd, t_shell *shell);
 
 //Redirections
 bool	handle_redirections(t_cmds *cmd, t_shell *shell);
-void	heredoc(char *delimitor);
+void	heredoc(char *delimitor, t_shell *shell);
 
 //Builtins
 int		ft_pwd(void);

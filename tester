@@ -1,0 +1,72 @@
+-- var+=bonjour
+-- ARG1=value1 ARG2=value2 ...
+-- echo -nnnnn (bad output)
+-- echo -n -n -n -n -n -n (segfault)
+-- cd double args (missing error message)
+-- unset HOME ; cd ~ (wrong behavior)
+-- cd $PWD hi (missing error message)
+-- export (segfault)
+-- export var ; env | grep var ; export | grep var (segfault)
+-- export $ARG (segfault seulememt sur ubuntu ?)
+-- var="echo world" ; $var (bad behavior)
+-- var="      world" ; echo $var (bad behavior)
+-- var="echo this" ; var1="c'est" ; var2='c"est' ; $var $var1 $var2 (wrong behavior)
+-- exit | exit (should not print "exit")
+-- exit 1 2 3
+-- exit 178036478945602741 (wrong error message)
+
+-- ARG=value cat file
+-- << "<<" cat (expand quotes)
+-- << "stop" cat -> dont expand values in the heredoc
+-- << stop cat -> expand values in the heredoc
+
+-- cd ~ (ballec ??)
+-- $EMPTY (must reset exit code) (ballec ??)
+-- $EMPTY echo hi (ballec ??)
+-- echo a > out1| <<out2 >| cat (ballec ??)
+-- cat | cat | (ballec ??)
+
+++ cat << l < file
+++ << l < file
+++ | | | |
+++ var="< file cat"
+++ var=toi=moi
+++ cat | cat > file
+++ cmd < file < file1
+++ var=salut ; echo $var
+++ echo -n-n-n-n-n
+++ echo -nnaaaa
+++ echo "<3" >> "<3"
+++ cd ../../../../../
+++ cat < a > b
+++ cd /
+++ cd -
+++ cat < "file"
+++ cat | cat | ls
+++ var="ec" ; $var"ho" a
+++ cat > f1 | cat > f2 | ls
+++ unset arg1 arg2
+++ echo < Makefile bonjour
+++ export HELLO=123 A- WORLD=456 (check exit code)
+++ echo txt > $var
+++ ctl + D in heredoc
+++ echo bonsoir > file | cat < file
+++ ls > f | ls > f1
+++ ls | ls | ls | ls | ls | ls | ls | ls
+++ export var=salut > file
+++ex"it"
+++ exit | ls
+++ echo a > out1| <<out2> | cat
+++ "'ec'ho" salut
+++ echo salut "" les "" ami
+++ grep echo < tests.txt > file2
+++ cat | cat | ls
+++ > file
+++ <>
+++ echo a > file1 <<
+++ < grep a somefile
+++ cat > file1  < infile1  >>file2 <infile2
+++ echo a > file1 | grep a
+++ grep a
+++ ./minishell
+++ cat << $HOME
