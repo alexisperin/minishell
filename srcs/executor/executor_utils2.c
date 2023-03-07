@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:15:42 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 17:20:31 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/07 19:05:24 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,38 @@ void	ft_execve(t_cmds *cmd, t_shell *shell, char **path)
 	ft_putstr_fd(cmd->str[0], STDERR);
 	ft_putstr_fd(": command not found\n", STDERR);
 	exit(127);
+}
+
+void	ft_waitpid(t_shell *shell)
+{
+	t_cmds	*curr;
+	int		status;
+
+	curr = shell->cmds;
+	while (curr)
+	{
+		waitpid(curr->pid, &status, 0);
+		if (WIFEXITED(status))
+			shell->return_value = WEXITSTATUS(status);
+		curr = curr->next;
+	}
+}
+
+bool	single_cmd(t_shell *shell)
+{
+	int	save_stdin;
+	int	save_stdout;
+
+	if (is_builtin(shell->cmds))
+	{
+		save_stdin = ft_dup(STDIN);
+		save_stdout = ft_dup(STDOUT);
+		shell->cmds->pid = 1;
+		handle_redirections(shell->cmds, shell);
+		execute_builtin(shell->cmds, shell);
+		ft_dup2(save_stdin, STDIN);
+		ft_dup2(save_stdout, STDOUT);
+		return (true);
+	}
+	return (false);
 }

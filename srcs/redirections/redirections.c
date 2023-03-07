@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 14:58:12 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 15:06:09 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/07 18:56:11 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static bool	redir_output(char *file, t_token token, pid_t pid, t_shell *shell)
 		return (false);
 	}
 	ft_dup2(fd, STDOUT);
-	close(fd);
 	return (true);
 }
 
@@ -49,7 +48,6 @@ static bool	redir_input(char *file, pid_t pid, t_shell *shell)
 		return (false);
 	}
 	ft_dup2(fd, STDIN);
-	close(fd);
 	return (true);
 }
 

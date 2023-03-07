@@ -6,14 +6,14 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 17:19:42 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/07 19:07:13 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-bool	execute_currdir(t_cmds *cmd, t_shell *shell)
+static bool	execute_currdir(t_cmds *cmd, t_shell *shell)
 {
 	if (ft_strchr(cmd->str[0], '/') == NULL)
 		return (false);
@@ -46,7 +46,7 @@ int	execute_builtin(t_cmds *cmd, t_shell *shell)
 	return (1);
 }
 
-void	execute_cmd(t_cmds *cmd, t_shell *shell)
+static void	execute_cmd(t_cmds *cmd, t_shell *shell)
 {
 	int		i;
 
@@ -66,30 +66,29 @@ void	execute_cmd(t_cmds *cmd, t_shell *shell)
 	exit(0);
 }
 
-bool	single_cmd(t_shell *shell)
+static void	handle_pipes(t_cmds *cmd, int prev_fd, t_shell *shell)
 {
-	int	save_stdin;
-	int	save_stdout;
-
-	save_stdin = ft_dup(STDIN);
-	save_stdout = ft_dup(STDOUT);
-	if (is_builtin(shell->cmds))
+	if (cmd->next != NULL)
+		ft_pipe(cmd->pipefd);
+	cmd->pid = ft_fork();
+	if (cmd->pid == 0)
 	{
-		shell->cmds->pid = 1;
-		handle_redirections(shell->cmds, shell);
-		execute_builtin(shell->cmds, shell);
-		ft_dup2(save_stdin, STDIN);
-		ft_dup2(save_stdout, STDOUT);
-		return (true);
+		if (cmd->n > 1)
+			ft_dup2(prev_fd, STDIN);
+		if (cmd->next != NULL)
+		{
+			ft_dup2(cmd->pipefd[1], STDOUT);
+			close(cmd->pipefd[0]);
+		}
+		if (handle_redirections(cmd, shell))
+			execute_cmd(cmd, shell);
 	}
-	return (false);
 }
 
 void	execute(t_shell *shell)
 {
 	t_cmds	*curr;
 	int		prev_fd;
-	int		status;
 
 	prev_fd = -1;
 	curr = shell->cmds;
@@ -97,36 +96,11 @@ void	execute(t_shell *shell)
 		return ;
 	while (curr)
 	{
-		if (curr->next != NULL)
-			ft_pipe(curr->pipefd);
-		curr->pid = ft_fork();
-		if (curr->pid == 0)
-		{
-			if (curr->n > 1)
-			{
-				ft_dup2(prev_fd, STDIN);
-				close(prev_fd);
-			}
-			if (curr->next != NULL)
-			{
-				ft_dup2(curr->pipefd[1], STDOUT);
-				close(curr->pipefd[1]);
-				close(curr->pipefd[0]);
-			}
-			if (handle_redirections(curr, shell))
-				execute_cmd(curr, shell);
-		}
+		handle_pipes(curr, prev_fd, shell);
 		close(prev_fd);
 		prev_fd = curr->pipefd[0];
 		close(curr->pipefd[1]);
 		curr = curr->next;
 	}
-	curr = shell->cmds;
-	while (curr)
-	{
-		waitpid(curr->pid, &status, 0);
-		if (WIFEXITED(status))
-			shell->return_value = WEXITSTATUS(status);
-		curr = curr->next;
-	}
+	ft_waitpid(shell);
 }

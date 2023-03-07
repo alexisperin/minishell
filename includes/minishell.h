@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 17:17:42 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/07 19:07:29 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,10 @@ int		quote_count(char *str);
 
 //Executor
 void	execute(t_shell *shell);
+bool	single_cmd(t_shell *shell);
+int		execute_builtin(t_cmds *cmd, t_shell *shell);
 void	ft_execve(t_cmds *cmd, t_shell *shell, char **path);
+void	ft_waitpid(t_shell *shell);
 bool	is_builtin(t_cmds *cmd);
 int		ft_dup(int fd);
 void	ft_dup2(int fd1, int fd2);

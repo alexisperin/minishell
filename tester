@@ -1,6 +1,4 @@
 ++ echo -nnaaaa
-
-
 ++ echo -nnnnn (bad output)
 ++ echo -n -n -n -n -n -n (segfault)
 ++ cd double args (missing error message)

@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 14:34:25 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 17:05:38 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/07 18:54:40 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	ft_dup2(int fd1, int fd2)
 		perror("dup2");
 		exit(-1);
 	}
+	close(fd1);
 }
 
 pid_t	ft_fork(void)
