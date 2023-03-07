@@ -1,3 +1,5 @@
+-- var+=bonjour
+-- ARG1=value1 ARG2=value2 ...
 -- echo -nnnnn (bad output)
 -- echo -n -n -n -n -n -n (segfault)
 -- cd double args (missing error message)
@@ -12,7 +14,6 @@
 ++ exit 1 2 3
 -- exit 178036478945602741 (wrong error message)
 
--- ARG=value cat file
 -- << "<<" cat (expand quotes)
 -- << "stop" cat -> dont expand values in the heredoc
 -- << stop cat -> expand values in the heredoc
@@ -29,11 +30,8 @@
 ++ cat << l < file
 ++ << l < file
 ++ | | | |
-++ var="< file cat"
-++ var=toi=moi
 ++ cat | cat > file
 ++ cmd < file < file1
-++ var=salut ; echo $var
 ++ echo -n-n-n-n-n
 ++ echo -nnaaaa
 ++ echo "<3" >> "<3"
@@ -43,7 +41,6 @@
 ++ cd -
 ++ cat < "file"
 ++ cat | cat | ls
-++ var="ec" ; $var"ho" a
 ++ cat > f1 | cat > f2 | ls
 ++ unset arg1 arg2
 ++ echo < Makefile bonjour
@@ -54,7 +51,7 @@
 ++ ls > f | ls > f1
 ++ ls | ls | ls | ls | ls | ls | ls | ls
 ++ export var=salut > file
-++ex"it"
+++ ex"it"
 ++ exit | ls
 ++ echo a > out1| <<out2> | cat
 ++ "'ec'ho" salut
@@ -70,3 +67,16 @@
 ++ grep a
 ++ ./minishell
 ++ cat << $HOME
+
+NOT NECESSARY
+
+-- var+=bonjour
+-- ARG1=value1 ARG2=value2 ...
+-- var="echo world" ; $var (bad behavior)
+-- var="      world" ; echo $var (bad behavior)
+-- var="echo this" ; var1="c'est" ; var2='c"est' ; $var $var1 $var2 (wrong behavior)
+-- ARG=value cat file
+++ var="< file cat"
+++ var=toi=moi
+++ var=salut ; echo $var
+++ var="ec" ; $var"ho" a
