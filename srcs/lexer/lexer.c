@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 13:32:25 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/06 18:42:23 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/08 08:38:55 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_lexer	*get_lexer(char *str)
 
 	lexer = NULL;
 	i = 0;
-	if (!str || !str[0] || !prelexer_check(str))
+	if (!str || !str[0])
 		return (NULL);
 	while (str[i])
 	{
@@ -88,11 +88,6 @@ t_lexer	*get_lexer(char *str)
 			i += add_token(&str[i], &lexer);
 		else if (str[i])
 			i += add_word(&str[i], &lexer);
-	}
-	if (!lexer || !postlexer_check(lexer))
-	{
-		free_lexer(lexer);
-		return (NULL);
 	}
 	return (lexer);
 }
