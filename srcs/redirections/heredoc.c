@@ -6,12 +6,31 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:38:48 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 16:10:01 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/08 17:23:54 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+
+static int	quote_count(char *str)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == '\"' || str[i] == '\'')
+		{
+			i += next_quote(str, i);
+			count += 2;
+		}
+		i++;
+	}
+	return (count);
+}
 
 static char	*to_expand(char *del, bool *expand)
 {

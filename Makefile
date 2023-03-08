@@ -6,7 +6,7 @@
 #    By: aperin <aperin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/03/07 17:17:57 by aperin           ###   ########.fr        #
+#    Updated: 2023/03/08 17:22:35 by aperin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC_FILE	= main.c \
 				parser/parser.c \
 				parser/parser_utils.c \
 				expander/expander.c \
-				expander/expander_utils.c \
+				expander/expander_quotes.c \
 				executor/executor.c \
 				executor/executor_utils.c \
 				executor/executor_utils2.c \
@@ -39,7 +39,7 @@ SRC_FILE	= main.c \
 				builtins/sort_env.c \
 				utils/display_header.c \
 				handle_sig/handling.c \
-				error/error.c
+				error/error.c \
 				
 SRCS_DIR	= srcs
 OBJSDIR		= objs

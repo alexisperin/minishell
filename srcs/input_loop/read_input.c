@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:29:58 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/08 08:41:45 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/08 17:21:03 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,10 @@ void	read_input(t_shell *shell)
 		lexer = get_lexer(str);
 		if (lexer && postlexer_check(lexer))
 		{
-			expander(shell);
+			// print_lexer(lexer);
+			lexer = expand(lexer, shell->env);
+			// print_lexer(lexer);
 			shell->cmds = get_cmds(lexer);
-			// print_cmd(shell->cmds);
 			// print_cmd(shell->cmds);
 			execute(shell);
 			free_cmds(shell->cmds);
