@@ -37,6 +37,23 @@ int	if_exist(char **env, char *str)
 	return (0);
 }
 
+void	join_arr(t_shell *shell, char *str)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = 0;
+	while (str[len] != '=')
+		len++;
+	while(shell->env[i])
+	{
+		if (!ft_strncmp(shell->env[i], str, len - 2))
+			ft_strjoin(shell->env[i], str);
+		i++;
+	}
+}
+
 char	**new_arr(char **env, char **rtn, char *str)
 {
 	int	i;
@@ -91,7 +108,12 @@ int	check_identifier(char *str)
 		|| str[i] == '^' || str[i] == '%' || str[i] == '#' || str[i] == '@' || str[i] == '!'
 		|| str[i] == '~'
 		|| (str[i] == '=' && i == 0) || str[i] == '-' || str[i] == '?' || str[i] == '&' || str[i] == '*')
-			return (0);
+		{
+			if (str[i] == '+' && str[i + 1] == '=')
+				return (2);
+			else
+				return (0);
+		}
 		i++;
 	}
 	return (1);
@@ -101,6 +123,7 @@ int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 {
 	int		i;
 	int		check;
+	int		identifier;
 
 	i = 1;
 	if (!str && !cmd->str[1])
@@ -116,7 +139,8 @@ int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 		while (cmd->str[i])
 		{
 			check = 0;
-			if (!str && !check_identifier(cmd->str[i]))
+			identifier = check_identifier(cmd->str[i]);
+			if (!str && !identifier)
 			{
 				ft_putstr_fd("minishell: export: `", 2);
 				ft_putstr_fd(cmd->str[i], 2);
@@ -130,7 +154,12 @@ int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 			else
 			{
 				if (!check)
-					send_arr(shell, cmd->str[i]);
+				{
+					if (identifier == 2)
+						join_arr(shell, cmd->str[i]);
+					else
+						send_arr(shell, cmd->str[i]);
+				}
 			}
 			i++;
 		}

@@ -6,36 +6,29 @@
 /*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:22:18 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/07 17:20:58 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:36:58 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-void	sort_env(t_shell *shell)
+void	sorter(char **env_sort, int len)
 {
-	char	**env_sort;
-	char	*temp;
 	int		i;
 	int		j;
 	int		min_i;
-	int		len;
-	
+	char	*temp;
+
 	i = 0;
-	len = 0;
-	if (shell->sorted_env != 0)
-		ft_free_arr(shell->sorted_env);
-	env_sort = ft_arrdup(shell->env);
-	while (env_sort[len])
-		len++;
 	while (i < len - 1)
 	{
 		min_i = i;
 		j = i + 1;
 		while (j < len)
 		{
-			if (ft_strncmp(env_sort[j], env_sort[min_i], ft_strlen(env_sort[min_i])) < 0)
+			if (ft_strncmp(env_sort[j], env_sort[min_i],
+					ft_strlen(env_sort[min_i])) < 0)
 				min_i = j;
 			j++;
 		}
@@ -46,6 +39,20 @@ void	sort_env(t_shell *shell)
 		env_sort[min_i] = ft_strdup(temp);
 		free(temp);
 		i++;
-	}
+	}	
+}
+
+void	sort_env(t_shell *shell)
+{
+	char	**env_sort;
+	int		len;
+
+	len = 0;
+	if (shell->sorted_env != 0)
+		ft_free_arr(shell->sorted_env);
+	env_sort = ft_arrdup(shell->env);
+	while (env_sort[len])
+		len++;
+	sorter(env_sort, len);
 	shell->sorted_env = env_sort;
 }
