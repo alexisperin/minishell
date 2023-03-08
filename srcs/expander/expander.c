@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:58:13 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/08 17:19:54 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/08 18:06:19 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static char	*join_variable(char *exp_str, char *var, t_lexer **lexer)
 	if (var[0] != ' ')
 	{
 		exp_str = ft_strjoin_free2(exp_str, splitted_var[0]);
-		new_node(lexer, 0, exp_str);
 		i = 1;
 	}
+	new_node(lexer, 0, exp_str);
 	while (splitted_var[i] && splitted_var[i + 1])
 	{
 		new_node(lexer, 0, splitted_var[i]);
@@ -83,21 +83,30 @@ static void	expand_node(char *str, t_lexer **lexer, char **env)
 	}
 	if (exp_str && exp_str[0] != 0)
 		new_node(lexer, 0, exp_str);
+	else
+		free(exp_str);
 }
 
 t_lexer	*expand(t_lexer *lexer, char **env)
 {
 	t_lexer	*new_lexer;
 	t_lexer	*tmp;
+	t_token	last_token;
 
 	new_lexer = NULL;
 	tmp = lexer;
+	last_token = 0;
 	while (tmp)
 	{
 		if (tmp->token != 0)
+		{
 			new_node(&new_lexer, tmp->token, tmp->word);
-		else
+			last_token = tmp->token;
+		}
+		else if (last_token != LL)
 			expand_node(tmp->word, &new_lexer, env);
+		else
+			new_node(&new_lexer, 0, ft_strdup(tmp->word));
 		tmp = tmp->next;
 	}
 	free_lexer(lexer);

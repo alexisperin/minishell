@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 13:30:26 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/08 13:30:54 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/08 18:02:39 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ char	*ft_strjoin_free2(char *s1, char *s2)
 	if (!s1 && !s2)
 		return (0);
 	if (!s1)
-		return (ft_strdup(s2));
+		return (s2);
 	if (!s2)
-		return (ft_strdup(s1));
+		return (s1);
 	len = ft_strlen(s1) + ft_strlen(s2);
 	join = malloc((len + 1) * sizeof(char));
 	if (!join)
