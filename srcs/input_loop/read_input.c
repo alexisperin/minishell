@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:29:58 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/09 09:54:24 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/09 16:10:26 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,11 @@ void	read_input(t_shell *shell)
 	char	*str;
 	t_lexer	*lexer;
 
+	sig_handler(false);
 	str = readline(PROMPT);
 	if (!str)
 		ft_exit(NULL, 1);
+	sig_handler(true);
 	if (prelexer_check(str))
 	{
 		lexer = get_lexer(str);

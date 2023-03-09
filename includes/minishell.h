@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/09 09:57:54 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/09 16:13:49 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 
 # define PROMPT "\x1B[36mAlexis'Hell ~$ \x1B[0m"
 
+# define HEREDOC ".heredoc.tmp"
+
 typedef enum e_token
 {
 	P = 1,
@@ -80,6 +82,8 @@ typedef struct s_shell
 	t_cmds	*cmds;
 	int		return_value;
 }			t_shell;
+
+// int	g_return_value;
 
 //Read input
 void	read_input(t_shell *shell);
@@ -148,8 +152,7 @@ void	sort_env(t_shell *shell);
 void	display_header(void);
 
 //Handle Sig
-void	ctrl_c(int sig);
-void	sig_handler(void);
+void	sig_handler(bool executing);
 
 //Errors
 void	print_error(int error_code);

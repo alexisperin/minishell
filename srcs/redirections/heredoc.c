@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:38:48 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/08 17:23:54 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/09 16:09:51 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	heredoc(t_lexer *heredoc, t_shell *shell)
 	int		fd;
 	bool	expand;
 
-	fd = open(".heredoc.tmp", O_WRONLY | O_TRUNC | O_CREAT,
+	fd = open(HEREDOC, O_WRONLY | O_TRUNC | O_CREAT,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 	{
@@ -108,7 +108,7 @@ void	heredoc(t_lexer *heredoc, t_shell *shell)
 	heredoc->word = to_expand(heredoc->word, &expand);
 	heredoc_loop(fd, heredoc->word, shell, expand);
 	close(fd);
-	fd = open(".heredoc.tmp", O_RDONLY);
+	fd = open(HEREDOC, O_RDONLY);
 	if (fd == -1)
 	{
 		perror("heredoc");
@@ -116,5 +116,5 @@ void	heredoc(t_lexer *heredoc, t_shell *shell)
 	}
 	ft_dup2(fd, STDIN);
 	close(fd);
-	unlink(".heredoc.tmp");
+	unlink(HEREDOC);
 }
