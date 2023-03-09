@@ -6,28 +6,34 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 15:12:54 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/08 17:21:50 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/09 13:37:44 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-char	*get_var(char *str, int *index, char **env)
+char	*get_var(char *str, int *index, t_shell *shell)
 {
 	int	i;
 	int	j;
 
+	if (str[1] == '?')
+	{
+		*index += 2;
+		return (ft_itoa(shell->return_value));
+	}
 	i = 1;
 	while (str[i] && str[i] != '\'' && str[i] != '\"' && str[i] != '$'
 		&& str[i] != ' ')
 		i++;
 	*index += i;
 	j = 0;
-	while (env[j])
+	while (shell->env[j])
 	{
-		if (ft_strncmp(&str[1], env[j], i - 1) == 0 && env[j][i - 1] == '=')
-			return (&env[j][i]);
+		if (ft_strncmp(&str[1], shell->env[j], i - 1) == 0
+			&& shell->env[j][i - 1] == '=')
+			return (&shell->env[j][i]);
 		j++;
 	}
 	return (NULL);
@@ -44,20 +50,27 @@ char	*single_quotes(char *exp_str, char *str, int *index)
 	return (ft_strjoin_free2(exp_str, ft_substr(str, 1, i - 1)));
 }
 
-char	*double_quotes(char *exp_str, char *str, int *index, char **env)
+static char	*in_quotes(char *exp_str, char *str, int *index, t_shell *shell)
+{
+	char	*var;
+
+	var = get_var(str, index, shell);
+	exp_str = ft_strjoin_free(exp_str, var);
+	if (str[1] == '?')
+		free(var);
+	return (exp_str);
+}
+
+char	*double_quotes(char *exp_str, char *str, int *index, t_shell *shell)
 {
 	int		i;
 	int		j;
-	char	*var;
 
 	i = 1;
 	while (str[i] && str[i] != '\"')
 	{
 		if (str[i] == '$')
-		{
-			var = get_var(&str[i], &i, env);
-			exp_str = ft_strjoin_free(exp_str, var);
-		}
+			exp_str = in_quotes(exp_str, &str[i], &i, shell);
 		else
 		{
 			j = 0;
@@ -68,5 +81,7 @@ char	*double_quotes(char *exp_str, char *str, int *index, char **env)
 		}
 	}
 	*index += i + 1;
+	if (i == 1)
+		return (ft_strjoin_free(exp_str, ft_strdup("")));
 	return (exp_str);
 }
