@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:58:13 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/09 09:28:29 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/09 09:59:42 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	*copy_raw(char *exp_str, char *str, int *index)
 	return (ft_strjoin_free2(exp_str, ft_substr(str, 0, i)));
 }
 
-static char	*join_variable(char *exp_str, char *var, t_lexer **lexer)
+static char	*join_variable(char *exp_str, char *var, t_lexer **lexer, bool free_var)
 {
 	char	**splitted_var;
 	int		i;
@@ -55,6 +55,8 @@ static char	*join_variable(char *exp_str, char *var, t_lexer **lexer)
 	}
 	exp_str = splitted_var[i];
 	free(splitted_var);
+	if (free_var)
+		free(var);
 	return (exp_str);
 }
 
@@ -76,7 +78,7 @@ static void	expand_node(char *str, t_lexer **lexer, t_shell *shell)
 		{
 			var = get_var(&str[i], &i, shell);
 			if (var)
-				exp_str = join_variable(exp_str, var, lexer);
+				exp_str = join_variable(exp_str, var, lexer, str[i - 1] == '?');
 		}
 		else
 			exp_str = copy_raw(exp_str, &str[i], &i);

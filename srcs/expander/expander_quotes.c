@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 15:12:54 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/09 09:31:01 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/09 10:00:07 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ char	*get_var(char *str, int *index, t_shell *shell)
 		i++;
 	*index += i;
 	j = 0;
-	while (env[j])
+	while (shell->env[j])
 	{
-		if (ft_strncmp(&str[1], env[j], i - 1) == 0 && env[j][i - 1] == '=')
-			return (&env[j][i]);
+		if (ft_strncmp(&str[1], shell->env[j], i - 1) == 0
+			&& shell->env[j][i - 1] == '=')
+			return (&shell->env[j][i]);
 		j++;
 	}
 	return (NULL);
@@ -49,7 +50,7 @@ char	*single_quotes(char *exp_str, char *str, int *index)
 	return (ft_strjoin_free2(exp_str, ft_substr(str, 1, i - 1)));
 }
 
-char	*double_quotes(char *exp_str, char *str, int *index, char **env)
+char	*double_quotes(char *exp_str, char *str, int *index, t_shell *shell)
 {
 	int		i;
 	int		j;
@@ -60,8 +61,10 @@ char	*double_quotes(char *exp_str, char *str, int *index, char **env)
 	{
 		if (str[i] == '$')
 		{
-			var = get_var(&str[i], &i, env);
+			var = get_var(&str[i], &i, shell);
 			exp_str = ft_strjoin_free(exp_str, var);
+			if (str[i - 1] == '?')
+				free(var);
 		}
 		else
 		{
