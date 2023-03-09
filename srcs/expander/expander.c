@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:58:13 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/08 18:06:19 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/09 09:28:29 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*join_variable(char *exp_str, char *var, t_lexer **lexer)
 	return (exp_str);
 }
 
-static void	expand_node(char *str, t_lexer **lexer, char **env)
+static void	expand_node(char *str, t_lexer **lexer, t_shell *shell)
 {
 	char	*exp_str;
 	char	*var;
@@ -71,23 +71,21 @@ static void	expand_node(char *str, t_lexer **lexer, char **env)
 		if (str[i] == '\'')
 			exp_str = single_quotes(exp_str, &str[i], &i);
 		else if (str[i] == '\"')
-			exp_str = double_quotes(exp_str, &str[i], &i, env);
+			exp_str = double_quotes(exp_str, &str[i], &i, shell);
 		else if (str[i] == '$')
 		{
-			var = get_var(&str[i], &i, env);
+			var = get_var(&str[i], &i, shell);
 			if (var)
 				exp_str = join_variable(exp_str, var, lexer);
 		}
 		else
 			exp_str = copy_raw(exp_str, &str[i], &i);
 	}
-	if (exp_str && exp_str[0] != 0)
+	if (exp_str)
 		new_node(lexer, 0, exp_str);
-	else
-		free(exp_str);
 }
 
-t_lexer	*expand(t_lexer *lexer, char **env)
+t_lexer	*expand(t_lexer *lexer, t_shell *shell)
 {
 	t_lexer	*new_lexer;
 	t_lexer	*tmp;
@@ -104,7 +102,7 @@ t_lexer	*expand(t_lexer *lexer, char **env)
 			last_token = tmp->token;
 		}
 		else if (last_token != LL)
-			expand_node(tmp->word, &new_lexer, env);
+			expand_node(tmp->word, &new_lexer, shell);
 		else
 			new_node(&new_lexer, 0, ft_strdup(tmp->word));
 		tmp = tmp->next;

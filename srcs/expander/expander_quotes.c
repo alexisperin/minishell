@@ -6,18 +6,23 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 15:12:54 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/08 17:21:50 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/09 09:31:01 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-char	*get_var(char *str, int *index, char **env)
+char	*get_var(char *str, int *index, t_shell *shell)
 {
 	int	i;
 	int	j;
 
+	if (str[1] == '?')
+	{
+		*index += 2;
+		return (ft_itoa(shell->return_value));
+	}
 	i = 1;
 	while (str[i] && str[i] != '\'' && str[i] != '\"' && str[i] != '$'
 		&& str[i] != ' ')
@@ -68,5 +73,7 @@ char	*double_quotes(char *exp_str, char *str, int *index, char **env)
 		}
 	}
 	*index += i + 1;
+	if (i == 1)
+		return (ft_strdup(""));
 	return (exp_str);
 }

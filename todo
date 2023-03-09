@@ -1,0 +1,6 @@
+leaks lexer
+leaks cd
+"declare -x" in export ??
+quotes in export values
+"" (bad output ??)
+cd - (bad output)

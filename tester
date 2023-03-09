@@ -21,6 +21,7 @@
 -- cat | cat | (ballec ??)
 -- unset HOME ; cd ~ (wrong behavior)
 
+++ ""
 ++ cat << l < file
 ++ << l < file
 ++ | | | |
@@ -28,6 +29,7 @@
 ++ cmd < file < file1
 ++ echo -n-n-n-n-n
 ++ echo "<3" >> "<3"
+++ echo "" text
 ++ cd ../../../../../
 ++ cat < a > b
 ++ cd /
