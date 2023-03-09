@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:58:13 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/09 09:59:42 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/09 11:40:39 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@ static char	*copy_raw(char *exp_str, char *str, int *index)
 	return (ft_strjoin_free2(exp_str, ft_substr(str, 0, i)));
 }
 
-static char	*join_variable(char *exp_str, char *var, t_lexer **lexer, bool free_var)
+static char	*join_variable(char *exp_str, char *var, t_lexer **lexer)
 {
 	char	**splitted_var;
 	int		i;
 
+	if (!ft_strchr(var, ' '))
+		return (ft_strjoin_free(exp_str, var));
 	splitted_var = ft_split(var, ' ');
 	i = 0;
 	if (var[0] != ' ')
@@ -47,7 +49,8 @@ static char	*join_variable(char *exp_str, char *var, t_lexer **lexer, bool free_
 		exp_str = ft_strjoin_free2(exp_str, splitted_var[0]);
 		i = 1;
 	}
-	new_node(lexer, 0, exp_str);
+	if (exp_str)
+		new_node(lexer, 0, exp_str);
 	while (splitted_var[i] && splitted_var[i + 1])
 	{
 		new_node(lexer, 0, splitted_var[i]);
@@ -55,8 +58,6 @@ static char	*join_variable(char *exp_str, char *var, t_lexer **lexer, bool free_
 	}
 	exp_str = splitted_var[i];
 	free(splitted_var);
-	if (free_var)
-		free(var);
 	return (exp_str);
 }
 
@@ -78,7 +79,9 @@ static void	expand_node(char *str, t_lexer **lexer, t_shell *shell)
 		{
 			var = get_var(&str[i], &i, shell);
 			if (var)
-				exp_str = join_variable(exp_str, var, lexer, str[i - 1] == '?');
+				exp_str = join_variable(exp_str, var, lexer);
+			if (str[i - 1] == '?')
+				free(var);
 		}
 		else
 			exp_str = copy_raw(exp_str, &str[i], &i);

@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 15:12:54 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/09 10:00:07 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/09 11:28:21 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,27 @@ char	*single_quotes(char *exp_str, char *str, int *index)
 	return (ft_strjoin_free2(exp_str, ft_substr(str, 1, i - 1)));
 }
 
+static char	*in_quotes(char *exp_str, char *str, int *index, t_shell *shell)
+{
+	char	*var;
+
+	var = get_var(str, index, shell);
+	exp_str = ft_strjoin_free(exp_str, var);
+	if (str[1] == '?')
+		free(var);
+	return (exp_str);
+}
+
 char	*double_quotes(char *exp_str, char *str, int *index, t_shell *shell)
 {
 	int		i;
 	int		j;
-	char	*var;
 
 	i = 1;
 	while (str[i] && str[i] != '\"')
 	{
 		if (str[i] == '$')
-		{
-			var = get_var(&str[i], &i, shell);
-			exp_str = ft_strjoin_free(exp_str, var);
-			if (str[i - 1] == '?')
-				free(var);
-		}
+			exp_str = in_quotes(exp_str, &str[i], &i, shell);
 		else
 		{
 			j = 0;
