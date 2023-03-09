@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/09 13:47:31 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:11:04 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,11 +135,19 @@ int		ft_unset(t_cmds *cmd, t_shell *shell);
 
 //Builtins Utils
 int		modify_path(t_shell *shell, char *temp, int code, int code2);
-char	*get_pwd(void);
 int		check_validity(char *str);
 int		if_exist(char **env, char *str);
 int		check_identifier(char *str);
+int		is_identifier(char c);
+char	*get_pwd(void);
 void	print_env(char **env);
+void	join_path(t_shell *shell, int i, char *temp, char *str);
+int		check_identifier(char *str);
+int		send_arr(t_shell *shell, char *str);
+char	**new_arr(char **env, char **rtn, char *str);
+void	join_arr(t_shell *shell, char *str);
+int		if_exist(char **env, char *str);
+void    check_and_send(t_shell *shell, char *str);
 
 //Sort Env
 void	sort_env(t_shell *shell);
@@ -152,6 +160,7 @@ void	ctrl_c(int sig);
 void	sig_handler(void);
 
 //Errors
+int		export_err(char *str);
 void	print_error(int error_code);
 
 #endif

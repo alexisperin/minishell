@@ -3,15 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:27:37 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/07 17:13:38 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:14:30 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+
+int	last_check(int i, t_cmds *cmd)
+{
+	int	j;
+
+	while ((ft_strncmp(cmd->str[i], "-n", 2) == 0))
+	{
+		j = 1;
+		while (cmd->str[i][j] == 'n')
+			j++;
+		if (cmd->str[i][j] != 0)
+			break ;
+		else
+			i++;
+	}
+	return (i);
+}
 
 int	check_n(t_cmds *cmd, int i, int *check, int *n)
 {
@@ -28,8 +45,7 @@ int	check_n(t_cmds *cmd, int i, int *check, int *n)
 		else
 			i = 1;
 		if (i > 0)
-			while ((ft_strncmp(cmd->str[i], "-n", 3) == 0))
-				i++;
+			i = last_check(i, cmd);
 	}
 	return (i);
 }

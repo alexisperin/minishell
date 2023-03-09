@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export.str[i]                                        :+:      :+:    :+:   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:25 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/05 14:56:34 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:22:23 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	join_arr(t_shell *shell, char *str)
 	len = 0;
 	while (str[len] != '=')
 		len++;
-	while(shell->env[i])
+	while (shell->env[i])
 	{
 		if (!ft_strncmp(shell->env[i], str, len - 2))
 			ft_strjoin(shell->env[i], str);
@@ -82,7 +82,7 @@ int	send_arr(t_shell *shell, char *str)
 {
 	int		i;
 	char	**rtn;
-	
+
 	i = 0;
 	while (shell->env[i])
 			i++;
@@ -93,37 +93,9 @@ int	send_arr(t_shell *shell, char *str)
 	return (1);
 }
 
-int	check_identifier(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isdigit(str[i]))
-		return (0);
-	while (str[i] != '=' && str[i])
-	{
-		if (str[i] == '|' || str[i] == '<' || str[i] == '>' || str[i] == '[' || str[i] == ']'
-		|| str[i] == '\'' || str[i] == '\"' || str[i] == ' ' || str[i] == ',' || str[i] == '.'
-		|| str[i] == ':' || str[i] == '/' || str[i] == '{' || str[i] == '}' || str[i] == '+'
-		|| str[i] == '^' || str[i] == '%' || str[i] == '#' || str[i] == '@' || str[i] == '!'
-		|| str[i] == '~'
-		|| (str[i] == '=' && i == 0) || str[i] == '-' || str[i] == '?' || str[i] == '&' || str[i] == '*')
-		{
-			if (str[i] == '+' && str[i + 1] == '=')
-				return (2);
-			else
-				return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-
 int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 {
 	int		i;
-	int		check;
-	int		identifier;
 
 	i = 1;
 	if (!str && !cmd->str[1])
@@ -133,34 +105,15 @@ int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 		return (1);
 	}
 	if (str)
-		send_arr(shell, str);
+	{
+		if (!if_exist(shell->env, str))
+			send_arr(shell, str);
+	}
 	else
 	{
 		while (cmd->str[i])
 		{
-			check = 0;
-			identifier = check_identifier(cmd->str[i]);
-			if (!str && !identifier)
-			{
-				ft_putstr_fd("minishell: export: `", 2);
-				ft_putstr_fd(cmd->str[i], 2);
-				ft_putstr_fd("': not a valid identifier\n", 2);
-				check = 1;
-			}
-			else if (!str && !check_validity(cmd->str[i]))
-				check = 1;
-			else if (!str && if_exist(shell->env, cmd->str[i]))
-				check = 1;
-			else
-			{
-				if (!check)
-				{
-					if (identifier == 2)
-						join_arr(shell, cmd->str[i]);
-					else
-						send_arr(shell, cmd->str[i]);
-				}
-			}
+			check_and_send(shell, cmd->str[i]);
 			i++;
 		}
 	}

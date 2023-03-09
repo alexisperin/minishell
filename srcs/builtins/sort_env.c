@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:22:18 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/09 13:40:19 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/09 13:57:16 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@
 void	print_env(char **env)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	while (env[i])
 	{
 		j = 0;
-		printf("declare -x ");
 		while (env[i][j] != '=')
-		{
-			printf("%c", env[i][j]);
 			j++;
-		}
-		printf("\"");
+		write(1, "declare -x ", 12);
+		j++;
+		write(1, env[i], j);
+		j++;
+		write(1, "\"", 1);
 		while (env[i][j])
 		{
-			printf("%c", env[i][j]);
+			write(1, &env[i][j], 1);
 			j++;
 		}
-		printf("\"\n");
+		write(1, "\"\n", 2);
 		i++;
 	}
 }

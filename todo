@@ -1,11 +1,11 @@
 leaks lexer
-leaks cd
-"declare -x" in export ??
-quotes in export values
+++ leaks cd
+++ quotes in export values
+++ "declare -x" in export ??
 "" (bad output ??)
-cd - (bad output)
+++ cd - (bad output)
 
 
 ctrl+c  in heredoc
-echo -n -nn test
+++ echo -n -nn test
 SHLVL++

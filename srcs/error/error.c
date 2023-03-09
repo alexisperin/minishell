@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:50:11 by aperin            #+#    #+#             */
-/*   Updated: 2023/01/31 10:23:38 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/09 15:03:19 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,12 @@ void	print_error(int error_code)
 		ft_putstr_fd("unclosed quote\n", 2);
 	else if (error_code == 3)
 		ft_putstr_fd("syntax error near unexpected token\n", 2);
+}
+
+int	export_err(char *str)
+{
+	ft_putstr_fd("minishell: export: `", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
+	return (1);
 }
