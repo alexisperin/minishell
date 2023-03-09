@@ -4,3 +4,6 @@ leaks cd
 quotes in export values
 "" (bad output ??)
 cd - (bad output)
+ctrl+c  in heredoc
+echo -n -nn test
+SHLVL++
