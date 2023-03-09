@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/08 17:22:21 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/09 13:38:14 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ int		ft_dup(int fd);
 void	ft_dup2(int fd1, int fd2);
 pid_t	ft_fork(void);
 void	ft_pipe(int fd[2]);
-int		check_equ(t_cmds *cmd, t_shell *shell);
 
 //Redirections
 bool	handle_redirections(t_cmds *cmd, t_shell *shell);
@@ -140,6 +139,7 @@ char	*get_pwd(void);
 int		check_validity(char *str);
 int		if_exist(char **env, char *str);
 int		check_identifier(char *str);
+void	print_env(char **env);
 
 //Sort Env
 void	sort_env(t_shell *shell);

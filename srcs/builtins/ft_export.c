@@ -129,7 +129,7 @@ int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 	if (!str && !cmd->str[1])
 	{
 		sort_env(shell);
-		ft_env(shell->sorted_env);
+		print_env(shell->sorted_env);
 		return (1);
 	}
 	if (str)

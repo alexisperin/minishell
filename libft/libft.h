@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 14:08:13 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/08 14:16:00 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/09 10:55:58 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,7 @@ void	ft_free_arr(char **arr);
 char	*ft_strjoin_free(char *s1, char *s2);
 char	*ft_strjoin_free2(char *s1, char *s2);
 int		ft_atoi_check(const char *str, int *check);
+char	**ft_arrdup_mod(char **arr);
+char	*ft_strdup_mod(const char *str);
 
 #endif

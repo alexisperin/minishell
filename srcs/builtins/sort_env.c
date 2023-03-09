@@ -3,15 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   sort_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:22:18 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/08 14:36:58 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/09 13:40:19 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+
+void	print_env(char **env)
+{
+	int	i;
+	int j;
+
+	i = 0;
+	while (env[i])
+	{
+		j = 0;
+		printf("declare -x ");
+		while (env[i][j] != '=')
+		{
+			printf("%c", env[i][j]);
+			j++;
+		}
+		printf("\"");
+		while (env[i][j])
+		{
+			printf("%c", env[i][j]);
+			j++;
+		}
+		printf("\"\n");
+		i++;
+	}
+}
 
 void	sorter(char **env_sort, int len)
 {

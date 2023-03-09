@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:32:45 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/08 14:47:37 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/09 10:34:48 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,5 @@ int	ft_exit(t_cmds *cmd, int type)
 	}
 	if (cmd->str[1])
 		checker(cmd->str[1], &ret);
-	return (0);
-	//exit(&ret);
+	exit(ret);
 }

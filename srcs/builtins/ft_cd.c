@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:04:29 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/07 17:15:46 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:36:02 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	ft_cd(t_cmds *cmd, t_shell *shell)
 			if (!change_path("OLDPWD=", shell, 1))
 				ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
 			else
-				printf("%s\n", extract_path("OLDPWD=", shell));
+				printf("%s\n", extract_path("PWD=", shell));
 		}
 		else
 		{
@@ -123,8 +123,9 @@ int	ft_cd(t_cmds *cmd, t_shell *shell)
 			{
 				ft_putstr_fd("minishell: cd: ", 2);
 				perror(cmd->str[1]);
+				return (1);
 			}
 		}
 	}
-	return (1);
+	return (0);
 }
