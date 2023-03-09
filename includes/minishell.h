@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 19:07:29 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/08 17:22:21 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,10 @@ void	list_to_tab(t_cmds *node, t_lexer *lexer);
 void	free_cmds(t_cmds *cmds);
 
 //Expander
-void	expander(t_shell *shell);
-int		get_expanded_size(char *str, t_shell *shell);
-int		key_len(char *str);
-int		var_len(char *str, int len, char **env);
-int		quote_count(char *str);
+t_lexer	*expand(t_lexer *lexer, char **env);
+char	*single_quotes(char *exp_str, char *str, int *index);
+char	*double_quotes(char *exp_str, char *str, int *index, char **env);
+char	*get_var(char *str, int *index, char **env);
 
 //Executor
 void	execute(t_shell *shell);

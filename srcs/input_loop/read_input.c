@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:29:58 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 14:05:04 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/08 17:21:03 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,22 @@ void	read_input(t_shell *shell)
 	t_lexer	*lexer;
 
 	str = readline(PROMPT);
-	lexer = get_lexer(str);
-	if (lexer)
-	{
-		shell->cmds = get_cmds(lexer);
-		// print_cmd(shell->cmds);
-		expander(shell);
-		// print_cmd(shell->cmds);
-		execute(shell);
-		free_cmds(shell->cmds);
-	}
 	if (!str)
 		ft_exit(NULL, 1);
+	if (prelexer_check(str))
+	{
+		lexer = get_lexer(str);
+		if (lexer && postlexer_check(lexer))
+		{
+			// print_lexer(lexer);
+			lexer = expand(lexer, shell->env);
+			// print_lexer(lexer);
+			shell->cmds = get_cmds(lexer);
+			// print_cmd(shell->cmds);
+			execute(shell);
+			free_cmds(shell->cmds);
+		}
+	}
 	if (ft_strlen(str) != 0)
 		add_history(str);
 	free(str);

@@ -5,102 +5,110 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/03 14:11:53 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 17:01:02 by aperin           ###   ########.fr       */
+/*   Created: 2023/03/08 10:58:13 by aperin            #+#    #+#             */
+/*   Updated: 2023/03/08 18:06:19 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-static int	copy_variable(char *str, char *new_str, int *j, t_shell *shell)
+static void	new_node(t_lexer **lexer, t_token token, char *word)
 {
-	int		i;
-	int		len;
-	char	*return_value;
+	t_lexer	*new_node;
 
-	if (ft_strncmp(str, "$?", 2) == 0)
-	{
-		return_value = ft_itoa(shell->return_value);
-		ft_strlcpy(&new_str[*j], return_value, ft_strlen(return_value) + 1);
-		*j += ft_strlen(return_value);
-		free(return_value);
-		return (2);
-	}
-	i = 0;
-	len = key_len(str);
-	while (shell->env && shell->env[i])
-	{
-		if (ft_strncmp(&str[1], shell->env[i], len - 1) == 0
-			&& shell->env[i][len - 1] == '=')
-			break ;
-		i++;
-	}
-	if (shell->env && shell->env[i])
-	{
-		ft_strlcpy(&new_str[*j], &shell->env[i][len],
-			ft_strlen(&shell->env[i][len]) + 1);
-		*j += ft_strlen(&shell->env[i][len]);
-	}
-	return (len);
+	new_node = ft_malloc(sizeof(t_lexer));
+	new_node->token = token;
+	new_node->word = word;
+	new_node->next = NULL;
+	lexer_add_back(lexer, new_node);
 }
 
-static char	*expand_str(char *str, t_shell *shell)
+static char	*copy_raw(char *exp_str, char *str, int *index)
 {
-	int		size;
-	int		i;
-	int		j;
-	char	*new_str;
-	bool	in_quote;
+	int	i;
 
-	size = get_expanded_size(str, shell);
-	new_str = ft_malloc((size + 1) * sizeof(char));
 	i = 0;
-	j = 0;
-	in_quote = false;
+	while (str[i] && str[i] != '\'' && str[i] != '\"' && str[i] != '$')
+		i++;
+	*index += i;
+	return (ft_strjoin_free2(exp_str, ft_substr(str, 0, i)));
+}
+
+static char	*join_variable(char *exp_str, char *var, t_lexer **lexer)
+{
+	char	**splitted_var;
+	int		i;
+
+	splitted_var = ft_split(var, ' ');
+	i = 0;
+	if (var[0] != ' ')
+	{
+		exp_str = ft_strjoin_free2(exp_str, splitted_var[0]);
+		i = 1;
+	}
+	new_node(lexer, 0, exp_str);
+	while (splitted_var[i] && splitted_var[i + 1])
+	{
+		new_node(lexer, 0, splitted_var[i]);
+		i++;
+	}
+	exp_str = splitted_var[i];
+	free(splitted_var);
+	return (exp_str);
+}
+
+static void	expand_node(char *str, t_lexer **lexer, char **env)
+{
+	char	*exp_str;
+	char	*var;
+	int		i;
+
+	exp_str = NULL;
+	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '\"')
-			in_quote = !in_quote;
-		else if (str[i] == '\'' && !in_quote)
-		{
-			i++;
-			while (str[i] != '\'')
-				new_str[j++] = str[i++];
-		}
+		if (str[i] == '\'')
+			exp_str = single_quotes(exp_str, &str[i], &i);
+		else if (str[i] == '\"')
+			exp_str = double_quotes(exp_str, &str[i], &i, env);
 		else if (str[i] == '$')
-			i += copy_variable(&str[i], new_str, &j, shell) - 1;
+		{
+			var = get_var(&str[i], &i, env);
+			if (var)
+				exp_str = join_variable(exp_str, var, lexer);
+		}
 		else
-			new_str[j++] = str[i];
-		i++;
+			exp_str = copy_raw(exp_str, &str[i], &i);
 	}
-	new_str[j] = 0;
-	free(str);
-	return (new_str);
+	if (exp_str && exp_str[0] != 0)
+		new_node(lexer, 0, exp_str);
+	else
+		free(exp_str);
 }
 
-void	expander(t_shell *shell)
+t_lexer	*expand(t_lexer *lexer, char **env)
 {
-	t_cmds	*tmp;
-	t_lexer	*tmp2;
-	int		i;
+	t_lexer	*new_lexer;
+	t_lexer	*tmp;
+	t_token	last_token;
 
-	tmp = shell->cmds;
+	new_lexer = NULL;
+	tmp = lexer;
+	last_token = 0;
 	while (tmp)
 	{
-		i = 0;
-		while (tmp->str[i])
+		if (tmp->token != 0)
 		{
-			tmp->str[i] = expand_str(tmp->str[i], shell);
-			i++;
+			new_node(&new_lexer, tmp->token, tmp->word);
+			last_token = tmp->token;
 		}
-		tmp2 = tmp->redir;
-		while (tmp2)
-		{
-			if (tmp2->token != 0 && tmp2->token != LL)
-				tmp2->next->word = expand_str(tmp2->next->word, shell);
-			tmp2 = tmp2->next;
-		}
+		else if (last_token != LL)
+			expand_node(tmp->word, &new_lexer, env);
+		else
+			new_node(&new_lexer, 0, ft_strdup(tmp->word));
 		tmp = tmp->next;
 	}
+	free_lexer(lexer);
+	return (new_lexer);
 }
