@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/09 15:11:04 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/10 13:15:55 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int		send_arr(t_shell *shell, char *str);
 char	**new_arr(char **env, char **rtn, char *str);
 void	join_arr(t_shell *shell, char *str);
 int		if_exist(char **env, char *str);
-void    check_and_send(t_shell *shell, char *str);
+void	check_and_send(t_shell *shell, char *str);
 
 //Sort Env
 void	sort_env(t_shell *shell);
