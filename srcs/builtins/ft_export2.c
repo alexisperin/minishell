@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:04:30 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/10 13:42:57 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:18:38 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_identifier(char *str)
 	{
 		if (!is_identifier(str[i]) || (str[i] == '=' && i == 0))
 		{
-			if (str[i] == '+' && str[i + 1] == '=')
+			if (str[i] == '+' && str[i + 1] == '=' && i > 0)
 				return (2);
 			else
 				return (0);
@@ -66,7 +66,7 @@ char	*little_copy(char *str, int len)
 
 	i = 0;
 	temp = ft_malloc(len);
-	while (str[len])
+	while (str[len - 1])
 	{
 		temp[i] = str[len];
 		i++;

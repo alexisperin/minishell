@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:25 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/10 13:42:48 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:19:33 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void	join_arr(t_shell *shell, char *str)
 		len++;
 	while (str[len2])
 		len2++;
-	len2 = len2 - len + 1;
+	len2 = len2 - len;
 	temp = little_copy(str, len2);
 	while (shell->env[i])
 	{
-		if (!ft_strncmp(shell->env[i], str, len - 2))
+		if (!ft_strncmp(shell->env[i], str, len - 1))
 			shell->env[i] = ft_strjoin(shell->env[i], temp);
 		i++;
 	}

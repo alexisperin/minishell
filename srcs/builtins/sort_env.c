@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:22:18 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/09 13:57:16 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:12:56 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	print_env(char **env)
 		write(1, "declare -x ", 12);
 		j++;
 		write(1, env[i], j);
-		j++;
 		write(1, "\"", 1);
 		while (env[i][j])
 		{
