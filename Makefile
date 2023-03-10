@@ -6,7 +6,7 @@
 #    By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/03/09 15:10:20 by aburnott         ###   ########.fr        #
+#    Updated: 2023/03/10 13:13:41 by aburnott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRC_FILE	= main.c \
 				builtins/sort_env.c \
 				utils/display_header.c \
 				handle_sig/handling.c \
-				error/error.c \
+				error/error.c
 				
 SRCS_DIR	= srcs
 OBJSDIR		= objs
@@ -51,7 +51,7 @@ OBJS		= $(addprefix ${OBJSDIR}/, $(addsuffix .o, $(basename ${SRC_FILE})))
 OBJS_DIR	= $(sort $(dir $(OBJS)))
 
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror #-fsanitize=address -g
+CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g
 INCS		= $(foreach d, $(INCDIR), -I$d)
 
 LDFLAGS		= -L/Users/${USER}/.brew/opt/readline/lib

@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 15:12:54 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/09 13:37:44 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/09 14:50:18 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ char	*get_var(char *str, int *index, t_shell *shell)
 		return (ft_itoa(shell->return_value));
 	}
 	i = 1;
-	while (str[i] && str[i] != '\'' && str[i] != '\"' && str[i] != '$'
-		&& str[i] != ' ')
+	while (str[i] && ft_isalnum(str[i]))
 		i++;
 	*index += i;
 	j = 0;

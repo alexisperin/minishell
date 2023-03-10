@@ -3,15 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 09:56:19 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 16:28:36 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:07:23 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+
+static void	set_shlvl(t_shell *shell)
+{
+	char	*shlvl;
+	int		i;
+	int		lvl;
+
+	i = 0;
+	lvl = 0;
+	while (shell->env[i])
+	{
+		if (ft_strncmp("SHLVL=", shell->env[i], 6) == 0)
+		{
+			lvl = ft_atoi(&shell->env[i][6]);
+			break ;
+		}
+		i++;
+	}
+	if (lvl < 0)
+		lvl = 0;
+	else
+		lvl++;
+	shlvl = ft_strdup("SHLVL=");
+	shlvl = ft_strjoin_free2(shlvl, ft_itoa(lvl));
+	ft_export(0, shell, shlvl);
+	free(shlvl);
+}
 
 int	main(int ac, char **av, char **envp)
 {
@@ -24,6 +51,7 @@ int	main(int ac, char **av, char **envp)
 		return (-1);
 	}
 	shell.env = ft_arrdup(envp);
+	set_shlvl(&shell);
 	shell.return_value = 0;
 	shell.sorted_env = 0;
 	display_header();
