@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:08:55 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 16:09:57 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/10 13:45:02 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	print_var(char *var_name, t_shell *shell, int fd)
 	if (ft_strncmp(var_name, "$?", 2) == 0)
 	{
 		free(var_name);
-		ret = ft_itoa(shell->return_value);
+		ret = ft_itoa(g_return_value);
 		write(fd, ret, ft_strlen(ret));
 		free(ret);
 		return ;

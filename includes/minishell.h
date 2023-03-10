@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/10 13:44:46 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:15:00 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 
 # define PROMPT "\x1B[36mAlexis'Hell ~$ \x1B[0m"
 
+# define HEREDOC ".heredoc.tmp"
+
 typedef enum e_token
 {
 	P = 1,
@@ -78,8 +80,9 @@ typedef struct s_shell
 	char	**env;
 	char	**sorted_env;
 	t_cmds	*cmds;
-	int		return_value;
 }			t_shell;
+
+int	g_return_value;
 
 //Read input
 void	read_input(t_shell *shell);
@@ -157,8 +160,7 @@ void	sort_env(t_shell *shell);
 void	display_header(void);
 
 //Handle Sig
-void	ctrl_c(int sig);
-void	sig_handler(void);
+void	sig_handler(int status);
 
 //Errors
 int		export_err(char *str);

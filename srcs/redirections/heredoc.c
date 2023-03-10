@@ -6,56 +6,47 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:38:48 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/08 17:23:54 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/10 16:22:27 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-static int	quote_count(char *str)
+static char	*expand_delimitor2(char *exp_str, char *str, int *index)
 {
-	int	i;
-	int	count;
+	int	j;
+
+	j = 1;
+	while (str[*index + j] && str[*index + j] != '\"'
+		&& str[*index + j] != '\'')
+		j++;
+	exp_str = ft_strjoin_free2(exp_str, ft_substr(str, *index, j));
+	*index += j;
+	return (exp_str);
+}
+
+static char	*expand_delimitor(char *str, bool *expand)
+{
+	int		i;
+	char	*exp_str;
 
 	i = 0;
-	count = 0;
+	exp_str = NULL;
 	while (str[i])
 	{
 		if (str[i] == '\"' || str[i] == '\'')
 		{
-			i += next_quote(str, i);
-			count += 2;
-		}
-		i++;
-	}
-	return (count);
-}
-
-static char	*to_expand(char *del, bool *expand)
-{
-	char	*new_del;
-	int		i;
-	int		j;
-
-	new_del = ft_malloc(ft_strlen(del) - quote_count(del) + 1);
-	i = 0;
-	j = 0;
-	*expand = true;
-	while (del[i])
-	{
-		if (del[i] != '\'' && del[i] != '\"')
-		{
-			new_del[j] = del[i];
-			j++;
+			exp_str = ft_strjoin_free2(exp_str,
+					ft_substr(str, i + 1, next_quote(str, i) - 1));
+			i += next_quote(str, i) + 1;
+			*expand = false;
 		}
 		else
-			*expand = false;
-		i++;
+			exp_str = expand_delimitor2(exp_str, str, &i);
 	}
-	new_del[j] = 0;
-	free(del);
-	return (new_del);
+	free(str);
+	return (exp_str);
 }
 
 static void	heredoc_eof(char *delimitor)
@@ -98,23 +89,26 @@ void	heredoc(t_lexer *heredoc, t_shell *shell)
 	int		fd;
 	bool	expand;
 
-	fd = open(".heredoc.tmp", O_WRONLY | O_TRUNC | O_CREAT,
+	fd = open(HEREDOC, O_WRONLY | O_TRUNC | O_CREAT,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 	{
-		perror("heredoc");
+		perror(HEREDOC);
 		exit(1);
 	}
-	heredoc->word = to_expand(heredoc->word, &expand);
+	expand = true;
+	heredoc->word = expand_delimitor(heredoc->word, &expand);
+	sig_handler(3);
 	heredoc_loop(fd, heredoc->word, shell, expand);
 	close(fd);
-	fd = open(".heredoc.tmp", O_RDONLY);
+	sig_handler(2);
+	fd = open(HEREDOC, O_RDONLY);
 	if (fd == -1)
 	{
-		perror("heredoc");
+		perror(HEREDOC);
 		exit(1);
 	}
 	ft_dup2(fd, STDIN);
 	close(fd);
-	unlink(".heredoc.tmp");
+	unlink(HEREDOC);
 }

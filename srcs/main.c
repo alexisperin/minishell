@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 09:56:19 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/09 15:07:23 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/10 13:43:56 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,9 @@ int	main(int ac, char **av, char **envp)
 	}
 	shell.env = ft_arrdup(envp);
 	set_shlvl(&shell);
-	shell.return_value = 0;
+	g_return_value = 0;
 	shell.sorted_env = 0;
 	display_header();
-	sig_handler();
 	while (1)
 		read_input(&shell);
 	return (0);

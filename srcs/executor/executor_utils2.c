@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:15:42 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 19:05:24 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/10 13:44:26 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,22 @@ void	ft_waitpid(t_shell *shell)
 {
 	t_cmds	*curr;
 	int		status;
+	int		sig;
 
 	curr = shell->cmds;
 	while (curr)
 	{
 		waitpid(curr->pid, &status, 0);
 		if (WIFEXITED(status))
-			shell->return_value = WEXITSTATUS(status);
+			g_return_value = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+		{
+			sig = WTERMSIG(status);
+			if (sig == SIGINT)
+				g_return_value = 130;
+			else if (sig == SIGQUIT)
+				g_return_value = 131;
+		}
 		curr = curr->next;
 	}
 }
