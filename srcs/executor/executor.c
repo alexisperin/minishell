@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/07 19:07:13 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/10 13:44:44 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ static bool	execute_currdir(t_cmds *cmd, t_shell *shell)
 int	execute_builtin(t_cmds *cmd, t_shell *shell)
 {
 	if (ft_strncmp(cmd->str[0], "pwd", 4) == 0)
-		shell->return_value = ft_pwd();
+		g_return_value = ft_pwd();
 	else if (ft_strncmp(cmd->str[0], "echo", 5) == 0)
-		shell->return_value = ft_echo(cmd);
+		g_return_value = ft_echo(cmd);
 	else if (ft_strncmp(cmd->str[0], "cd", 3) == 0)
-		shell->return_value = ft_cd(cmd, shell);
+		g_return_value = ft_cd(cmd, shell);
 	else if (ft_strncmp(cmd->str[0], "export", 7) == 0)
-		shell->return_value = ft_export(cmd, shell, 0);
+		g_return_value = ft_export(cmd, shell, 0);
 	else if (ft_strncmp(cmd->str[0], "unset", 6) == 0)
-		shell->return_value = ft_unset(cmd, shell);
+		g_return_value = ft_unset(cmd, shell);
 	else if (ft_strncmp(cmd->str[0], "env", 4) == 0)
-		shell->return_value = ft_env(shell->env);
+		g_return_value = ft_env(shell->env);
 	else if (ft_strncmp(cmd->str[0], "exit", 5) == 0)
-		shell->return_value = ft_exit(cmd, 0);
+		g_return_value = ft_exit(cmd, 0);
 	else
 		return (0);
 	return (1);
@@ -68,11 +68,13 @@ static void	execute_cmd(t_cmds *cmd, t_shell *shell)
 
 static void	handle_pipes(t_cmds *cmd, int prev_fd, t_shell *shell)
 {
+	sig_handler(1);
 	if (cmd->next != NULL)
 		ft_pipe(cmd->pipefd);
 	cmd->pid = ft_fork();
 	if (cmd->pid == 0)
 	{
+		sig_handler(2);
 		if (cmd->n > 1)
 			ft_dup2(prev_fd, STDIN);
 		if (cmd->next != NULL)
