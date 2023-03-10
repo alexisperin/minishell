@@ -6,11 +6,12 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:04:30 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/09 15:23:50 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/10 13:42:57 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "libft.h"
 
 int	check_identifier(char *str)
 {
@@ -56,4 +57,20 @@ void	check_and_send(t_shell *shell, char *str)
 				send_arr(shell, str);
 		}
 	}
+}
+
+char	*little_copy(char *str, int len)
+{
+	char	*temp;
+	int		i;
+
+	i = 0;
+	temp = ft_malloc(len);
+	while (str[len])
+	{
+		temp[i] = str[len];
+		i++;
+		len++;
+	}
+	return (temp);
 }

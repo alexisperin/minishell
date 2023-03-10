@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:25 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/09 15:22:23 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/10 13:42:48 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,27 @@ int	if_exist(char **env, char *str)
 
 void	join_arr(t_shell *shell, char *str)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
+	int		len2;
+	char	*temp;
 
 	i = 0;
 	len = 0;
+	len2 = 0;
 	while (str[len] != '=')
 		len++;
+	while (str[len2])
+		len2++;
+	len2 = len2 - len + 1;
+	temp = little_copy(str, len2);
 	while (shell->env[i])
 	{
 		if (!ft_strncmp(shell->env[i], str, len - 2))
-			ft_strjoin(shell->env[i], str);
+			shell->env[i] = ft_strjoin(shell->env[i], temp);
 		i++;
 	}
+	free(temp);
 }
 
 char	**new_arr(char **env, char **rtn, char *str)
