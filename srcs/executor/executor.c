@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/12 16:28:46 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/12 18:41:17 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	execute_builtin(t_cmds *cmd, t_shell *shell)
 	else if (ft_strncmp(cmd->str[0], "echo", 5) == 0)
 		g_return_value = ft_echo(cmd);
 	else if (ft_strncmp(cmd->str[0], "cd", 3) == 0)
-		g_return_value = ft_cd(cmd, shell);
+		g_return_value = ft_cd2(cmd, shell);
 	else if (ft_strncmp(cmd->str[0], "export", 7) == 0)
 		g_return_value = ft_export(cmd, shell, 0);
 	else if (ft_strncmp(cmd->str[0], "unset", 6) == 0)
@@ -68,7 +68,7 @@ static void	execute_cmd(t_cmds *cmd, t_shell *shell)
 		}
 		ft_execve(cmd, shell, ft_split(&shell->env[i][5], ':'));
 	}
-	exit(0);
+	exit(g_return_value);
 }
 
 static void	handle_pipes(t_cmds *cmd, int prev_fd, t_shell *shell)

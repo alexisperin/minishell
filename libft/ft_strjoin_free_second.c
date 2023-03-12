@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_strjoin_free_second.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 10:30:23 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/12 17:55:31 by aperin           ###   ########.fr       */
+/*   Created: 2023/03/08 13:30:26 by aperin            #+#    #+#             */
+/*   Updated: 2023/03/12 21:01:22 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "libft.h"
 
-char	*ft_getcwd(void)
+char	*ft_strjoin_free_second(char *s1, char *s2)
 {
-	char	*buf;
+	size_t	len;
+	char	*join;
 
-	buf = ft_malloc(PATH_MAX * sizeof(char));
-	if (getcwd(buf, PATH_MAX))
-		return (buf);
-	free(buf);
-	return (NULL);
-}
-
-int	ft_pwd(void)
-{
-	char	*pwd;
-
-	pwd = ft_getcwd();
-	if (pwd)
-	{
-		printf("%s\n", pwd);
-		free(pwd);
+	if (!s1 && !s2)
 		return (0);
-	}
-	return (1);
+	if (!s1)
+		return (s2);
+	if (!s2)
+		return (s1);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	join = malloc((len + 1) * sizeof(char));
+	if (!join)
+		return (0);
+	ft_strlcpy(join, s1, len + 1);
+	ft_strlcat(join, s2, len + 1);
+	free(s2);
+	return (join);
 }
