@@ -1,9 +1,1 @@
-leaks lexer
-leaks cd
-"declare -x" in export ??
-quotes in export values
-cd - (bad output)
-
-
-ctrl+c  in heredoc
-echo -n -nn test
+cd

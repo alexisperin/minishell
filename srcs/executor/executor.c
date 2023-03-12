@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/10 13:44:44 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/12 16:28:46 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 static bool	execute_currdir(t_cmds *cmd, t_shell *shell)
 {
+	if (cmd->str[0][0] == '\0')
+	{
+		ft_putstr_fd("'': command not found\n", STDERR);
+		exit(127);
+	}
 	if (ft_strchr(cmd->str[0], '/') == NULL)
 		return (false);
 	if (access(cmd->str[0], F_OK) == 0)

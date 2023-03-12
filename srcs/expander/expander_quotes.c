@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 15:12:54 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/10 13:46:50 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/12 15:14:05 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ char	*double_quotes(char *exp_str, char *str, int *index, t_shell *shell)
 	}
 	*index += i + 1;
 	if (i == 1)
-		return (ft_strjoin_free(exp_str, ft_strdup("")));
+		return (ft_strjoin_free(exp_str, ""));
 	return (exp_str);
 }

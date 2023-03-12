@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/10 17:15:00 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/12 16:07:01 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int		send_arr(t_shell *shell, char *str);
 char	**new_arr(char **env, char **rtn, char *str);
 void	join_arr(t_shell *shell, char *str);
 int		if_exist(char **env, char *str);
-void    check_and_send(t_shell *shell, char *str);
+void	check_and_send(t_shell *shell, char *str);
 char	*little_copy(char *str, int len);
 
 //Sort Env

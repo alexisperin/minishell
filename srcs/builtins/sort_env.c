@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:22:18 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/10 15:12:56 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/12 15:04:17 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_env(char **env)
 		j = 0;
 		while (env[i][j] != '=')
 			j++;
-		write(1, "declare -x ", 12);
+		write(1, "declare -x ", 11);
 		j++;
 		write(1, env[i], j);
 		write(1, "\"", 1);
