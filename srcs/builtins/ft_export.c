@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:25 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/13 12:20:14 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:39:05 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,30 @@ int	if_exist(char **env, char *str)
 	return (0);
 }
 
-void	join_arr(char **env, char *str)
+void	join_arr(t_shell *shell, char *str)
 {
 	int		i;
 	int		j;
+	char	*new_var;
 
 	i = 0;
 	j = 0;
 	while (str[j] && str[j] != '=')
 		j++;
-	while (env[i])
+	while (shell->env[i])
 	{
-		if (!ft_strncmp(env[i], str, j - 1) && env[i][j - 1] == '=')
-			env[i] = ft_strjoin_free(env[i], &str[j + 1]);
+		if (!ft_strncmp(shell->env[i], str, j - 1)
+			&& shell->env[i][j - 1] == '=')
+		{
+			shell->env[i] = ft_strjoin_free(shell->env[i], &str[j + 1]);
+			return ;
+		}
 		i++;
 	}
+	new_var = ft_substr(str, 0, j - 1);
+	new_var = ft_strjoin_free(new_var, &str[j]);
+	ft_export(NULL, shell, new_var);
+	free(new_var);
 }
 
 static char	**new_arr(char **env, char **rtn, char *str)

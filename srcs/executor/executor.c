@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/13 10:34:34 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:46:53 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static bool	execute_currdir(t_cmds *cmd, t_shell *shell)
 {
 	if (cmd->str[0][0] == '\0')
 	{
-		ft_putstr_fd("'': command not found\n", STDERR);
+		ft_putstr_fd("minishell: : command not found\n", STDERR);
 		exit(127);
 	}
 	if (ft_strchr(cmd->str[0], '/') == NULL)
@@ -25,7 +25,10 @@ static bool	execute_currdir(t_cmds *cmd, t_shell *shell)
 	if (access(cmd->str[0], F_OK) == 0)
 	{
 		if (execve(cmd->str[0], cmd->str, shell->env) == -1)
-			exit(-1);
+		{
+			perror(cmd->str[0]);
+			exit(126);
+		}
 	}
 	return (false);
 }
@@ -66,7 +69,9 @@ static void	execute_cmd(t_cmds *cmd, t_shell *shell)
 				break ;
 			i++;
 		}
-		ft_execve(cmd, shell, ft_split(&shell->env[i][5], ':'));
+		if (shell->env[i])
+			ft_execve(cmd, shell, ft_split(&shell->env[i][5], ':'));
+		ft_execve(cmd, shell, NULL);
 	}
 	exit(g_return_value);
 }

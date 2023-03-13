@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:15:42 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/13 12:02:14 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:42:15 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_execve(t_cmds *cmd, t_shell *shell, char **path)
 	char	*tmp;
 
 	i = 0;
-	while (path[i])
+	while (path && path[i])
 	{
 		tmp = ft_strjoin(path[i], "/");
 		tmp = ft_strjoin_free(tmp, cmd->str[0]);
@@ -34,6 +34,7 @@ void	ft_execve(t_cmds *cmd, t_shell *shell, char **path)
 		i++;
 	}
 	ft_free_arr(path);
+	ft_putstr_fd("minishell: ", STDERR);
 	ft_putstr_fd(cmd->str[0], STDERR);
 	ft_putstr_fd(": command not found\n", STDERR);
 	exit(127);

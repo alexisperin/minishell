@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/13 11:14:26 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:35:37 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int		is_identifier(char c);
 void	print_env(char **env);
 void	join_path(t_shell *shell, int i, char *temp, char *str);
 int		send_arr(t_shell *shell, char *str);
-void	join_arr(char **env, char *str);
+void	join_arr(t_shell *shell, char *str);
 int		if_exist(char **env, char *str);
 void	check_and_send(t_shell *shell, char *str);
 void	sort_env(t_shell *shell);

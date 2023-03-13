@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 11:57:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/03 11:58:26 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:20:58 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_free_arr(char **arr)
 	int	i;
 
 	i = 0;
-	while (arr[i])
+	while (arr && arr[i])
 	{
 		free(arr[i]);
 		i++;

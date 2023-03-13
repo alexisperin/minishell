@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:04:30 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/13 10:44:38 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:35:26 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	check_and_send(t_shell *shell, char *str)
 		if (!check)
 		{
 			if (identifier == 2)
-				join_arr(shell->env, str);
+				join_arr(shell, str);
 			else
 				send_arr(shell, str);
 		}

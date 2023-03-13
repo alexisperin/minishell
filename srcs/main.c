@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 09:56:19 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/10 13:43:56 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:34:00 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	set_shlvl(t_shell *shell)
 		lvl++;
 	shlvl = ft_strdup("SHLVL=");
 	shlvl = ft_strjoin_free2(shlvl, ft_itoa(lvl));
-	ft_export(0, shell, shlvl);
+	ft_export(NULL, shell, shlvl);
 	free(shlvl);
 }
 

@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:58:13 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/09 11:40:39 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:01:07 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,10 @@ t_lexer	*expand(t_lexer *lexer, t_shell *shell)
 		else if (last_token != LL)
 			expand_node(tmp->word, &new_lexer, shell);
 		else
+		{
 			new_node(&new_lexer, 0, ft_strdup(tmp->word));
+			last_token = 0;
+		}
 		tmp = tmp->next;
 	}
 	free_lexer(lexer);
