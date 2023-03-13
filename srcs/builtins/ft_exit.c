@@ -3,41 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:32:45 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/13 10:41:21 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 17:04:30 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-static void	checker(char *str, unsigned char *ret)
+static void	checker(char *str)
 {
 	int	check;
 
 	check = 0;
-	*ret = ft_atoi_check(str, &check);
+	g_return_value = ft_atoi_check(str, &check);
 	if (check == 2)
 	{
 		ft_putstr_fd("minishell: exit: ", STDERR);
 		ft_putstr_fd(str, STDERR);
 		ft_putstr_fd(": numeric argument required\n", STDERR);
+		g_return_value = 2;
 	}
 	else if (check == 1)
-		exit(*ret);
+		exit(g_return_value);
 }
 
 int	ft_exit(t_cmds *cmd, int type)
 {
-	unsigned char	ret;
-
-	ret = 0;
 	if (type)
 	{
 		ft_putstr_fd("exit\n", STDOUT);
-		exit (0);
+		exit(g_return_value);
 	}
 	else if (cmd->pid)
 		ft_putstr_fd("exit\n", STDOUT);
@@ -47,6 +45,6 @@ int	ft_exit(t_cmds *cmd, int type)
 		return (1);
 	}
 	if (cmd->str[1])
-		checker(cmd->str[1], &ret);
-	exit(ret);
+		checker(cmd->str[1]);
+	exit(g_return_value);
 }

@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:50:11 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/13 11:58:12 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 16:53:40 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	print_error(int error_code)
 		ft_putstr_fd("unclosed quote\n", 2);
 	else if (error_code == 3)
 		ft_putstr_fd("syntax error near unexpected token\n", 2);
+	g_return_value = 1;
 }
 
 int	export_err(char *str)
