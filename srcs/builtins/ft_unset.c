@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:45:56 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/08 14:38:40 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 09:21:13 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ int	ft_unset(t_cmds *cmd, t_shell *shell)
 		shell->env = rtn;
 		j++;
 	}
-	return (1);
+	return (0);
 }
