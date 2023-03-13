@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:30:23 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/08 14:37:29 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 09:21:07 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ft_pwd(void)
 	if (getcwd(buf, PATH_MAX))
 	{
 		printf("%s\n", buf);
-		return (1);
+		return (0);
 	}
 	else
-		return (0);
+		return (1);
 }
