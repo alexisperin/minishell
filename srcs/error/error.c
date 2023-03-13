@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:50:11 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/10 13:16:23 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 10:11:29 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	print_error(int error_code)
 
 int	export_err(char *str)
 {
+	g_return_value = 1;
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);

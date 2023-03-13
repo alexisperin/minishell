@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:25 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/13 09:55:38 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 10:12:13 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 	int		i;
 
 	i = 1;
+	g_return_value = 0;
 	if (!str && !cmd->str[1])
 	{
 		sort_env(shell);
@@ -117,5 +118,5 @@ int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 			i++;
 		}
 	}
-	return (0);
+	return (g_return_value);
 }
