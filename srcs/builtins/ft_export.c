@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:25 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/13 10:12:13 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 10:41:59 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	join_arr(char **env, char *str)
 	}
 }
 
-char	**new_arr(char **env, char **rtn, char *str)
+static char	**new_arr(char **env, char **rtn, char *str)
 {
 	int	i;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:22:18 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/12 15:04:17 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 10:45:44 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	print_env(char **env)
 	}
 }
 
-void	sorter(char **env_sort, int len)
+static void	sorter(char **env_sort, int len)
 {
 	int		i;
 	int		j;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aperin <aperin@student.s19.be>             +#+  +:+       +#+         #
+#    By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:50:49 by aperin            #+#    #+#              #
-#    Updated: 2023/03/12 18:39:25 by aperin           ###   ########.fr        #
+#    Updated: 2023/03/13 10:34:10 by aburnott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ SRC_FILE	= main.c \
 				builtins/ft_env.c \
 				builtins/ft_exit.c \
 				builtins/ft_cd.c \
-				builtins/ft_cd2.c \
 				builtins/ft_export.c \
 				builtins/ft_export2.c \
 				builtins/ft_unset.c \

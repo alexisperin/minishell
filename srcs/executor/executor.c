@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/12 18:41:17 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 10:34:34 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	execute_builtin(t_cmds *cmd, t_shell *shell)
 	else if (ft_strncmp(cmd->str[0], "echo", 5) == 0)
 		g_return_value = ft_echo(cmd);
 	else if (ft_strncmp(cmd->str[0], "cd", 3) == 0)
-		g_return_value = ft_cd2(cmd, shell);
+		g_return_value = ft_cd(cmd, shell);
 	else if (ft_strncmp(cmd->str[0], "export", 7) == 0)
 		g_return_value = ft_export(cmd, shell, 0);
 	else if (ft_strncmp(cmd->str[0], "unset", 6) == 0)

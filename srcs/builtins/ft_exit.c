@@ -6,14 +6,14 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:32:45 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/09 10:34:48 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 10:41:21 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-void	checker(char *str, unsigned char *ret)
+static void	checker(char *str, unsigned char *ret)
 {
 	int	check;
 

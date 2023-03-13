@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:04:30 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/13 09:07:31 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 10:44:38 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-int	check_identifier(char *str)
+static int	check_identifier(char *str)
 {
 	int	i;
 

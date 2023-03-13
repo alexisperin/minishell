@@ -6,14 +6,14 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:45:56 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/13 09:21:13 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 10:45:20 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-void	unset_arr(char **env, char **rtn, char *str)
+static void	unset_arr(char **env, char **rtn, char *str)
 {
 	int	i;
 	int	j;
