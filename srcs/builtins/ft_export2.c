@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:04:30 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/10 15:18:38 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 09:07:31 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,25 +52,9 @@ void	check_and_send(t_shell *shell, char *str)
 		if (!check)
 		{
 			if (identifier == 2)
-				join_arr(shell, str);
+				join_arr(shell->env, str);
 			else
 				send_arr(shell, str);
 		}
 	}
-}
-
-char	*little_copy(char *str, int len)
-{
-	char	*temp;
-	int		i;
-
-	i = 0;
-	temp = ft_malloc(len);
-	while (str[len - 1])
-	{
-		temp[i] = str[len];
-		i++;
-		len++;
-	}
-	return (temp);
 }

@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 18:32:32 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/12 21:24:02 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 08:42:31 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static int	ft_chdir(char *path, t_shell *shell)
 	pwd = ft_getcwd();
 	if (!pwd)
 	{
-		printf("error getcwd\n");
-		return (1);
-		// TO UPDATE
+		perror("cd: error retrieving current directory: getcwd: cannot access\
+ parent directories");
+		return (1); // TO UPDATE ??
 	}
 	if (chdir(path) != 0)
 	{
@@ -37,7 +37,6 @@ static int	ft_chdir(char *path, t_shell *shell)
 	ft_export(0, shell, pwd);
 	free(pwd);
 	return (0);
-	// TO DO, UPDATE PWD AND OLDPWD
 }
 
 static int	cd_minus(t_shell *shell)

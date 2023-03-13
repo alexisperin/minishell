@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/12 18:39:15 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 09:07:45 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,10 +148,9 @@ void	join_path(t_shell *shell, int i, char *temp, char *str);
 int		check_identifier(char *str);
 int		send_arr(t_shell *shell, char *str);
 char	**new_arr(char **env, char **rtn, char *str);
-void	join_arr(t_shell *shell, char *str);
+void	join_arr(char **env, char *str);
 int		if_exist(char **env, char *str);
 void	check_and_send(t_shell *shell, char *str);
-char	*little_copy(char *str, int len);
 
 int		ft_cd2(t_cmds *cmd, t_shell *shell);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:25 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/10 15:19:33 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 09:15:30 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +37,21 @@ int	if_exist(char **env, char *str)
 	return (0);
 }
 
-void	join_arr(t_shell *shell, char *str)
+void	join_arr(char **env, char *str)
 {
 	int		i;
-	int		len;
-	int		len2;
-	char	*temp;
+	int		j;
 
 	i = 0;
-	len = 0;
-	len2 = 0;
-	while (str[len] != '=')
-		len++;
-	while (str[len2])
-		len2++;
-	len2 = len2 - len;
-	temp = little_copy(str, len2);
-	while (shell->env[i])
+	j = 0;
+	while (str[j] && str[j] != '=')
+		j++;
+	while (env[i])
 	{
-		if (!ft_strncmp(shell->env[i], str, len - 1))
-			shell->env[i] = ft_strjoin(shell->env[i], temp);
+		if (!ft_strncmp(env[i], str, j - 1) && env[i][j - 1] == '=')
+			env[i] = ft_strjoin_free(env[i], &str[j + 1]);
 		i++;
 	}
-	free(temp);
 }
 
 char	**new_arr(char **env, char **rtn, char *str)
@@ -110,7 +102,7 @@ int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 	{
 		sort_env(shell);
 		print_env(shell->sorted_env);
-		return (1);
+		return (0);
 	}
 	if (str)
 	{
