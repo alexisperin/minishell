@@ -6,23 +6,36 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 18:32:32 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/13 08:42:31 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 10:25:58 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
+static void	update_pwd(char *pwd, t_shell *shell)
+{
+	if (pwd)
+	{
+		pwd = ft_strjoin_free_second("OLDPWD=", pwd);
+		ft_export(0, shell, pwd);
+		free(pwd);
+	}
+	pwd = ft_strjoin_free_second("PWD=", ft_getcwd());
+	ft_export(0, shell, pwd);
+	free(pwd);
+}
+
 static int	ft_chdir(char *path, t_shell *shell)
 {
 	char	*pwd;
 
 	pwd = ft_getcwd();
-	if (!pwd)
+	if (!pwd && path[0] != '/')
 	{
 		perror("cd: error retrieving current directory: getcwd: cannot access\
  parent directories");
-		return (1); // TO UPDATE ??
+		return (0);
 	}
 	if (chdir(path) != 0)
 	{
@@ -30,12 +43,7 @@ static int	ft_chdir(char *path, t_shell *shell)
 		free(pwd);
 		return (1);
 	}
-	pwd = ft_strjoin_free_second("OLDPWD=", pwd);
-	ft_export(0, shell, pwd);
-	free(pwd);
-	pwd = ft_strjoin_free_second("PWD=", ft_getcwd());
-	ft_export(0, shell, pwd);
-	free(pwd);
+	update_pwd(pwd, shell);
 	return (0);
 }
 
