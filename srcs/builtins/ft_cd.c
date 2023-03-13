@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:04:29 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/10 14:22:06 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 09:16:49 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,10 @@ int	sending(t_cmds *cmd, t_shell *shell)
 	if (ft_strncmp(cmd->str[1], "-", 1) == 0)
 	{
 		if (!change_path("OLDPWD=", shell, 1))
+		{
 			ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
+			return (1);
+		}
 		else
 			printf("%s\n", extract_path("PWD=", shell));
 	}
@@ -113,19 +116,22 @@ int	ft_cd(t_cmds *cmd, t_shell *shell)
 	if (!cmd->str[1])
 	{
 		if (!change_path("HOME=", shell, 1))
+		{
 			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+			return (1);
+		}
 	}
 	else if (cmd->str[1][0] == '\0')
 		return (0);
 	else if (cmd->str[1] && cmd->str[2] != 0)
 	{
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-		return (0);
+		return (1);
 	}
 	else if (cmd->str[1])
 	{
 		if (sending(cmd, shell))
-			return (0);
+			return (1);
 	}
 	return (0);
 }

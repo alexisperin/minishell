@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:25 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/13 09:15:30 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 09:55:38 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,5 @@ int	ft_export(t_cmds *cmd, t_shell *shell, char *str)
 			i++;
 		}
 	}
-	return (1);
+	return (0);
 }
