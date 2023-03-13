@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:25 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/13 10:41:59 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:20:14 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	send_arr(t_shell *shell, char *str)
 	char	**rtn;
 
 	i = 0;
-	while (shell->env[i])
+	while (shell->env && shell->env[i])
 			i++;
 	rtn = ft_calloc(sizeof(char *), i + 2);
 	new_arr(shell->env, rtn, str);
