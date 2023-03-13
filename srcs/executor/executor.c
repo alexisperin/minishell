@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/13 15:46:53 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 16:30:01 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static bool	execute_currdir(t_cmds *cmd, t_shell *shell)
 	{
 		if (execve(cmd->str[0], cmd->str, shell->env) == -1)
 		{
+			ft_putstr_fd("minishell: ", STDERR);
 			perror(cmd->str[0]);
 			exit(126);
 		}
