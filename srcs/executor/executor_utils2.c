@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:15:42 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/10 13:44:26 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 12:02:14 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ bool	single_cmd(t_shell *shell)
 		save_stdin = ft_dup(STDIN);
 		save_stdout = ft_dup(STDOUT);
 		shell->cmds->pid = 1;
-		handle_redirections(shell->cmds, shell);
-		execute_builtin(shell->cmds, shell);
+		if (handle_redirections(shell->cmds, shell))
+			execute_builtin(shell->cmds, shell);
 		ft_dup2(save_stdin, STDIN);
 		ft_dup2(save_stdout, STDOUT);
 		return (true);

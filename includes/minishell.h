@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/13 10:44:58 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 11:14:26 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ int		ft_export(t_cmds *cmd, t_shell *shell, char *str);
 int		ft_unset(t_cmds *cmd, t_shell *shell);
 
 //Builtins Utils
+char	*ft_getcwd(void);
 int		check_validity(char *str);
 int		if_exist(char **env, char *str);
 int		is_identifier(char c);
@@ -145,12 +146,6 @@ int		send_arr(t_shell *shell, char *str);
 void	join_arr(char **env, char *str);
 int		if_exist(char **env, char *str);
 void	check_and_send(t_shell *shell, char *str);
-
-
-//Builtins utils
-char	*ft_getcwd(void);
-
-//Sort Env
 void	sort_env(t_shell *shell);
 
 //Utils

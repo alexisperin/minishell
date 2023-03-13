@@ -6,51 +6,12 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:29:58 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/10 12:20:32 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/13 11:58:57 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
-
-void	print_lexer(t_lexer *lexer) // TO REMOVE
-{
-	if (!lexer)
-	{
-		printf("NULL\n");
-		return ;
-	}
-	while (lexer)
-	{
-		if (lexer->word)
-			printf("%s\n", lexer->word);
-		else
-			printf("token: %d\n", lexer->token);
-		lexer = lexer->next;
-	}
-	printf("\n");
-}
-
-void	print_cmd(t_cmds *cmds) //TO REMOVE
-{
-	int	i;
-
-	printf("----CMDS----\n");
-	while (cmds)
-	{
-		printf("--STR %d--\n", cmds->n);
-		i = 0;
-		while (cmds->str[i])
-		{
-			printf("%s\n", cmds->str[i]);
-			i++;
-		}
-		printf("--REDIR %d--\n", cmds->n);
-		print_lexer(cmds->redir);
-		cmds = cmds->next;
-	}
-	printf("----------------------\n");
-}
 
 void	read_input(t_shell *shell)
 {
@@ -66,11 +27,8 @@ void	read_input(t_shell *shell)
 		lexer = get_lexer(str);
 		if (lexer && postlexer_check(lexer))
 		{
-			// print_lexer(lexer);
 			lexer = expand(lexer, shell);
-			// print_lexer(lexer);
 			shell->cmds = get_cmds(lexer);
-			// print_cmd(shell->cmds);
 			execute(shell);
 			free_cmds(shell->cmds);
 		}

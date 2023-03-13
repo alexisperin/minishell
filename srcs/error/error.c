@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:50:11 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/13 10:11:29 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 11:58:12 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 
 void	print_error(int error_code)
 {
-	ft_putstr_fd(RED, 2);
-	ft_putstr_fd("Error: ", 2);
-	ft_putstr_fd(NRM, 2);
+	ft_putstr_fd("minishell: ", 2);
 	if (error_code == 1)
 		ft_putstr_fd("too many input arguments\n", 2);
 	else if (error_code == 2)

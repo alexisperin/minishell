@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:45:56 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/13 10:45:20 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/13 11:51:07 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_unset(t_cmds *cmd, t_shell *shell)
 		i = 0;
 		while (shell->env[i])
 			i++;
-		rtn = ft_calloc(i + 1, sizeof(char *));
+		rtn = ft_calloc(i, sizeof(char *));
 		unset_arr(shell->env, rtn, cmd->str[j]);
 		ft_free_arr(shell->env);
 		shell->env = rtn;
