@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:29:58 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/14 09:54:59 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 15:13:39 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void	read_input(t_shell *shell)
 		{
 			lexer = expand(lexer, shell);
 			shell->cmds = get_cmds(lexer);
+			g_return_value = 0;
 			execute(shell);
 			free_cmds(shell->cmds);
+			unlink(HEREDOC);
 		}
 	}
 	if (ft_strlen(str) != 0)

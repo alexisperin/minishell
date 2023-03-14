@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/14 09:54:50 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 15:59:55 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void	handle_pipes(t_cmds *cmd, int prev_fd, t_shell *shell)
 			ft_dup2(cmd->pipefd[1], STDOUT);
 			close(cmd->pipefd[0]);
 		}
-		if (handle_redirections(cmd, shell))
+		if (handle_redirections(cmd))
 			execute_cmd(cmd, shell);
 	}
 }
@@ -101,14 +101,22 @@ static void	handle_pipes(t_cmds *cmd, int prev_fd, t_shell *shell)
 void	execute(t_shell *shell)
 {
 	t_cmds	*curr;
+	t_lexer	*lex;
 	int		prev_fd;
 
 	prev_fd = -1;
 	curr = shell->cmds;
 	if (curr->next == NULL && single_cmd(shell))
 		return ;
-	while (curr)
+	while (curr && g_return_value == 0)
 	{
+		lex = curr->redir;
+		while (lex && g_return_value == 0)
+		{
+			if (lex->token == LL)
+				heredoc(lex->next, shell);
+			lex = lex->next;
+		}
 		handle_pipes(curr, prev_fd, shell);
 		close(prev_fd);
 		prev_fd = curr->pipefd[0];

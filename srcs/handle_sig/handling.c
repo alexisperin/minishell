@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:16:31 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/10 13:44:49 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 14:38:53 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static void	prompt_nl(int sig)
 static void	ctrl_c(int sig)
 {
 	(void) sig;
-	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	unlink(HEREDOC);

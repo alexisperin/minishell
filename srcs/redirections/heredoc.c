@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:38:48 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/10 16:22:27 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 15:14:50 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,28 +87,27 @@ static void	heredoc_loop(int fd, char *delimitor, t_shell *shell, bool expand)
 void	heredoc(t_lexer *heredoc, t_shell *shell)
 {
 	int		fd;
+	int		pid;
 	bool	expand;
 
-	fd = open(HEREDOC, O_WRONLY | O_TRUNC | O_CREAT,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	if (fd == -1)
+	pid = ft_fork();
+	if (pid == 0)
 	{
-		perror(HEREDOC);
-		exit(1);
+		fd = open(HEREDOC, O_WRONLY | O_TRUNC | O_CREAT,
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		if (fd == -1)
+		{
+			perror(HEREDOC);
+			exit(1);
+		}
+		expand = true;
+		heredoc->word = expand_delimitor(heredoc->word, &expand);
+		sig_handler(3);
+		heredoc_loop(fd, heredoc->word, shell, expand);
+		close(fd);
+		exit(0);
 	}
-	expand = true;
-	heredoc->word = expand_delimitor(heredoc->word, &expand);
-	sig_handler(3);
-	heredoc_loop(fd, heredoc->word, shell, expand);
-	close(fd);
+	signal(SIGINT, SIG_IGN);
+	waitpid(pid, NULL, 0);
 	sig_handler(2);
-	fd = open(HEREDOC, O_RDONLY);
-	if (fd == -1)
-	{
-		perror(HEREDOC);
-		exit(1);
-	}
-	ft_dup2(fd, STDIN);
-	close(fd);
-	unlink(HEREDOC);
 }
