@@ -6,7 +6,7 @@
 #    By: aperin <aperin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 13:00:13 by aperin            #+#    #+#              #
-#    Updated: 2023/03/12 21:01:52 by aperin           ###   ########.fr        #
+#    Updated: 2023/03/14 10:00:32 by aperin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 			ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c \
 			ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 			ft_malloc.c ft_arrdup.c ft_free_arr.c ft_strjoin_free.c \
-			ft_strjoin_free2.c ft_strjoin_free_second.c ft_atoi_check.c
+			ft_strjoin_free2.c ft_strjoin_free_second.c
 
 OBJS	= $(SRCS:.c=.o)
 

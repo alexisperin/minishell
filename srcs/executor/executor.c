@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/13 16:30:01 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 09:54:50 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	execute_builtin(t_cmds *cmd, t_shell *shell)
 	else if (ft_strncmp(cmd->str[0], "env", 4) == 0)
 		g_return_value = ft_env(shell->env);
 	else if (ft_strncmp(cmd->str[0], "exit", 5) == 0)
-		g_return_value = ft_exit(cmd, 0);
+		g_return_value = ft_exit(cmd);
 	else
 		return (0);
 	return (1);
