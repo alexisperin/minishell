@@ -6,7 +6,7 @@
 /*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:22:18 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/13 10:45:44 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/14 13:39:28 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static void	sorter(char **env_sort, int len)
 		j = i + 1;
 		while (j < len)
 		{
-			if (ft_strncmp(env_sort[j], env_sort[min_i],
-					ft_strlen(env_sort[min_i])) < 0)
+			if (ft_strncmp(env_sort[j], env_sort[min_i], 
+			ft_strlen(env_sort[min_i])) < 0)
 				min_i = j;
 			j++;
 		}
