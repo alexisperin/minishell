@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/14 08:25:31 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 10:06:15 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <signal.h>
+# include <limits.h>
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -129,7 +130,7 @@ void	expand_heredoc(char *str, int fd, t_shell *shell);
 int		ft_pwd(void);
 int		ft_echo(t_cmds *cmd);
 int		ft_env(char **env);
-int		ft_exit(t_cmds *cmd, int type);
+int		ft_exit(t_cmds *cmd);
 int		ft_cd(t_cmds *cmd, t_shell *shell);
 int		ft_export(t_cmds *cmd, t_shell *shell, char *str);
 int		ft_unset(t_cmds *cmd, t_shell *shell);
