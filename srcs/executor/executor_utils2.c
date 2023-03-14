@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:15:42 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/14 17:22:24 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 22:07:54 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	ft_waitpid(t_shell *shell)
 			else if (sig == SIGQUIT)
 				g_return_value = 131;
 		}
+		if (g_return_value == 130 || g_return_value == 131)
+			shell->stop = true;
 		curr = curr->next;
 	}
 }
@@ -74,15 +76,14 @@ bool	single_cmd(t_shell *shell)
 	{
 		save_stdin = ft_dup(STDIN);
 		save_stdout = ft_dup(STDOUT);
-		shell->cmds->pid = 1;
 		lex = shell->cmds->redir;
-		while (lex && g_return_value == 0)
+		while (lex && !shell->stop)
 		{
 			if (lex->token == LL)
 				heredoc(lex->next, shell->cmds, shell);
 			lex = lex->next;
 		}
-		if (handle_redirections(shell->cmds))
+		if (handle_redirections(shell->cmds, shell))
 			execute_builtin(shell->cmds, shell);
 		ft_dup2(save_stdin, STDIN);
 		ft_dup2(save_stdout, STDOUT);

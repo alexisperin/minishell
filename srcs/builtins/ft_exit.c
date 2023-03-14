@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:32:45 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/14 11:39:50 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 19:41:27 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,15 @@ static void	exit_checker(char *str)
 
 int	ft_exit(t_cmds *cmd)
 {
-	if (!cmd || !cmd->str[1])
+	if (!cmd)
 	{
 		ft_putstr_fd("exit\n", STDOUT);
 		exit(g_return_value);
 	}
-	else if (cmd->pid)
+	if (cmd->pid != 0)
 		ft_putstr_fd("exit\n", STDOUT);
+	if (!cmd->str[1])
+		exit(g_return_value);
 	if (cmd->str[2] != NULL)
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR);

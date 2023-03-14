@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:38:48 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/14 17:37:32 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 22:26:01 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	heredoc(t_lexer *heredoc, t_cmds *cmd, t_shell *shell)
 {
 	int		fd;
 	int		pid;
+	int		status;
 	bool	expand;
 
 	cmd->heredoc = heredoc_name(cmd);
@@ -109,6 +110,10 @@ void	heredoc(t_lexer *heredoc, t_cmds *cmd, t_shell *shell)
 		exit(0);
 	}
 	sig_handler(4);
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		g_return_value = WEXITSTATUS(status);
+	if (g_return_value == 130)
+		shell->stop = true;
 	sig_handler(2);
 }
