@@ -6,13 +6,13 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 14:58:12 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/10 13:50:22 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 16:53:55 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	redir_output(char *file, t_token token, pid_t pid)
+static void	redir_output(char *file, t_token token, pid_t pid)
 {
 	int	fd;
 
@@ -28,13 +28,13 @@ static bool	redir_output(char *file, t_token token, pid_t pid)
 		if (pid == 0)
 			exit(1);
 		g_return_value = 1;
-		return (false);
+		return ;
 	}
 	ft_dup2(fd, STDOUT);
-	return (true);
+	close(fd);
 }
 
-static bool	redir_input(char *file, pid_t pid)
+static void	redir_input(char *file, pid_t pid)
 {
 	int	fd;
 
@@ -45,32 +45,42 @@ static bool	redir_input(char *file, pid_t pid)
 		if (pid == 0)
 			exit(1);
 		g_return_value = 1;
-		return (false);
+		return ;
 	}
 	ft_dup2(fd, STDIN);
-	return (true);
+	close(fd);
 }
 
-bool	handle_redirections(t_cmds *cmd, t_shell *shell)
+static void	redir_heredoc(char *heredoc)
+{
+	int	fd;
+
+	fd = open(heredoc, O_RDONLY);
+	if (fd == -1)
+	{
+		g_return_value = 130;
+		return ;
+	}
+	ft_dup2(fd, STDIN);
+	close(fd);
+}
+
+bool	handle_redirections(t_cmds *cmd)
 {
 	t_lexer	*curr;
 
 	curr = cmd->redir;
-	while (curr)
+	while (curr && g_return_value == 0)
 	{
 		if (curr->token == L)
-		{
-			if (!redir_input(curr->next->word, cmd->pid))
-				return (false);
-		}
+			redir_input(curr->next->word, cmd->pid);
 		else if (curr->token == LL)
-			heredoc(curr->next, shell);
+			redir_heredoc(cmd->heredoc);
 		else if (curr->token == R || curr->token == RR)
-		{
-			if (!redir_output(curr->next->word, curr->token, cmd->pid))
-				return (false);
-		}
+			redir_output(curr->next->word, curr->token, cmd->pid);
 		curr = curr->next;
 	}
-	return (true);
+	if (g_return_value == 0)
+		return (true);
+	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 09:56:19 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/13 15:34:00 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 17:18:01 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	set_shlvl(t_shell *shell)
 
 	i = 0;
 	lvl = 0;
-	while (shell->env[i])
+	while (shell->env && shell->env[i])
 	{
 		if (ft_strncmp("SHLVL=", shell->env[i], 6) == 0)
 		{

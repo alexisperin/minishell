@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:25 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/13 15:39:05 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 19:04:49 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,11 @@ static char	**new_arr(char **env, char **rtn, char *str)
 	i = 0;
 	while (env[i])
 	{
-		if (env[i + 1] == NULL)
-		{
-			rtn[i] = ft_strdup(str);
-			rtn[i + 1] = ft_strdup(env[i]);
-		}
-		else
-			rtn[i] = ft_strdup(env[i]);
+		rtn[i] = env[i];
 		i++;
 	}
-	if (!rtn[i])
-	{
-		ft_free_arr(rtn);
-		return (rtn);
-	}
+	rtn[i] = ft_strdup(str);
+	rtn[i + 1] = NULL;
 	return (rtn);
 }
 
@@ -95,9 +86,9 @@ int	send_arr(t_shell *shell, char *str)
 	i = 0;
 	while (shell->env && shell->env[i])
 			i++;
-	rtn = ft_calloc(sizeof(char *), i + 2);
+	rtn = ft_malloc((i + 2) * sizeof(char *));
 	new_arr(shell->env, rtn, str);
-	ft_free_arr(shell->env);
+	free(shell->env);
 	shell->env = rtn;
 	return (1);
 }

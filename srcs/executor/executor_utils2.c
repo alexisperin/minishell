@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:15:42 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/13 15:42:15 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 17:22:24 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,23 @@ void	ft_waitpid(t_shell *shell)
 
 bool	single_cmd(t_shell *shell)
 {
-	int	save_stdin;
-	int	save_stdout;
+	int		save_stdin;
+	int		save_stdout;
+	t_lexer	*lex;
 
 	if (is_builtin(shell->cmds))
 	{
 		save_stdin = ft_dup(STDIN);
 		save_stdout = ft_dup(STDOUT);
 		shell->cmds->pid = 1;
-		if (handle_redirections(shell->cmds, shell))
+		lex = shell->cmds->redir;
+		while (lex && g_return_value == 0)
+		{
+			if (lex->token == LL)
+				heredoc(lex->next, shell->cmds, shell);
+			lex = lex->next;
+		}
+		if (handle_redirections(shell->cmds))
 			execute_builtin(shell->cmds, shell);
 		ft_dup2(save_stdin, STDIN);
 		ft_dup2(save_stdout, STDOUT);

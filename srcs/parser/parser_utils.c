@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 09:10:34 by aperin            #+#    #+#             */
-/*   Updated: 2023/02/17 11:46:32 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 16:56:24 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_cmds	*new_cmd(int n)
 
 	node = ft_malloc(sizeof(t_cmds));
 	node->redir = NULL;
+	node->heredoc = NULL;
 	node->next = NULL;
 	node->n = n;
 	node->pipefd[0] = -1;
@@ -68,6 +69,9 @@ void	free_cmds(t_cmds *cmds)
 			i++;
 		}
 		free(tmp->str);
+		if (tmp->heredoc)
+			unlink(tmp->heredoc);
+		free(tmp->heredoc);
 		free(tmp);
 	}
 }
