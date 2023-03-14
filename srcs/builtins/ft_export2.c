@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:04:30 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/13 15:35:26 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 11:15:12 by aburnott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ static int	check_identifier(char *str)
 	i = 0;
 	if (ft_isdigit(str[i]))
 		return (0);
+	if (str[i] == '=')
+		return (0);
 	while (str[i] != '=' && str[i])
 	{
-		if (!is_identifier(str[i]) || (str[i] == '=' && i == 0))
+		if (!is_identifier(str[i]))
 		{
 			if (str[i] == '+' && str[i + 1] == '=' && i > 0)
 				return (2);
