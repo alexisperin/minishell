@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/13 15:35:37 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 08:25:31 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <signal.h>
-# include <termios.h>
 
 # include <readline/readline.h>
 # include <readline/history.h>

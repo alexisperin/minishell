@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:32:45 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/13 17:04:30 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 09:19:10 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static void	checker(char *str)
 
 	check = 0;
 	g_return_value = ft_atoi_check(str, &check);
-	if (check == 2)
+	if (check == 1)
 	{
 		ft_putstr_fd("minishell: exit: ", STDERR);
 		ft_putstr_fd(str, STDERR);
 		ft_putstr_fd(": numeric argument required\n", STDERR);
 		g_return_value = 2;
 	}
-	else if (check == 1)
+	else
 		exit(g_return_value);
 }
 

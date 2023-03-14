@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 23:52:15 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/07 17:11:11 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 09:22:09 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_atoi_check(const char *str, int *check)
 {
 	int		i;
 	int		sign;
-	long	res;
+	size_t	res;
 
 	i = 0;
 	sign = 1;
@@ -30,9 +30,9 @@ int	ft_atoi_check(const char *str, int *check)
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 		res = res * 10 + str[i++] - 48;
-	if (sign * res > INT_MAX || sign * res < INT_MIN)
+	if (sign * res > (size_t) LONG_MAX || sign * res < (size_t) LONG_MIN)
 		*check = 1;
 	else if (i == 0 || str[i])
-		*check = 2;
+		*check = 1;
 	return (sign * res);
 }
