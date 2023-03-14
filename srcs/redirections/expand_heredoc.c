@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:08:55 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/10 13:45:02 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 17:27:26 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,17 @@ void	expand_heredoc(char *str, int fd, t_shell *shell)
 			i += j;
 		}
 	}
+}
+
+char	*heredoc_name(t_cmds *cmd)
+{
+	char		*name;
+	char		*n_str;
+
+	if (cmd->heredoc)
+		return (cmd->heredoc);
+	n_str = ft_itoa(cmd->n);
+	name = ft_strjoin_free_second(".heredoc", n_str);
+	name = ft_strjoin_free(name, ".tmp");
+	return (name);
 }

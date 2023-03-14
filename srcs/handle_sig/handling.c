@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:16:31 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/14 14:38:53 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 18:53:44 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static void	ctrl_c(int sig)
 	(void) sig;
 	rl_on_new_line();
 	rl_replace_line("", 0);
-	unlink(HEREDOC);
 	exit(130);
 }
 
@@ -42,6 +41,12 @@ static void	backslash(int sig)
 {
 	(void) sig;
 	exit(131);
+}
+
+static void	hd(int sig)
+{
+	(void) sig;
+	g_return_value = 130;
 }
 
 void	sig_handler(int status)
@@ -61,9 +66,14 @@ void	sig_handler(int status)
 		signal(SIGINT, &ctrl_c);
 		signal(SIGQUIT, &backslash);
 	}
-	else
+	else if (status == 3)
 	{
 		signal(SIGINT, &ctrl_c);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else
+	{
+		signal(SIGINT, &hd);
 		signal(SIGQUIT, SIG_IGN);
 	}
 }

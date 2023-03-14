@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/14 15:02:40 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 17:27:51 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@
 
 # define PROMPT "\x1B[36mAlexis'Hell ~$ \x1B[0m"
 
-# define HEREDOC ".heredoc.tmp"
-
 typedef enum e_token
 {
 	P = 1,
@@ -72,6 +70,7 @@ typedef struct s_cmds
 	int				n;
 	pid_t			pid;
 	int				pipefd[2];
+	char			*heredoc;
 	struct s_cmds	*next;
 }					t_cmds;
 
@@ -123,7 +122,8 @@ void	ft_pipe(int fd[2]);
 
 //Redirections
 bool	handle_redirections(t_cmds *cmd);
-void	heredoc(t_lexer *heredoc, t_shell *shell);
+void	heredoc(t_lexer *heredoc, t_cmds *cmd, t_shell *shell);
+char	*heredoc_name(t_cmds *cmd);
 void	expand_heredoc(char *str, int fd, t_shell *shell);
 
 //Builtins

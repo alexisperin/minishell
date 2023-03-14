@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 14:58:12 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/14 15:13:33 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/14 16:53:55 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ static void	redir_input(char *file, pid_t pid)
 	close(fd);
 }
 
-static void	redir_heredoc(void)
+static void	redir_heredoc(char *heredoc)
 {
 	int	fd;
 
-	fd = open(HEREDOC, O_RDONLY);
+	fd = open(heredoc, O_RDONLY);
 	if (fd == -1)
 	{
 		g_return_value = 130;
@@ -75,7 +75,7 @@ bool	handle_redirections(t_cmds *cmd)
 		if (curr->token == L)
 			redir_input(curr->next->word, cmd->pid);
 		else if (curr->token == LL)
-			redir_heredoc();
+			redir_heredoc(cmd->heredoc);
 		else if (curr->token == R || curr->token == RR)
 			redir_output(curr->next->word, curr->token, cmd->pid);
 		curr = curr->next;
