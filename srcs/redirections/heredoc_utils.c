@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_heredoc.c                                   :+:      :+:    :+:   */
+/*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:08:55 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/14 17:27:26 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/15 08:05:18 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,15 @@ void	expand_heredoc(char *str, int fd, t_shell *shell)
 			i += j;
 		}
 	}
+}
+
+void	heredoc_eof(char *delimitor)
+{
+	rl_replace_line("", 0);
+	ft_putstr_fd("warning: here-document delimited by end-of-file (wanted `",
+		STDERR);
+	ft_putstr_fd(delimitor, STDERR);
+	ft_putstr_fd("')\n", STDERR);
 }
 
 char	*heredoc_name(t_cmds *cmd)

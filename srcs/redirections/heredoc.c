@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:38:48 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/14 22:26:01 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/15 08:09:05 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,6 @@ static char	*expand_delimitor(char *str, bool *expand)
 	return (exp_str);
 }
 
-static void	heredoc_eof(char *delimitor)
-{
-	rl_replace_line("", 0);
-	ft_putstr_fd("warning: here-document delimited by end-of-file (wanted `",
-		STDERR);
-	ft_putstr_fd(delimitor, STDERR);
-	ft_putstr_fd("')\n", STDERR);
-}
-
 static void	heredoc_loop(int fd, char *delimitor, t_shell *shell, bool expand)
 {
 	int		delimitor_len;
@@ -84,36 +75,40 @@ static void	heredoc_loop(int fd, char *delimitor, t_shell *shell, bool expand)
 	free(str);
 }
 
-void	heredoc(t_lexer *heredoc, t_cmds *cmd, t_shell *shell)
+static void	heredoc2(t_lexer *heredoc, t_cmds *cmd, t_shell *shell)
 {
 	int		fd;
+	bool	expand;
+
+	sig_handler(3);
+	fd = open(cmd->heredoc, O_WRONLY | O_TRUNC | O_CREAT,
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	if (fd == -1)
+	{
+		perror(cmd->heredoc);
+		exit(-1);
+	}
+	expand = true;
+	heredoc->word = expand_delimitor(heredoc->word, &expand);
+	heredoc_loop(fd, heredoc->word, shell, expand);
+	close(fd);
+	exit(0);
+}
+
+void	heredoc(t_lexer *heredoc, t_cmds *cmd, t_shell *shell)
+{
 	int		pid;
 	int		status;
-	bool	expand;
 
 	cmd->heredoc = heredoc_name(cmd);
 	pid = ft_fork();
 	if (pid == 0)
-	{
-		sig_handler(3);
-		fd = open(cmd->heredoc, O_WRONLY | O_TRUNC | O_CREAT,
-				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		if (fd == -1)
-		{
-			perror(cmd->heredoc);
-			exit(-1);
-		}
-		expand = true;
-		heredoc->word = expand_delimitor(heredoc->word, &expand);
-		heredoc_loop(fd, heredoc->word, shell, expand);
-		close(fd);
-		exit(0);
-	}
+		heredoc2(heredoc, cmd, shell);
 	sig_handler(4);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		g_return_value = WEXITSTATUS(status);
-	if (g_return_value == 130)
+	if (g_return_value == 130 || g_return_value == -1)
 		shell->stop = true;
 	sig_handler(2);
 }
