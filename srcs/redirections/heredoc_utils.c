@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:08:55 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/15 08:05:18 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/15 10:19:13 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,40 @@ void	expand_heredoc(char *str, int fd, t_shell *shell)
 	}
 }
 
-void	heredoc_eof(char *delimitor)
+static char	*expand_delimitor2(char *exp_str, char *str, int *index)
 {
-	rl_replace_line("", 0);
-	ft_putstr_fd("warning: here-document delimited by end-of-file (wanted `",
-		STDERR);
-	ft_putstr_fd(delimitor, STDERR);
-	ft_putstr_fd("')\n", STDERR);
+	int	j;
+
+	j = 1;
+	while (str[*index + j] && str[*index + j] != '\"'
+		&& str[*index + j] != '\'')
+		j++;
+	exp_str = ft_strjoin_free2(exp_str, ft_substr(str, *index, j));
+	*index += j;
+	return (exp_str);
+}
+
+char	*expand_delimitor(char *str, bool *expand)
+{
+	int		i;
+	char	*exp_str;
+
+	i = 0;
+	exp_str = NULL;
+	while (str[i])
+	{
+		if (str[i] == '\"' || str[i] == '\'')
+		{
+			exp_str = ft_strjoin_free2(exp_str,
+					ft_substr(str, i + 1, next_quote(str, i) - 1));
+			i += next_quote(str, i) + 1;
+			*expand = false;
+		}
+		else
+			exp_str = expand_delimitor2(exp_str, str, &i);
+	}
+	free(str);
+	return (exp_str);
 }
 
 char	*heredoc_name(t_cmds *cmd)

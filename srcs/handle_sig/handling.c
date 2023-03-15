@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:16:31 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/14 22:15:20 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/15 10:58:04 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ static void	prompt_nl(int sig)
 static void	ctrl_c(int sig)
 {
 	(void) sig;
-	rl_on_new_line();
-	rl_replace_line("", 0);
 	exit(130);
 }
 
@@ -43,23 +41,15 @@ static void	backslash(int sig)
 	exit(131);
 }
 
-static void	hd(int sig)
-{
-	(void) sig;
-	g_return_value = 130;
-}
-
 void	sig_handler(int status)
 {
+	signal(SIGQUIT, SIG_IGN);
 	if (status == 0)
-	{
 		signal(SIGINT, &reset_prompt);
-		signal(SIGQUIT, SIG_IGN);
-	}
 	else if (status == 1)
 	{
 		signal(SIGINT, &prompt_nl);
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGQUIT, &prompt_nl);
 	}
 	else if (status == 2)
 	{
@@ -67,13 +57,7 @@ void	sig_handler(int status)
 		signal(SIGQUIT, &backslash);
 	}
 	else if (status == 3)
-	{
 		signal(SIGINT, &ctrl_c);
-		signal(SIGQUIT, SIG_IGN);
-	}
 	else
-	{
-		signal(SIGINT, &hd);
-		signal(SIGQUIT, SIG_IGN);
-	}
+		signal(SIGINT, &prompt_nl);
 }

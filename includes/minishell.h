@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:36:16 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/15 08:05:44 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/15 10:26:04 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ void	ft_pipe(int fd[2]);
 
 //Redirections
 bool	handle_redirections(t_cmds *cmd, t_shell *shell);
-void	heredoc(t_lexer *heredoc, t_cmds *cmd, t_shell *shell);
-void	heredoc_eof(char *delimitor);
+void	handle_heredocs(t_shell *shell);
+char	*expand_delimitor(char *str, bool *expand);
 char	*heredoc_name(t_cmds *cmd);
 void	expand_heredoc(char *str, int fd, t_shell *shell);
 

@@ -6,47 +6,20 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:38:48 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/15 08:09:05 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/15 10:53:31 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-static char	*expand_delimitor2(char *exp_str, char *str, int *index)
+static void	heredoc_eof(char *delimitor)
 {
-	int	j;
-
-	j = 1;
-	while (str[*index + j] && str[*index + j] != '\"'
-		&& str[*index + j] != '\'')
-		j++;
-	exp_str = ft_strjoin_free2(exp_str, ft_substr(str, *index, j));
-	*index += j;
-	return (exp_str);
-}
-
-static char	*expand_delimitor(char *str, bool *expand)
-{
-	int		i;
-	char	*exp_str;
-
-	i = 0;
-	exp_str = NULL;
-	while (str[i])
-	{
-		if (str[i] == '\"' || str[i] == '\'')
-		{
-			exp_str = ft_strjoin_free2(exp_str,
-					ft_substr(str, i + 1, next_quote(str, i) - 1));
-			i += next_quote(str, i) + 1;
-			*expand = false;
-		}
-		else
-			exp_str = expand_delimitor2(exp_str, str, &i);
-	}
-	free(str);
-	return (exp_str);
+	rl_replace_line("", 0);
+	ft_putstr_fd("warning: here-document delimited by end-of-file (wanted `",
+		STDERR);
+	ft_putstr_fd(delimitor, STDERR);
+	ft_putstr_fd("')\n", STDERR);
 }
 
 static void	heredoc_loop(int fd, char *delimitor, t_shell *shell, bool expand)
@@ -95,7 +68,7 @@ static void	heredoc2(t_lexer *heredoc, t_cmds *cmd, t_shell *shell)
 	exit(0);
 }
 
-void	heredoc(t_lexer *heredoc, t_cmds *cmd, t_shell *shell)
+static void	heredoc(t_lexer *heredoc, t_cmds *cmd, t_shell *shell)
 {
 	int		pid;
 	int		status;
@@ -108,7 +81,25 @@ void	heredoc(t_lexer *heredoc, t_cmds *cmd, t_shell *shell)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		g_return_value = WEXITSTATUS(status);
-	if (g_return_value == 130 || g_return_value == -1)
+	if (g_return_value != 0)
 		shell->stop = true;
-	sig_handler(2);
+}
+
+void	handle_heredocs(t_shell *shell)
+{
+	t_cmds	*curr;
+	t_lexer	*lex;
+
+	curr = shell->cmds;
+	while (curr && !shell->stop)
+	{
+		lex = curr->redir;
+		while (lex && !shell->stop)
+		{
+			if (lex->token == LL)
+				heredoc(lex->next, curr, shell);
+			lex = lex->next;
+		}
+		curr = curr->next;
+	}
 }

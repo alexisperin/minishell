@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:15:42 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/14 22:07:54 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/15 10:26:42 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,11 @@ bool	single_cmd(t_shell *shell)
 {
 	int		save_stdin;
 	int		save_stdout;
-	t_lexer	*lex;
 
 	if (is_builtin(shell->cmds))
 	{
 		save_stdin = ft_dup(STDIN);
 		save_stdout = ft_dup(STDOUT);
-		lex = shell->cmds->redir;
-		while (lex && !shell->stop)
-		{
-			if (lex->token == LL)
-				heredoc(lex->next, shell->cmds, shell);
-			lex = lex->next;
-		}
 		if (handle_redirections(shell->cmds, shell))
 			execute_builtin(shell->cmds, shell);
 		ft_dup2(save_stdin, STDIN);

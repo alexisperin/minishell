@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 07:29:40 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/14 22:02:47 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/15 10:20:30 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,22 +102,15 @@ static void	handle_pipes(t_cmds *cmd, int prev_fd, t_shell *shell)
 void	execute(t_shell *shell)
 {
 	t_cmds	*curr;
-	t_lexer	*lex;
 	int		prev_fd;
 
+	handle_heredocs(shell);
 	prev_fd = -1;
 	curr = shell->cmds;
 	if (curr->next == NULL && single_cmd(shell))
 		return ;
 	while (curr && !shell->stop)
 	{
-		lex = curr->redir;
-		while (lex && !shell->stop)
-		{
-			if (lex->token == LL)
-				heredoc(lex->next, curr, shell);
-			lex = lex->next;
-		}
 		handle_pipes(curr, prev_fd, shell);
 		close(prev_fd);
 		prev_fd = curr->pipefd[0];
