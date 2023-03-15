@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburnott <aburnott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:45:56 by aburnott          #+#    #+#             */
-/*   Updated: 2023/03/15 13:46:12 by aburnott         ###   ########.fr       */
+/*   Updated: 2023/03/15 14:01:18 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,22 @@ static void	unset_arr(char **env, char **rtn, char *str)
 	}
 }
 
+static bool	in_env(char *str, char **env)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen(str);
+	while (env && env[i])
+	{
+		if (ft_strncmp(env[i], str, len) == 0 && env[i][len] == '=')
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
 int	ft_unset(t_cmds *cmd, t_shell *shell)
 {
 	char	**rtn;
@@ -40,13 +56,16 @@ int	ft_unset(t_cmds *cmd, t_shell *shell)
 	j = 1;
 	while (cmd->str[j])
 	{
-		i = 0;
-		while (shell->env[i])
-			i++;
-		rtn = ft_calloc(i + 1, sizeof(char *));
-		unset_arr(shell->env, rtn, cmd->str[j]);
-		ft_free_arr(shell->env);
-		shell->env = rtn;
+		if (in_env(cmd->str[j], shell->env))
+		{
+			i = 0;
+			while (shell->env[i])
+				i++;
+			rtn = ft_calloc(i, sizeof(char *));
+			unset_arr(shell->env, rtn, cmd->str[j]);
+			ft_free_arr(shell->env);
+			shell->env = rtn;
+		}
 		j++;
 	}
 	return (0);
