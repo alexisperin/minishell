@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 15:12:54 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/12 15:14:05 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/16 12:26:42 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_var(char *str, int *index, t_shell *shell)
 	while (shell->env[j])
 	{
 		if (ft_strncmp(&str[1], shell->env[j], i - 1) == 0
-			&& shell->env[j][i - 1] == '=')
+			&& shell->env[j][i - 1] == '=' && shell->env[j][i])
 			return (&shell->env[j][i]);
 		j++;
 	}
