@@ -6,7 +6,7 @@
 /*   By: aperin <aperin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:08:55 by aperin            #+#    #+#             */
-/*   Updated: 2023/03/15 10:19:13 by aperin           ###   ########.fr       */
+/*   Updated: 2023/03/17 14:17:43 by aperin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ void	expand_heredoc(char *str, int fd, t_shell *shell)
 		i += j;
 		if (str[i] == '$')
 		{
-			j = 0;
+			j = 1;
 			if (str[i + 1] == '?')
 				j = 2;
 			else
 				while (str[i + j] && str[i + j] != ' ' && str[i + j] != '\"'
-					&& str[i + j] != '\'')
+					&& str[i + j] != '\'' && str[i + j] != '$')
 					j++;
 			print_var(ft_substr(&str[i], 0, j), shell, fd);
 			i += j;
