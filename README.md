@@ -1,12 +1,5 @@
 # minishell
 
-To do:
-- local variables
-- update expander with local environment
-- expand heredoc
-- echo $
-- builtins (leaks, ...)
-- return value
-- error handling
-- signals (ctrl-\ ?)
-- norm
+In this project we had to recreate a small shell based on bash.
+
+Result: 101%
